@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.creams.temo.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.creams.temo.model.UserDto">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
+
+    <select id="queryUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from user where user_name = #{user_name}
+    </select>
+</mapper>
