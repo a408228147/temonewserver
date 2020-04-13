@@ -13,6 +13,9 @@ public class UserDto2UserBo extends Converter<UserDto,UserBo> {
         return SingletonHolder.INSTANCE;
     }
 
+    private static class SingletonHolder {
+        private static final UserDto2UserBo INSTANCE = new UserDto2UserBo();
+    }
     @Override
     protected UserBo doForward(UserDto userDto) {
         if (userDto==null)
@@ -22,6 +25,7 @@ public class UserDto2UserBo extends Converter<UserDto,UserBo> {
         UserBo userBo=UserBo.builder().id(userDto.getId())
                 .userId(userDto.getUserId())
                 .userName(userDto.getUserName())
+                .password(userDto.getPassword())
                 .status(userDto.getStatus()).build();
 
         return userBo;
@@ -33,7 +37,5 @@ public class UserDto2UserBo extends Converter<UserDto,UserBo> {
     }
 
 
-    private static class SingletonHolder {
-        private static final UserDto2UserBo INSTANCE = new UserDto2UserBo();
-    }
+
 }

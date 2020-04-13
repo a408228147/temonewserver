@@ -23,6 +23,7 @@
     <properties>
         <java.version>1.8</java.version>
         <temo.version>0.0.1-SNAPSHOT</temo.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
     </properties>
 
     <dependencies>
@@ -56,7 +57,17 @@
             <artifactId>guava</artifactId>
             <version>18.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger-ui.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger-ui.version}</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
     <dependencies>
