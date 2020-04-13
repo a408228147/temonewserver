@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("login")
 @Slf4j
 public class LoginController {
 
@@ -27,36 +26,7 @@ public class LoginController {
 
     @Autowired
     UserServer userBiz;
-    @GetMapping("/l")
-    public String l(){
-        return "!23";
-    }
 
-    @GetMapping("/login")
-    public String loginByGet(LoginAo user) {
-        //添加用户认证信息
-        Subject subject = ShiroUtils.getSubject();
-        UserBo userBo = userBiz.queryUserByName(user.getUserName());
-        UserAo userAo = userBo2UserAo.convert(userBo);
-        String shairPwd = ShiroUtils.sha256(user.getPassword(), userAo.getUserId());
-        userAo.setPassword(shairPwd);
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
-                userAo.getUserName(),
-                userAo.getPassword()
-        );
-        try {
-            //进行验证，这里可以捕获异常，然后返回对应信息
-            subject.login(usernamePasswordToken);
-            log.info("登入成功");
-        } catch (AuthenticationException e) {
-            e.printStackTrace();
-            return "账号或密码错误！";
-        } catch (AuthorizationException e) {
-            e.printStackTrace();
-            return "没有权限";
-        }
-        return "login success";
-    }
 
     @PostMapping("/login")
     public JsonResult login(@RequestBody LoginAo user) {
