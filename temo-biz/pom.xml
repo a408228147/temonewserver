@@ -16,5 +16,15 @@
             <groupId>com.creams</groupId>
             <artifactId>temo-dao</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.creams</groupId>
+            <artifactId>temo-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
     </dependencies>
 </project>

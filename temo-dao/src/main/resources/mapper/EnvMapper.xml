@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.creams.temo.mapper.EnvMapper">
+    <resultMap id="BaseResultMap" type="com.creams.temo.entity.Env">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="env_id" jdbcType="VARCHAR" property="envId"/>
+        <result column="env_name" jdbcType="VARCHAR" property="envName"/>
+        <result column="host" jdbcType="VARCHAR" property="host"/>
+        <result column="port" jdbcType="int" property="port"/>
+        <result column="project_id" jdbcType="VARCHAR" property="projectId"/>
+            </resultMap>
+
+    <select id="queryEnvByProjectId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from env where project_id = #{project_id}
+    </select>
+
+
+    <select id="queryEnvById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from env where env_id = #{env_id}
+    </select>
+</mapper>

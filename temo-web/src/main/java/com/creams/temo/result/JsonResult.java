@@ -1,4 +1,4 @@
-package com.creams.temo.model.result;
+package com.creams.temo.result;
 
 
 import io.swagger.annotations.ApiModelProperty;

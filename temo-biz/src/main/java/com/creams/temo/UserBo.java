@@ -1,4 +1,4 @@
-package com.creams.temo.model;
+package com.creams.temo;
 
 import lombok.Builder;
 import lombok.Data;

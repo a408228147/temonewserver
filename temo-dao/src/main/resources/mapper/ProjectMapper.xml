@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.creams.temo.mapper.ProjectMapper">
+    <resultMap id="BaseResultMap" type="com.creams.temo.model.ProjectDto">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pname" jdbcType="VARCHAR" property="pname"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="createtime" jdbcType="timestamp" property="createTime"/>
+        <result column="updatetime" jdbcType="timestamp" property="updateTime"/>
+    </resultMap>
+
+    <select id="queryAllProject" resultMap="BaseResultMap">
+        select * from project
+    </select>
+
+    <select id="queryProjectById" resultMap="BaseResultMap">
+        select * from project where pid = #{pid}
+    </select>
+
+    <select id="queryProjectByName" resultMap="BaseResultMap">
+        select * from project
+         where pname like concat('%',#{pname},'%')
+          order by updatetime desc
+    </select>
+
+</mapper>

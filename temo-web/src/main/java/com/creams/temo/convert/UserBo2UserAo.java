@@ -1,7 +1,7 @@
 package com.creams.temo.convert;
 
 import com.creams.temo.model.UserAo;
-import com.creams.temo.model.UserBo;
+import com.creams.temo.UserBo;
 import com.google.common.base.Converter;
 
 public class UserBo2UserAo extends Converter<UserBo,UserAo> {
@@ -12,7 +12,9 @@ public class UserBo2UserAo extends Converter<UserBo,UserAo> {
     public static UserBo2UserAo getInstance() {
         return UserBo2UserAo.SingletonHolder.INSTANCE;
     }
-
+    private static class SingletonHolder {
+        private static final UserBo2UserAo INSTANCE = new UserBo2UserAo();
+    }
     @Override
     protected UserAo doForward(UserBo userBo) {
 
@@ -33,7 +35,5 @@ public class UserBo2UserAo extends Converter<UserBo,UserAo> {
                 .id(userAo.getId()).build();
         return userBo;
     }
-    private static class SingletonHolder {
-        private static final UserBo2UserAo INSTANCE = new UserBo2UserAo();
-    }
+
 }

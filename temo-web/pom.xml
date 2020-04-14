@@ -17,6 +17,10 @@
           <artifactId>temo-biz</artifactId>
       </dependency>
       <dependency>
+          <groupId>com.creams</groupId>
+          <artifactId>temo-common</artifactId>
+      </dependency>
+      <dependency>
           <groupId>org.apache.shiro</groupId>
           <artifactId>shiro-spring</artifactId>
           <version>1.4.0</version>

@@ -5,7 +5,7 @@
 <mapper namespace="com.creams.temo.mapper.PermissionsMapper">
     <resultMap id="BaseResultMap" type="com.creams.temo.model.PermissionsDto">
         <result column="id" jdbcType="INTEGER" property="id" />
-        <result column="permissions_id" jdbcType="VARCHAR" property="permissionId"/>
+        <result column="permissions_id" jdbcType="VARCHAR" property="permissionsId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="permissions_name" jdbcType="VARCHAR" property="permissionsName"/>
         <result column="status" jdbcType="INTEGER" property="status"/>

@@ -1,6 +1,6 @@
 package com.creams.temo.convert;
 
-import com.creams.temo.model.UserBo;
+import com.creams.temo.UserBo;
 import com.creams.temo.model.UserDto;
 import com.google.common.base.Converter;
 public class UserDto2UserBo extends Converter<UserDto,UserBo> {
