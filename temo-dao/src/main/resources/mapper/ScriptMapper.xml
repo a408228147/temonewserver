@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.creams.temo.mapper.ScriptMapper">
+
+    <resultMap id="ScriptDbResultMap" type="com.creams.temo.model.ScriptDbDto">
+        <result property="id" column="id"/>
+        <result property="scriptId" column="script_id" jdbcType="VARCHAR"/>
+        <result property="scriptName" column="script_name" jdbcType="VARCHAR"/>
+        <result property="dbId" column="db_id" jdbcType="VARCHAR"/>
+        <result property="sqlScript" column="sql_script" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="queryScriptDb" parameterType="java.lang.String" resultMap="ScriptDbResultMap">
+        select * from script
+        where
+        <if test="db_id !=null and db_id !=''">
+            db_id=#{db_id} and
+        </if>
+        script_name like concat('%',#{script_name},'%')
+        order by update_time desc
+    </select>
+
+    <insert id="addScript" parameterType="com.creams.temo.model.ScriptDbDto">
+        insert into script (script_id,script_name,db_id,sql_script,create_time)
+        VALUES
+        (#{scriptId},#{scriptName},#{dbId},#{sqlScript},now())
+    </insert>
+
+
+    <update id="updateScriptById"  parameterType="com.creams.temo.model.ScriptDbDto">
+        update  script  set script_name=#{scriptName},sql_script=#{sqlScript},update_time=now()
+        where script_id = #{scriptId}
+    </update>
+
+    <select id="queryAllScript" resultMap="ScriptDbResultMap">
+        SELECT * FROM script order by update_time desc
+    </select>
+
+    <select id="queryScriptById" parameterType="java.lang.String" resultMap="ScriptDbResultMap">
+        SELECT * FROM script WHERE script_id= #{script_id}
+    </select>
+
+
+    <select id="queryScriptByEnvId" parameterType="java.lang.String" resultMap="ScriptDbResultMap">
+        SELECT * FROM script WHERE env_id= #{env_id}
+    </select>
+
+    <delete id="deleteScriptById" parameterType="java.lang.String">
+        delete from script where script_id= #{script_id}
+    </delete>
+</mapper>

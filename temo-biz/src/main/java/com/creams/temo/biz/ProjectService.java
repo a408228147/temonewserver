@@ -1,7 +1,7 @@
 package com.creams.temo.biz;
 
 import com.creams.temo.entity.Env;
-import com.creams.temo.ProjectBo;
+import com.creams.temo.model.ProjectBo;
 
 import java.util.List;
 import com.github.pagehelper.PageInfo;

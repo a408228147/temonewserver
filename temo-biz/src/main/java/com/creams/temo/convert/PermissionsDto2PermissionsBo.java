@@ -1,6 +1,6 @@
 package com.creams.temo.convert;
 
-import com.creams.temo.PermissionsBo;
+import com.creams.temo.model.PermissionsBo;
 import com.creams.temo.model.PermissionsDto;
 import com.google.common.base.Converter;
 

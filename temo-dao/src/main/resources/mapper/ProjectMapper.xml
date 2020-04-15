@@ -7,8 +7,8 @@
         <result column="id" jdbcType="INTEGER" property="id"/>
         <result column="pname" jdbcType="VARCHAR" property="pname"/>
         <result column="pid" jdbcType="VARCHAR" property="pid"/>
-        <result column="createtime" jdbcType="timestamp" property="createTime"/>
-        <result column="updatetime" jdbcType="timestamp" property="updateTime"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updatetime" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
     <select id="queryAllProject" resultMap="BaseResultMap">
@@ -18,7 +18,6 @@
     <select id="queryProjectById" resultMap="BaseResultMap">
         select * from project where pid = #{pid}
     </select>
-
     <select id="queryProjectByName" resultMap="BaseResultMap">
         select * from project
          where pname like concat('%',#{pname},'%')

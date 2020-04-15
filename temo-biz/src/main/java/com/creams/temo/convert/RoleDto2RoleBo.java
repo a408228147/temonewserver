@@ -1,6 +1,6 @@
 package com.creams.temo.convert;
 
-import com.creams.temo.RoleBo;
+import com.creams.temo.model.RoleBo;
 import com.creams.temo.model.RoleDto;
 import com.google.common.base.Converter;
 

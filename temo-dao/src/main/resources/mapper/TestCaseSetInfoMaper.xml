@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.creams.temo.mapper.TestCaseSetInfoMaper">
+
+
+    <select id="queryTestCaseSetNum" resultType="java.lang.Integer">
+        SELECT count(*) FROM testcase_set where valid=1
+    </select>
+    <select id="queryTestCaseNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM testcase_set m LEFT JOIN testcase n on m.set_id=n.set_id WHERE m.valid=1
+    </select>
+</mapper>

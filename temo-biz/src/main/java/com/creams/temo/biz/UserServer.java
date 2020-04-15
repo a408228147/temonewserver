@@ -1,8 +1,8 @@
 package com.creams.temo.biz;
 
-import com.creams.temo.PermissionsBo;
-import com.creams.temo.RoleBo;
-import com.creams.temo.UserBo;
+import com.creams.temo.model.PermissionsBo;
+import com.creams.temo.model.RoleBo;
+import com.creams.temo.model.UserBo;
 
 import java.util.List;
 

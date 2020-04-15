@@ -1,8 +1,8 @@
 package com.creams.temo.util;
 
-import com.creams.temo.PermissionsBo;
-import com.creams.temo.RoleBo;
-import com.creams.temo.UserBo;
+import com.creams.temo.model.PermissionsBo;
+import com.creams.temo.model.RoleBo;
+import com.creams.temo.model.UserBo;
 import com.creams.temo.biz.UserServer;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

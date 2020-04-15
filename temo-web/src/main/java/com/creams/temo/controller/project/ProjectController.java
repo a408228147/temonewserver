@@ -1,6 +1,6 @@
 package com.creams.temo.controller.project;
 
-import com.creams.temo.ProjectBo;
+import com.creams.temo.model.ProjectBo;
 import com.creams.temo.biz.ProjectService;
 import com.creams.temo.convert.ProjectAo2ProjectBo;
 import com.creams.temo.model.ProjectAo;

@@ -1,6 +1,6 @@
 package com.creams.temo.convert;
 
-import com.creams.temo.ProjectBo;
+import com.creams.temo.model.ProjectBo;
 import com.creams.temo.model.ProjectAo;
 import com.google.common.base.Converter;
 

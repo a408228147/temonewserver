@@ -1,4 +1,4 @@
-package com.creams.temo;
+package com.creams.temo.model;
 
 import com.creams.temo.entity.Env;
 import io.swagger.annotations.ApiModelProperty;

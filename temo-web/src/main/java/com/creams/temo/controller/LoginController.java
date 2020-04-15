@@ -1,10 +1,10 @@
 package com.creams.temo.controller;
 
 import com.creams.temo.biz.UserServer;
-import com.creams.temo.convert.UserBo2UserAo;
+import com.creams.temo.convert.UserAo2UserBo;
 import com.creams.temo.model.LoginAo;
 import com.creams.temo.model.UserAo;
-import com.creams.temo.UserBo;
+import com.creams.temo.model.UserBo;
 import com.creams.temo.result.JsonResult;
 import com.creams.temo.util.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Slf4j
 public class LoginController {
 
-    final UserBo2UserAo userBo2UserAo = UserBo2UserAo.getInstance();
+    final UserAo2UserBo userBo2UserAo = UserAo2UserBo.getInstance();
 
     @Autowired
     UserServer userBiz;

@@ -1,16 +1,17 @@
 package com.creams.temo.biz.bizImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.creams.temo.convert.ProjectBo2ProjectDto;
+import com.creams.temo.convert.ProjectDto2ProjectBo;
 import com.creams.temo.entity.Env;
 import com.creams.temo.biz.ProjectService;
-import com.creams.temo.ProjectBo;
+import com.creams.temo.model.ProjectBo;
 import com.creams.temo.mapper.EnvMapper;
 import com.creams.temo.mapper.ProjectMapper;
 import com.creams.temo.model.ProjectDto;
 import com.creams.temo.tools.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,7 @@ import java.util.List;
 public class ProjectServiceImpl implements ProjectService {
 
 
-    final ProjectBo2ProjectDto projectBo2ProjectDto = ProjectBo2ProjectDto.getInstance();
+    final ProjectDto2ProjectBo projectDto2ProjectBo = ProjectDto2ProjectBo.getInstance();
     @Autowired
     private ProjectMapper projectMapper;
 
@@ -40,7 +41,7 @@ public class ProjectServiceImpl implements ProjectService {
     public String addProject(ProjectBo project) {
         String projectId = StringUtil.uuid();
         project.setPid(projectId);
-        ProjectDto projectDto = projectBo2ProjectDto.convert(project);
+        ProjectDto projectDto = projectDto2ProjectBo.convert(project);
         projectMapper.insert(projectDto);
         // 判断环境是否为空
         if (project.getEnvs() != null) {
@@ -61,7 +62,7 @@ public class ProjectServiceImpl implements ProjectService {
      */
     public List<ProjectBo> queryAllProjects() {
         List<ProjectDto> projectDtos = projectMapper.queryAllProject();
-        List<ProjectBo> projectBos = (List<ProjectBo>) projectBo2ProjectDto.reverse().convertAll(projectDtos);
+        List<ProjectBo> projectBos = Lists.newArrayList(projectDto2ProjectBo.reverse().convertAll(projectDtos));
         return projectBos;
     }
 
@@ -71,7 +72,6 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
-    @Transactional
     public List<Env> queryEnvByProjectId(String projectId) {
         List<Env> envResponses = envMapper.queryEnvByProjectId(projectId);
         return envResponses;
@@ -83,11 +83,10 @@ public class ProjectServiceImpl implements ProjectService {
      * @param name
      * @return
      */
-    @Transactional
     public PageInfo<ProjectBo> queryByName(Integer page, String name) {
         PageHelper.startPage(page, 10);
         List<ProjectDto> projects = projectMapper.queryProjectByName(name);
-        List<ProjectBo> projectBos = (List<ProjectBo>) projectBo2ProjectDto.reverse().convertAll(projects);
+        List<ProjectBo> projectBos = Lists.newArrayList(projectDto2ProjectBo.reverse().convertAll(projects));
         PageInfo<ProjectBo> pageInfo = new PageInfo<>(projectBos);
         pageInfo.getList().forEach(p -> p.setEnvs(envMapper.queryEnvByProjectId(p.getPid())));
         return pageInfo;
@@ -99,10 +98,9 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
-    @Transactional
     public ProjectBo queryDetailById(String projectId) {
         ProjectDto projectDto = projectMapper.queryProjectById(projectId);
-        ProjectBo projectBo = projectBo2ProjectDto.reverse().convert(projectDto);
+        ProjectBo projectBo = projectDto2ProjectBo.reverse().convert(projectDto);
         projectBo.setEnvs(envMapper.queryEnvByProjectId(projectId));
         return projectBo;
     }
@@ -131,7 +129,7 @@ public class ProjectServiceImpl implements ProjectService {
     public String updateProjectById(String projectId, ProjectBo project) {
         String updateId = StringUtil.uuid();
         project.setPid(updateId);
-        ProjectDto projectDto = projectBo2ProjectDto.convert(project);
+        ProjectDto projectDto = projectDto2ProjectBo.convert(project);
         projectMapper.update(projectDto, new QueryWrapper<ProjectDto>().lambda().eq(ProjectDto::getPid, projectId));
         List<String> envIds = new ArrayList<>();
         List<String> requestEnvIds = new ArrayList<>();
