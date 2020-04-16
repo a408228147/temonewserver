@@ -1,9 +1,9 @@
 package com.creams.temo.util;
 
+import com.creams.temo.biz.UserService;
 import com.creams.temo.model.PermissionsBo;
 import com.creams.temo.model.RoleBo;
 import com.creams.temo.model.UserBo;
-import com.creams.temo.biz.UserServer;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomRealm extends AuthorizingRealm {
 
     @Autowired
-    UserServer loginService;
+    UserService loginService;
 
     /**
      * 授权(验证权限时调用)

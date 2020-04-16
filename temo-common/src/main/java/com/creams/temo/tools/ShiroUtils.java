@@ -1,6 +1,6 @@
-package com.creams.temo.util;
+package com.creams.temo.tools;
 
-import com.creams.temo.model.UserAo;
+import com.creams.temo.entity.UserInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.session.Session;
@@ -39,8 +39,8 @@ public class ShiroUtils {
     public static Subject getSubject() {
         return SecurityUtils.getSubject();
     }
-    public static UserAo getUserEntity() {
-        return (UserAo) SecurityUtils.getSubject().getPrincipal();
+    public static UserInfo getUserEntity() {
+        return (UserInfo) SecurityUtils.getSubject().getPrincipal();
     }
     public static String getUserId() {
         return getUserEntity().getUserId();

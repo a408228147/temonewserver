@@ -17,22 +17,33 @@ public class UserAo2UserBo extends Converter<UserBo,UserAo> {
     }
     @Override
     protected UserAo doForward(UserBo userBo) {
-
-        UserAo userAo=UserAo.builder().userId(userBo.getUserId())
+     if (userBo==null){
+         return null;
+     }
+        UserAo userAo=UserAo.builder()
+                .userId(userBo.getUserId())
                 .userName(userBo.getUserName())
                 .password(userBo.getPassword())
                 .status(userBo.getStatus())
-                .id(userBo.getId()).build();
+                .id(userBo.getId())
+                .email(userBo.getEmail())
+                .build();
         return userAo;
     }
 
     @Override
     protected UserBo doBackward(UserAo userAo) {
-        UserBo userBo=UserBo.builder().userId(userAo.getUserId())
+        if(userAo==null){
+            return null;
+        }
+        UserBo userBo=UserBo.builder()
+                .userId(userAo.getUserId())
                 .userName(userAo.getUserName())
                 .password(userAo.getPassword())
                 .status(userAo.getStatus())
-                .id(userAo.getId()).build();
+                .id(userAo.getId())
+                .email(userAo.getEmail())
+                .build();
         return userBo;
     }
 

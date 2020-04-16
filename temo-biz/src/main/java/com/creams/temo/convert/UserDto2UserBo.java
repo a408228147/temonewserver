@@ -22,18 +22,32 @@ public class UserDto2UserBo extends Converter<UserDto,UserBo> {
         {
             return null;
         }
-        UserBo userBo=UserBo.builder().id(userDto.getId())
+        UserBo userBo=UserBo.builder()
+                .id(userDto.getId())
                 .userId(userDto.getUserId())
                 .userName(userDto.getUserName())
                 .password(userDto.getPassword())
-                .status(userDto.getStatus()).build();
+                .status(userDto.getStatus())
+                .email(userDto.getEmail())
+                .build();
 
         return userBo;
     }
 
     @Override
     protected UserDto doBackward(UserBo userBo) {
-        throw  new UnsupportedOperationException();
+
+        if (userBo == null) {
+            return null;
+        }
+        return UserDto.builder()
+                .id(userBo.getId())
+                .userId(userBo.getUserId())
+                .userName(userBo.getUserName())
+                .password(userBo.getPassword())
+                .status(userBo.getStatus())
+                .email(userBo.getEmail())
+                .build();
     }
 
 

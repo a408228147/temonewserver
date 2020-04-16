@@ -9,8 +9,27 @@
         <result column="permissions_name" jdbcType="VARCHAR" property="permissionsName"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
+    <insert id="addPermissions" parameterType="com.creams.temo.model.PermissionsDto">
+        INSERT INTO permissions (role_id, permissions_id, permissions_name)
+       VALUES
+       (#{roleId}, #{permissionsId}, #{permissionsName})
+    </insert>
+    <update id="updatePermission" parameterType="com.creams.temo.model.PermissionsDto">
+       UPDATE permissions SET
+       role_id = #{roleId} ,
+       permissions_name = #{permissionsName},
+       status = #{status}
+       WHERE
+       permissions_id = #{permissionsId}
+    </update>
+    <update id="updatePermissionStatus" >
+        update permissions set status = #{status} where permissions_id = #{permissions_id}
+    </update>
 
     <select id="queryPermissionsByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from permissions where role_id = #{role_id}
+    </select>
+    <select id="queryPermissions"  resultMap="BaseResultMap">
+      select * from permissions
     </select>
 </mapper>

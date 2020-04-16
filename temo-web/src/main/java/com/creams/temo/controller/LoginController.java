@@ -1,12 +1,12 @@
 package com.creams.temo.controller;
 
-import com.creams.temo.biz.UserServer;
+import com.creams.temo.biz.UserService;
 import com.creams.temo.convert.UserAo2UserBo;
 import com.creams.temo.model.LoginAo;
 import com.creams.temo.model.UserAo;
 import com.creams.temo.model.UserBo;
 import com.creams.temo.result.JsonResult;
-import com.creams.temo.util.ShiroUtils;
+import com.creams.temo.tools.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -24,7 +24,7 @@ public class LoginController {
     final UserAo2UserBo userBo2UserAo = UserAo2UserBo.getInstance();
 
     @Autowired
-    UserServer userBiz;
+    UserService userBiz;
 
 
     @PostMapping("/login")

@@ -9,4 +9,12 @@ import java.util.List;
 @Mapper
 public interface PermissionsMapper {
     List<PermissionsDto> queryPermissionsByRoleId(@Param("role_id") String RoleId);
+
+    List<PermissionsDto> queryPermissions();
+
+    void updatePermission(PermissionsDto permissionsDto);
+
+    void updatePermissionStatus(@Param("permissions_id") String permissionsId, @Param("status") Integer status);
+
+    void addPermissions(PermissionsDto permissionsDto);
 }

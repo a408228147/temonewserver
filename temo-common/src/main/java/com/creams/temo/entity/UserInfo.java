@@ -1,12 +1,14 @@
-package com.creams.temo.model;
+package com.creams.temo.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+import org.apache.ibatis.annotations.Param;
 
-@Data
 @Builder
-public class UserBo {
+@Data
+public class UserInfo {
+
     @ApiModelProperty("项目主键")
     private Integer id;
 

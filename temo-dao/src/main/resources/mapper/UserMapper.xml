@@ -9,8 +9,34 @@
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
+    <insert id="addUser" parameterType="com.creams.temo.model.UserDto">
+        INSERT INTO user (user_id, user_name, password, email)
+       VALUES
+       (#{userId}, #{userName}, #{password}, email)
+    </insert>
+    <update id="updateUser" parameterType="com.creams.temo.model.UserDto">
+         UPDATE user SET
+       user_name = #{userName} ,
+       password = #{password},
+       email = #{email},
+       status = #{status}
+       WHERE
+       user_id = #{userId}
+    </update>
+    <update id="updateUserStatus" parameterType="com.creams.temo.model.UserDto">
+          UPDATE user SET
+       user_name = #{userName} ,
+       password = #{password},
+       email = #{email},
+       status = #{status}
+       WHERE
+       user_id = #{userId}
+    </update>
 
     <select id="queryUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from user where user_name = #{user_name}
+    </select>
+    <select id="queryUsers" resultMap="BaseResultMap">
+        select * from user
     </select>
 </mapper>
