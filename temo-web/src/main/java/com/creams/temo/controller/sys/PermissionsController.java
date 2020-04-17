@@ -3,7 +3,6 @@ package com.creams.temo.controller.sys;
 import com.creams.temo.biz.PermissionsService;
 import com.creams.temo.convert.PermissionsAo2PermissionsBo;
 import com.creams.temo.model.PermissionsAo;
-import com.creams.temo.model.PermissionsBo;
 import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;

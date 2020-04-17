@@ -104,13 +104,6 @@ public class ShiroConfig {
         map.put("/webjars/springfox-swagger-ui/**","anon");
         map.put("/login-controller/**", "anon");
         map.put("/**", "authc");
-//        shiroFilterFactoryBean.setLoginUrl("/");
-        //对PermissionAction.class 中的url进行权限控制
-        //map.put("/user", "roles[user]");//需要user角色才可以访问
-        //map.put("/user/per", "perms[user:query]");//需要user角色才可以访问
-        //map.put("/admin", "roles[admin]");
-        //chains.put("/**", "authc");//表示需要认证，才能访问
-        //map.put("/**", "user");//表示需要认证或记住我都能访问
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
