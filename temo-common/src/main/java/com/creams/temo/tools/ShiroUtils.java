@@ -5,7 +5,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ShiroUtils {
 //    /**  加密算法 */
 //    public final static String hashAlgorithmName = "SHA-256";

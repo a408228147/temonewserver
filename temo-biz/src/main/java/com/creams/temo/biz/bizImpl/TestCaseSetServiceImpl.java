@@ -26,6 +26,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.StringUtils;
@@ -43,6 +44,7 @@ import java.util.regex.Pattern;
 import static com.creams.temo.tools.StringUtil.log;
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Service
 public class TestCaseSetServiceImpl implements TestCaseSetService {
 
     @Autowired

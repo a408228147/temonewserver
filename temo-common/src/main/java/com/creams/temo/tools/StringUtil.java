@@ -1,7 +1,10 @@
 package com.creams.temo.tools;
 
+import org.springframework.stereotype.Component;
+
 import java.util.UUID;
 
+@Component
 public class StringUtil {
     /**
      * 生成64位uuid

@@ -45,10 +45,10 @@
         select min(sorting) from testcase where set_id = #{set_id}
     </select>
     <select id="queryTestCaseDownBySorting" resultType="com.creams.temo.entity.TestCase">
-        SELECT * from testcase WHERE set_id=#{set_id} and sorting>#{sorting} ORDER BY sorting LIMIT 1
+        SELECT * from testcase WHERE set_id=#{set_id} and <![CDATA[ sorting > #{sorting}]]> ORDER BY sorting LIMIT 1
     </select>
     <select id="queryTestCaseUpBySorting" resultType="com.creams.temo.entity.TestCase">
-        SELECT * from testcase WHERE set_id=#{set_id} and sorting<#{sorting} ORDER BY sorting DESC LIMIT 1
+        SELECT * from testcase WHERE set_id=#{set_id} and <![CDATA[ sorting &lt #{sorting}]]> ORDER BY sorting DESC LIMIT 1
     </select>
 
 
