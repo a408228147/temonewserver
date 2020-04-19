@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.creams.temo.mapper.TaskMapper">
+
+
+    <insert id="addTask" parameterType="com.creams.temo.model.TaskDto">
+        INSERT into task
+        (task_id, task_name, task_desc, is_timing, is_parallel,  times,  testsets, creator)
+        values
+        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{isParallel},  #{times},  #{testSets}, #{creator})
+    </insert>
+
+    <insert id="addTimingTask" parameterType="com.creams.temo.model.TimingTaskDto">
+        INSERT into task
+        (task_id, task_name, task_desc, is_timing, cron, is_mail,mail, is_parallel, times,is_open, testsets, creator)
+        values
+        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{cron},#{isMail},#{mail},#{isParallel}, #{times},#{isOpen}, #{testSets}, #{creator})
+    </insert>
+
+    <select id="queryTasks" resultType="com.creams.temo.model.TimingTaskDto">
+        select * from task
+        <where>
+            <if test="taskName != null and taskName != ''">
+                task_name like concat('%',#{taskName},'%')
+            </if>
+            <if test="isParallel != null and isParallel != ''">
+                and is_parallel = #{isParallel}
+            </if>
+            and is_timing = 0
+        </where>
+    </select>
+
+    <select id="queryTimingTasks" resultType="com.creams.temo.model.TimingTaskDto">
+        select * from task
+        <where>
+            <if test="taskName != null and taskName != ''">
+                task_name like concat('%',#{taskName},'%')
+            </if>
+            <if test="isParallel != null and isParallel != ''">
+                and is_parallel = #{isParallel}
+            </if>
+            and is_timing = 1
+        </where>
+    </select>
+
+    <update id="updateTaskById" parameterType="com.creams.temo.model.TaskDto">
+        update  task set
+        task_name = #{taskName},
+        task_desc = #{taskDesc},
+        is_parallel = #{isParallel},
+        times = #{times},
+        testsets = #{testSets}
+        where task_id = #{taskId}
+    </update>
+
+    <update id="updateTimingTask" parameterType="com.creams.temo.model.TimingTaskDto">
+        update  task set
+        task_name = #{taskName},
+        task_desc = #{taskDesc},
+        is_parallel = #{isParallel},
+        cron = #{cron},
+        is_mail = #{isMail},
+        mail = #{mail},
+        is_open = #{isOpen},
+        times = #{times},
+        testsets = #{testSets}
+        where task_id = #{taskId}
+    </update>
+
+</mapper>
