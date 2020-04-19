@@ -19,6 +19,9 @@ public class ScriptDbDto2ScriptDbBo extends Converter<ScriptDbBo,ScriptDbDto> {
     }
     @Override
     protected ScriptDbDto doForward(ScriptDbBo scriptDbBo) {
+        if (scriptDbBo==null){
+            return null;
+        }
         return ScriptDbDto.builder()
                 .createTime(scriptDbBo.getCreateTime())
                 .Db(DatabaseDto.builder().user(scriptDbBo.getDb().getUser())
@@ -42,6 +45,9 @@ public class ScriptDbDto2ScriptDbBo extends Converter<ScriptDbBo,ScriptDbDto> {
 
     @Override
     protected ScriptDbBo doBackward(ScriptDbDto scriptDbDto) {
+        if (scriptDbDto==null){
+            return null;
+        }
         return ScriptDbBo.builder()
                 .createTime(scriptDbDto.getCreateTime())
                 .Db(DatabaseBo.builder().user(scriptDbDto.getDb().getUser())

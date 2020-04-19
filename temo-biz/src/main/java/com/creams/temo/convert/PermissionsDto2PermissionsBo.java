@@ -19,6 +19,9 @@ public class PermissionsDto2PermissionsBo extends Converter<PermissionsDto,Permi
 
     @Override
     protected PermissionsBo doForward(PermissionsDto permissionsDto) {
+        if (permissionsDto==null){
+            return null;
+        }
         return PermissionsBo.builder()
                 .id(permissionsDto.getId())
                 .permissionsId(permissionsDto.getPermissionsId())
@@ -29,6 +32,9 @@ public class PermissionsDto2PermissionsBo extends Converter<PermissionsDto,Permi
 
     @Override
     protected PermissionsDto doBackward(PermissionsBo permissionsBo) {
+        if (permissionsBo==null){
+            return null;
+        }
         return PermissionsDto.builder()
                 .id(permissionsBo.getId())
                 .permissionsId(permissionsBo.getPermissionsId())

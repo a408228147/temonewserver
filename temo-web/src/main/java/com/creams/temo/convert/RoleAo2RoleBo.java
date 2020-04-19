@@ -19,6 +19,9 @@ public class RoleAo2RoleBo extends Converter<RoleAo,RoleBo> {
     }
     @Override
     protected RoleBo doForward(RoleAo roleAo) {
+        if (roleAo==null){
+            return null;
+        }
         return RoleBo.builder().id(roleAo.getId())
                 .roleId(roleAo.getRoleId())
                 .roleName(roleAo.getRoleName())
@@ -27,6 +30,9 @@ public class RoleAo2RoleBo extends Converter<RoleAo,RoleBo> {
 
     @Override
     protected RoleAo doBackward(RoleBo roleBo) {
+        if (roleBo==null){
+            return null;
+        }
         return RoleAo.builder().id(roleBo.getId())
                 .roleId(roleBo.getRoleId())
                 .roleName(roleBo.getRoleName())

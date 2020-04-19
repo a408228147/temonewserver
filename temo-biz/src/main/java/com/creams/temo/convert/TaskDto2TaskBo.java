@@ -17,6 +17,9 @@ public class TaskDto2TaskBo extends Converter<TaskDto,TaskBo> {
     }
     @Override
     protected TaskBo doForward(TaskDto taskDto) {
+        if (taskDto==null){
+            return null;
+        }
         return TaskBo.builder()
                 .creator(taskDto.getCreator())
                 .isParallel(taskDto.getIsParallel())
@@ -30,6 +33,9 @@ public class TaskDto2TaskBo extends Converter<TaskDto,TaskBo> {
 
     @Override
     protected TaskDto doBackward(TaskBo taskBo) {
+        if (taskBo==null){
+            return null;
+        }
         return TaskDto.builder()
                 .creator(taskBo.getCreator())
                 .isParallel(taskBo.getIsParallel())

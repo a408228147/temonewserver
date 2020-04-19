@@ -16,6 +16,9 @@ public class ProjectAo2ProjectBo extends Converter<ProjectAo,ProjectBo> {
 
     @Override
     protected ProjectBo doForward(ProjectAo projectAo) {
+        if (projectAo==null){
+            return null;
+        }
         return ProjectBo.builder()
                 .createTime(projectAo.getCreateTime())
                 .envs(projectAo.getEnvs())
@@ -27,6 +30,9 @@ public class ProjectAo2ProjectBo extends Converter<ProjectAo,ProjectBo> {
 
     @Override
     protected ProjectAo doBackward(ProjectBo projectBo) {
+        if (projectBo==null){
+            return null;
+        }
         return ProjectAo.builder()
                 .createTime(projectBo.getCreateTime())
                 .envs(projectBo.getEnvs())

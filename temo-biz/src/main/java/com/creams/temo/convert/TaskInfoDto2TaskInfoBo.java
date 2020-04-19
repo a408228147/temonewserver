@@ -17,6 +17,9 @@ public class TaskInfoDto2TaskInfoBo extends Converter<TaskInfoDto,TaskInfoBo> {
     }
     @Override
     protected TaskInfoBo doForward(TaskInfoDto taskInfoDto) {
+        if (taskInfoDto==null){
+            return null;
+        }
         return TaskInfoBo.builder()
                 .taskIsEndNum(taskInfoDto.getTaskIsEndNum())
                 .taskIsStartNum(taskInfoDto.getTaskIsStartNum())
@@ -26,6 +29,9 @@ public class TaskInfoDto2TaskInfoBo extends Converter<TaskInfoDto,TaskInfoBo> {
 
     @Override
     protected TaskInfoDto doBackward(TaskInfoBo taskInfoBo) {
+        if (taskInfoBo==null){
+            return null;
+        }
         return TaskInfoDto.builder()
                 .taskIsEndNum(taskInfoBo.getTaskIsEndNum())
                 .taskIsStartNum(taskInfoBo.getTaskIsStartNum())

@@ -17,6 +17,9 @@ public class TimingTaskDto2TimingTaskBo extends Converter<TimingTaskDto,TimingTa
     }
     @Override
     protected TimingTaskBo doForward(TimingTaskDto timingTaskDto) {
+        if (timingTaskDto==null){
+            return null;
+        }
         return TimingTaskBo.builder()
                 .createTime(timingTaskDto.getCreateTime())
                 .creator(timingTaskDto.getCreator())
@@ -36,6 +39,9 @@ public class TimingTaskDto2TimingTaskBo extends Converter<TimingTaskDto,TimingTa
 
     @Override
     protected TimingTaskDto doBackward(TimingTaskBo timingTaskBo) {
+        if (timingTaskBo==null){
+            return null;
+        }
         return TimingTaskDto.builder()
                 .createTime(timingTaskBo.getCreateTime())
                 .creator(timingTaskBo.getCreator())

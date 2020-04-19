@@ -14,6 +14,9 @@ public class ExecuteTimeInfoAo2ExecuteTimeInfoBo extends Converter<ExecuteTimeIn
     }
     @Override
     protected ExecuteTimeInfoBo doForward(ExecuteTimeInfoAo executeTimeInfoAo) {
+        if (executeTimeInfoAo==null){
+            return null;
+        }
         return ExecuteTimeInfoBo.builder()
                 .executeTaskNumNow(executeTimeInfoAo.getExecuteTaskNumNow())
                 .executeTime(executeTimeInfoAo.getExecuteTime())
@@ -22,6 +25,9 @@ public class ExecuteTimeInfoAo2ExecuteTimeInfoBo extends Converter<ExecuteTimeIn
 
     @Override
     protected ExecuteTimeInfoAo doBackward(ExecuteTimeInfoBo executeTimeInfoBo) {
+        if (executeTimeInfoBo==null){
+            return null;
+        }
         return  ExecuteTimeInfoAo.builder()
                 .executeTaskNumNow(executeTimeInfoBo.getExecuteTaskNumNow())
                 .executeTime(executeTimeInfoBo.getExecuteTime())

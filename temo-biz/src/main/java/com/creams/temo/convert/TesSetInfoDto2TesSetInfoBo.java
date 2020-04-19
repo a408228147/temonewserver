@@ -17,6 +17,9 @@ public class TesSetInfoDto2TesSetInfoBo extends Converter<TesSetInfoDto,TesSetIn
     }
     @Override
     protected TesSetInfoBo doForward(TesSetInfoDto tesSetInfoDto) {
+        if (tesSetInfoDto==null){
+            return null;
+        }
         return TesSetInfoBo.builder()
                 .testCaseNum(tesSetInfoDto.getTestCaseNum())
                 .testCaseSetNum(tesSetInfoDto.getTestCaseSetNum()).build();
@@ -24,6 +27,9 @@ public class TesSetInfoDto2TesSetInfoBo extends Converter<TesSetInfoDto,TesSetIn
 
     @Override
     protected TesSetInfoDto doBackward(TesSetInfoBo tesSetInfoBo) {
+        if (tesSetInfoBo==null){
+            return null;
+        }
         return  TesSetInfoDto.builder()
                 .testCaseNum(tesSetInfoBo.getTestCaseNum())
                 .testCaseSetNum(tesSetInfoBo.getTestCaseSetNum()).build();
