@@ -84,7 +84,7 @@ public class DateUtil {
         return new Timestamp(System.currentTimeMillis());
     }
 
-    public static void main(String[] args) {
-        System.out.println(DateUtil.getCurrentTimestamp());
-    }
+//    public static void main(String[] args) {
+//        System.out.println(DateUtil.getCurrentTimestamp());
+//    }
 }
