@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class DatabaseSetviceImpl implements DatabaseService {
+public class DatabaseServiceImpl implements DatabaseService {
     @Autowired
     private DatabaseMapper databaseMapper;
     final DatabaseDto2DatabaseBo databbaseDto2DatabaseBo =DatabaseDto2DatabaseBo.getInstance();
