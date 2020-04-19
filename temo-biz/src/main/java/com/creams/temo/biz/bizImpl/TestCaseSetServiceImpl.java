@@ -9,6 +9,7 @@ import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.entity.*;
 import com.creams.temo.mapper.*;
 import com.creams.temo.model.ScriptDbDto;
+import com.creams.temo.model.UserBo;
 import com.creams.temo.tools.RedisUtil;
 import com.creams.temo.tools.StringUtil;
 import com.creams.temo.tools.WebClientUtil;
@@ -221,7 +222,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public String addTestCaseSet(TestCaseSet testCaseSetRequest) {
         String setId = StringUtil.uuid();
         testCaseSetRequest.setSetId(setId);
-        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
+        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
         testCaseSetRequest.setCreator(user.getUserName());
         testCaseSetMapper.addTestCaseSet(testCaseSetRequest);
         return setId;
@@ -361,7 +362,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public List<ExecutedRow> executeSet(String setId, String envId, Map<String, String> variables) throws Exception {
         List<ExecutedRow> testResults = new ArrayList<>();
         TestCaseSet testCaseSet = this.queryTestCaseSetInfo(setId);
-        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
+        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
         Env env = envMapper.queryEnvById(envId);
         String uuid = StringUtil.uuid();
         // 获取用例集下全部的用例
@@ -838,7 +839,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public Map<String, String> executeSetUpSet(String setId, String envId) throws Exception {
         Map<String, String> variables = new HashMap<>();
         TestCaseSet testCaseSet = this.queryTestCaseSetInfo(setId);
-        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
+        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
         String setName = testCaseSet.getSetName();
         Env env = envMapper.queryEnvById(envId);
         // 获取用例集下全部的用例
