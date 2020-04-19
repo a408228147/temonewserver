@@ -13,14 +13,12 @@ public interface TaskMapper {
 
     List<TimingTaskDto> queryTasks(String taskName, String isParallel);
 
-    @Select("select * from task where task_id = #{taskId}")
-    TimingTaskDto queryTaskDetail(String taskId);
+    TimingTaskDto queryTaskDetail(@Param("task_id") String taskId);
 
     void addTask(TaskDto taskRequest);
 
     void updateTaskById(TaskDto taskRequest);
 
-    @Delete("delete from task where task_id = #{task_id}")
     void deleteTask(@Param("task_id") String taskId);
 
     void addTimingTask(TimingTaskDto timingTaskRequest);
@@ -29,9 +27,7 @@ public interface TaskMapper {
 
     List<TimingTaskDto> queryTimingTasks(String taskName, String isParallel);
 
-    @Update("update task set is_open = #{isOpen} where task_id = #{taskId}")
-    void updateTimingTaskStatus(String taskId, Integer isOpen);
+    void updateTimingTaskStatus(@Param("task_id") String taskId, @Param("is_open") Integer isOpen);
 
-    @Select("select * from task where task_id = #{taskId}")
-    TimingTaskDto queryTimingTaskDetail(String taskId);
+    TimingTaskDto queryTimingTaskDetail(@Param("task_id")String taskId);
 }

@@ -16,28 +16,23 @@ public interface TestCaseSetMapper {
                                                   @Param("project_id") String projectId,
                                                   @Param("set_status") String setStatus);
 
-    @Select("select * from testcase_set")
     List<TestCaseSet> queryAllTestCaseSet();
 
     List<TestCaseSet> queryTestCaseSet(TestCaseSet testCaseSetRequest);
 
-    @Select("select * from testcase_set where set_id = #{set_id}")
     TestCaseSet queryTestCaseSetById(@Param("set_id") String setId);
 
-    @Select("select * from testcase_set where set_id = #{set_id}")
     TestCaseSet queryCopyTestCaseSetById(@Param("set_id") String setId);
 
-    @Select("SELECT COUNT(*) FROM testcase_set WHERE user_id = #{user_id}")
     Integer statisticsTestCaseSetByUserId(@Param("user_id") String userId);
 
-    boolean addTestCaseSet(TestCaseSet testCaseSetRequest);
+    void addTestCaseSet(TestCaseSet testCaseSetRequest);
 
-    boolean updateTestCaseSetById(TestCaseSet testCaseSetRequest);
+    void updateTestCaseSetById(TestCaseSet testCaseSetRequest);
 
-    boolean updateTestCaseSetOfSetUpScript(String setId, String setupScript);
+    void updateTestCaseSetOfSetUpScript(String setId, String setupScript);
 
-    boolean updateTestCaseSetOfTearDownScript(String setId, String teardownScript);
+    void updateTestCaseSetOfTearDownScript(String setId, String teardownScript);
 
-    @Delete("delete from testcase_set where set_id = #{set_id}")
-    boolean deleteTestCaseSetById(@Param("set_id") String setId);
+    void deleteTestCaseSetById(@Param("set_id") String setId);
 }

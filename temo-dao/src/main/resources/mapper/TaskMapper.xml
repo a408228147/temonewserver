@@ -18,6 +18,9 @@
         values
         (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{cron},#{isMail},#{mail},#{isParallel}, #{times},#{isOpen}, #{testSets}, #{creator})
     </insert>
+    <delete id="deleteTask">
+        delete from task where task_id = #{task_id}
+    </delete>
 
     <select id="queryTasks" resultType="com.creams.temo.model.TimingTaskDto">
         select * from task
@@ -44,6 +47,12 @@
             and is_timing = 1
         </where>
     </select>
+    <select id="queryTaskDetail" resultType="com.creams.temo.model.TimingTaskDto">
+        select * from task where task_id = #{task_id}
+    </select>
+    <select id="queryTimingTaskDetail" resultType="com.creams.temo.model.TimingTaskDto">
+        select * from task where task_id = #{task_id}
+    </select>
 
     <update id="updateTaskById" parameterType="com.creams.temo.model.TaskDto">
         update  task set
@@ -67,6 +76,9 @@
         times = #{times},
         testsets = #{testSets}
         where task_id = #{taskId}
+    </update>
+    <update id="updateTimingTaskStatus">
+        update task set is_open = #{is_open} where task_id = #{task_id}
     </update>
 
 </mapper>

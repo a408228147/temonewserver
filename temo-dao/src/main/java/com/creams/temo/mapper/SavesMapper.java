@@ -13,10 +13,10 @@ public interface SavesMapper {
 
     List<Saves> querySaves(@Param("case_id") String caseId);
 
-    boolean addSaves(Saves savesRequest);
+    void addSaves(Saves savesRequest);
 
-    boolean updateSavesById(Saves savesRequest);
+    void updateSavesById(Saves savesRequest);
 
-    @Delete("delete from saves where case_id = #{case_id}")
-    boolean deleteSaves(@Param("case_id") String caseId);
+
+    void deleteSaves(@Param("case_id") String caseId);
 }

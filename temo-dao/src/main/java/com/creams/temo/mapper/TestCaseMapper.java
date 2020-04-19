@@ -18,32 +18,21 @@ public interface TestCaseMapper {
                                  @Param("db_id") String dbId,
                                  @Param("case_type") String caseType);
 
-    @Select("SELECT * from testcase WHERE set_id=#{setId} and sorting<#{sorting} ORDER BY sorting DESC LIMIT 1")
-    TestCase queryTestCaseUpBySorting(String setId, Integer sorting);
+    TestCase queryTestCaseUpBySorting(@Param("set_id") String setId, @Param("sorting") Integer sorting);
 
-    @Select("SELECT * from testcase WHERE set_id=#{setId} and sorting>#{sorting} ORDER BY sorting LIMIT 1")
-    TestCase queryTestCaseDownBySorting(String setId, Integer sorting);
+    TestCase queryTestCaseDownBySorting(@Param("set_id") String setId, @Param("sorting") Integer sorting);
 
-    @Select("select min(sorting) from testcase where set_id = #{setId}")
-    Integer queryMinSorting(String setId);
+    Integer queryMinSorting(@Param("set_id")String setId);
 
-    @Select("select max(sorting) from testcase where set_id = #{setId} ")
-    Integer queryMaxSorting(String setId);
+    Integer queryMaxSorting(@Param("set_id") String setId);
 
-    @Select("select * from testcase where case_id = #{case_id}")
     TestCase queryTestCaseById(@Param("case_id") String caseId);
 
-    @Select("select * from testcase where case_id = #{case_id}")
-    TestCase queryCopyTestCaseById(@Param("case_id") String caseId);
 
 
-    @Select("select * from testcase where set_id = #{set_id} order by sorting asc")
     List<TestCase> queryTestCaseBySetId(@Param("set_id") String setId);
 
-    @Select("select * from testcase where set_id = #{set_id} order by sorting asc")
-    List<TestCase> queryCopyTestCaseBySetId(@Param("set_id") String setId);
 
-    @Select("SELECT COUNT(*) FROM testcase WHERE user_id = #{user_id}")
     Integer statisticsTestCaseByUserId(@Param("user_id") String userId);
 
     void addTestCase(TestCase testCaseRequest);
@@ -52,7 +41,6 @@ public interface TestCaseMapper {
 
     void updateTestCaseOrderById(String caseId, Integer sorting);
 
-    @Delete("delete from testcase where case_id = #{case_id}")
     void deleteTestCase(@Param("case_id") String caseId);
 
 

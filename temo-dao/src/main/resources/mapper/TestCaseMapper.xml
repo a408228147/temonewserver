@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.creams.temo.mapper.TestCaseMapper">
+    <delete id="deleteTestCase" parameterType="java.lang.String">
+        delete from testcase where case_id = #{case_id}
+    </delete>
 
     <select id="queryTestCase" resultType="com.creams.temo.entity.TestCase">
         select * from testcase
@@ -24,6 +27,28 @@
                 and case_type = #{case_type}
             </if>
         </where>
+    </select>
+    <select id="statisticsTestCaseByUserId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM testcase WHERE user_id = #{user_id}
+    </select>
+
+    <select id="queryTestCaseBySetId" parameterType="java.lang.String" resultType="com.creams.temo.entity.TestCase">
+        select * from testcase where set_id = #{set_id} order by sorting asc
+    </select>
+    <select id="queryTestCaseById" resultType="com.creams.temo.entity.TestCase">
+        select * from testcase where case_id = #{case_id}
+    </select>
+    <select id="queryMaxSorting" resultType="java.lang.Integer">
+        select max(sorting) from testcase where set_id = #{set_id}
+    </select>
+    <select id="queryMinSorting" resultType="java.lang.Integer">
+        select min(sorting) from testcase where set_id = #{set_id}
+    </select>
+    <select id="queryTestCaseDownBySorting" resultType="com.creams.temo.entity.TestCase">
+        SELECT * from testcase WHERE set_id=#{set_id} and sorting>#{sorting} ORDER BY sorting LIMIT 1
+    </select>
+    <select id="queryTestCaseUpBySorting" resultType="com.creams.temo.entity.TestCase">
+        SELECT * from testcase WHERE set_id=#{set_id} and sorting<#{sorting} ORDER BY sorting DESC LIMIT 1
     </select>
 
 

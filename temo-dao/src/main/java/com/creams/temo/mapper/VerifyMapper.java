@@ -16,6 +16,5 @@ public interface VerifyMapper {
 
     void updateVerifyById(Verify verifyRequest);
 
-    @Delete("delete from verify where case_id = #{case_id}")
     void deleteVerify(@Param("case_id") String caseId);
 }

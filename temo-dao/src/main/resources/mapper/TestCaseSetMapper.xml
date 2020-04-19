@@ -6,6 +6,9 @@
         values
         (#{setId}, #{setName}, #{setDesc}, #{projectId},#{setStatus}, #{valid}, #{creator})
     </insert>
+    <delete id="deleteTestCaseSetById" parameterType="java.lang.String">
+        delete from testcase_set where set_id = #{set_id}
+    </delete>
 
 
     <select id="queryTestCaseSet" resultType="com.creams.temo.entity.TestCaseSet">
@@ -45,6 +48,15 @@
         </where>
         order by createTime desc
     </select>
+    <select id="queryAllTestCaseSet" resultType="com.creams.temo.entity.TestCaseSet">
+        select * from testcase_set
+    </select>
+    <select id="queryTestCaseSetById" resultType="com.creams.temo.entity.TestCaseSet">
+        select * from testcase_set where set_id = #{set_id}
+    </select>
+    <select id="queryCopyTestCaseSetById" resultType="com.creams.temo.entity.TestCaseSet">
+        select * from testcase_set where set_id = #{set_id}
+    </select>
 
 
     <update id="updateTestCaseSetById">
@@ -68,5 +80,8 @@
         teardown_script = #{teardownScript}
         where set_id = #{setId}
     </update>
+    <select id="statisticsTestCaseSetByUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM testcase_set WHERE user_id = #{user_id}
+    </select>
 
 </mapper>

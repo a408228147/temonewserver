@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.creams.temo.mapper.VerifyMapper">
+    <delete id="deleteVerify" parameterType="java.lang.String">
+        delete from verify where case_id = #{case_id}
+    </delete>
 
     <select id="queryVerify" resultType="com.creams.temo.entity.Verify">
         select * from verify
