@@ -15,6 +15,9 @@ public class ExecuteTodayDto2ExecuteTodayBo extends Converter<ExecuteTodayDto,Ex
     }
     @Override
     protected ExecuteTodayBo doForward(ExecuteTodayDto executeTodayDto) {
+        if (executeTodayDto==null){
+            return null;
+        }
         return ExecuteTodayBo.builder()
                 .executeCaseTodayNum(executeTodayDto.getExecuteCaseTodayNum())
                 .falseNum(executeTodayDto.getFalseNum())
@@ -25,6 +28,9 @@ public class ExecuteTodayDto2ExecuteTodayBo extends Converter<ExecuteTodayDto,Ex
 
     @Override
     protected ExecuteTodayDto doBackward(ExecuteTodayBo executeTodayBo) {
+        if (executeTodayBo==null){
+            return null;
+        }
         return  ExecuteTodayDto.builder()
                 .executeCaseTodayNum(executeTodayBo.getExecuteCaseTodayNum())
                 .falseNum(executeTodayBo.getFalseNum())

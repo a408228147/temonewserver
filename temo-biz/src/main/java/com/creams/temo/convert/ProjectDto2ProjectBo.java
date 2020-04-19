@@ -17,6 +17,9 @@ public class ProjectDto2ProjectBo extends Converter<ProjectBo,ProjectDto> {
     }
     @Override
     protected ProjectDto doForward(ProjectBo projectBo) {
+        if (projectBo==null){
+            return null;
+        }
         return ProjectDto.builder()
                 .id(projectBo.getId())
                 .createTime(projectBo.getCreateTime())
@@ -28,6 +31,9 @@ public class ProjectDto2ProjectBo extends Converter<ProjectBo,ProjectDto> {
 
     @Override
     protected ProjectBo doBackward(ProjectDto projectDto) {
+        if (projectDto==null){
+            return null;
+        }
         return ProjectBo.builder()
                 .id(projectDto.getId())
                 .createTime(projectDto.getCreateTime())

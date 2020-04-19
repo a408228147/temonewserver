@@ -18,6 +18,9 @@ public class PermissionsAo2PermissionsBo extends Converter<PermissionsAo,Permiss
     }
     @Override
     protected PermissionsBo doForward(PermissionsAo permissionsAo) {
+        if (permissionsAo==null){
+            return null;
+        }
         return PermissionsBo.builder().status(permissionsAo.getStatus())
                 .roleId(permissionsAo.getRoleId())
                 .permissionsName(permissionsAo.getPermissionsName())
@@ -27,6 +30,9 @@ public class PermissionsAo2PermissionsBo extends Converter<PermissionsAo,Permiss
 
     @Override
     protected PermissionsAo doBackward(PermissionsBo permissionsBo) {
+        if (permissionsBo==null){
+            return null;
+        }
         return PermissionsAo.builder().status(permissionsBo.getStatus())
                 .roleId(permissionsBo.getRoleId())
                 .permissionsName(permissionsBo.getPermissionsName())

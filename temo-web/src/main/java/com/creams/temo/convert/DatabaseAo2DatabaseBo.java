@@ -16,6 +16,9 @@ public class DatabaseAo2DatabaseBo extends Converter<DatabaseAo,DatabaseBo> {
 
     @Override
     protected DatabaseBo doForward(DatabaseAo databaseAo) {
+        if (databaseAo==null){
+            return null;
+        }
         return DatabaseBo.builder()
                 .createtime(databaseAo.getCreatetime())
                 .dbId(databaseAo.getDbId())
@@ -31,6 +34,9 @@ public class DatabaseAo2DatabaseBo extends Converter<DatabaseAo,DatabaseBo> {
 
     @Override
     protected DatabaseAo doBackward(DatabaseBo databaseBo) {
+        if (databaseBo==null){
+            return null;
+        }
         return DatabaseAo.builder()
                 .createtime(databaseBo.getCreatetime())
                 .dbId(databaseBo.getDbId())

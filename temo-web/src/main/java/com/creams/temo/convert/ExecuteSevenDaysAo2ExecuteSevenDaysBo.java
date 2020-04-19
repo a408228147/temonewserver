@@ -15,6 +15,9 @@ public class ExecuteSevenDaysAo2ExecuteSevenDaysBo extends Converter<ExecuteSeve
     }
     @Override
     protected ExecuteSevenDaysBo doForward(ExecuteSevenDaysAo executeSevenDaysAo) {
+        if (executeSevenDaysAo==null){
+            return null;
+        }
         return ExecuteSevenDaysBo.builder()
                 .falseNum(executeSevenDaysAo.getFalseNum())
                 .successNum(executeSevenDaysAo.getSuccessNum())
@@ -23,6 +26,9 @@ public class ExecuteSevenDaysAo2ExecuteSevenDaysBo extends Converter<ExecuteSeve
 
     @Override
     protected ExecuteSevenDaysAo doBackward(ExecuteSevenDaysBo executeSevenDaysBo) {
+        if (executeSevenDaysBo==null){
+            return null;
+        }
         return ExecuteSevenDaysAo.builder()
                 .falseNum(executeSevenDaysBo.getFalseNum())
                 .successNum(executeSevenDaysBo.getSuccessNum())
