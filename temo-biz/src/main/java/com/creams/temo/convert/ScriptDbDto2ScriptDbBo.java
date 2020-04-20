@@ -36,7 +36,7 @@ public class ScriptDbDto2ScriptDbBo extends Converter<ScriptDbBo,ScriptDbDto> {
                         .createtime(scriptDbBo.getDb()==null?null:scriptDbBo.getDb().getCreatetime()).build())
                 .dbId(scriptDbBo.getDbId())
                 .id(scriptDbBo.getId())
-                .scriptId(scriptDbBo.getScriptId())
+                .sqlScript(scriptDbBo.getSqlScript())
                 .scriptName(scriptDbBo.getScriptName())
                 .scriptId(scriptDbBo.getScriptId())
                 .updateTime(scriptDbBo.getUpdateTime())
@@ -62,8 +62,8 @@ public class ScriptDbDto2ScriptDbBo extends Converter<ScriptDbBo,ScriptDbDto> {
                         .createtime(scriptDbDto.getDb()==null?null:scriptDbDto.getDb().getCreatetime()).build())
                 .dbId(scriptDbDto.getDbId())
                 .id(scriptDbDto.getId())
-                .scriptId(scriptDbDto.getScriptId())
                 .scriptName(scriptDbDto.getScriptName())
+                .sqlScript(scriptDbDto.getSqlScript())
                 .scriptId(scriptDbDto.getScriptId())
                 .updateTime(scriptDbDto.getUpdateTime())
                 .build();
