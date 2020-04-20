@@ -116,6 +116,13 @@ public class TestCaseController {
         }
     }
 
+    @ApiOperation(value = "更新用例是否运行")
+    @PutMapping("/{caseId}/isRun/{isRun}")
+    public JsonResult updateIsRun(@PathVariable String caseId,@PathVariable Integer isRun){
+        testCaseService.updateIsRun(caseId,isRun);
+        return new JsonResult("操作成功", 200, null, true);
+    }
+
     @ApiOperation(value = "根据用例id修改执行顺序")
     @PutMapping("/{caseId}/order")
     public JsonResult updateTestCaseOrder(@PathVariable @ApiParam(value = "用例id", required = true) String caseId,

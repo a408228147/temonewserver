@@ -36,6 +36,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param testCaseRequest
      * @return
      */
+    @Override
     @Transactional
     public String addTestCase(TestCase testCaseRequest){
         String caseId = StringUtil.uuid();
@@ -78,6 +79,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param testCaseRequest
      * @return
      */
+    @Override
     @Transactional(rollbackFor=Exception.class)
     public boolean updateTestCase(TestCase testCaseRequest){
         String savesId = StringUtil.uuid();
@@ -120,6 +122,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param caseId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void   deleteTestCase(String caseId){
         testCaseMapper.deleteTestCase(caseId);
@@ -128,10 +131,21 @@ public class TestCaseServiceImpl implements TestCaseService {
     }
 
     /**
+     * 更新用例是否运行
+     * @param caseId
+     * @param isRun
+     */
+    @Override
+    public void updateIsRun(String caseId, Integer isRun) {
+        testCaseMapper.updateIsRun(caseId,isRun);
+    }
+
+    /**
      * 复制用例
      * @param caseId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean copyTestCase(String caseId){
         TestCase testCaseRequest = testCaseMapper.queryTestCaseById(caseId);
@@ -152,6 +166,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param userId
      * @return
      */
+    @Override
     public Integer statisticsTestCaseByUserId(String userId){
        return  testCaseMapper.statisticsTestCaseByUserId(userId);
     }
@@ -168,8 +183,9 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param caseType
      * @return
      */
+    @Override
     public PageInfo<TestCase> queryTestCase(Integer page, String caseId, String envId, String setId,
-                                                    String caseDesc, String dbId, String caseType){
+                                            String caseDesc, String dbId, String caseType){
         PageHelper.startPage(page, 10);
         List<TestCase> testCaseResponses = testCaseMapper.queryTestCase(caseId, envId, setId, caseDesc, dbId, caseType);
         PageInfo<TestCase> pageInfo = new PageInfo<>(testCaseResponses);
@@ -183,6 +199,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param id
      * @return
      */
+    @Override
     public TestCase queryTestCaseInfo(String id){
         TestCase testCaseResponse = testCaseMapper.queryTestCaseById(id);
         testCaseResponse.setSaves(savesMapper.querySaves(id));
@@ -196,6 +213,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param caseId
      * @return
      */
+    @Override
     public TestCase queryTestCaseById(String caseId){
         TestCase testCaseResponse = testCaseMapper.queryTestCaseById(caseId);
         return testCaseResponse;
@@ -207,6 +225,7 @@ public class TestCaseServiceImpl implements TestCaseService {
      * @param move
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateTestCaseOrderById(String caseId, String move){
 
