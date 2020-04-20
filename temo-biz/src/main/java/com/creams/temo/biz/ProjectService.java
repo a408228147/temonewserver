@@ -19,6 +19,6 @@ public interface ProjectService {
 
     Integer delProjectById(String projectId);
 
-    String updateProjectById(String projectId,ProjectBo project);
+    void updateProjectById(String projectId,ProjectBo project);
 
 }
