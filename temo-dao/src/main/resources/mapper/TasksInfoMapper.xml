@@ -12,10 +12,10 @@
         SELECT count(1) FROM task where is_timing = 1 and is_open = 1
     </select>
     <select id="queryTaskStatusIsEnd" resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT task_id) FROM task_result WHERE `status`= 1
+        SELECT COUNT(*) FROM task_result WHERE `status`= 2
     </select>
 
     <select id="queryTaskStatusIsStart" resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT task_id) FROM task_result WHERE `status`= 2
+        SELECT COUNT(*) FROM task_result WHERE `status`= 1
     </select>
 </mapper>
