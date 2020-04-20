@@ -37,7 +37,7 @@ public class ScriptDbAo2ScriptDbBo extends Converter<ScriptDbAo,ScriptDbBo> {
                 .id(scriptDbAo.getId())
                 .scriptId(scriptDbAo.getScriptId())
                 .scriptName(scriptDbAo.getScriptName())
-                .scriptId(scriptDbAo.getScriptId())
+                .sqlScript(scriptDbAo.getSqlScript())
                 .updateTime(scriptDbAo.getUpdateTime())
                 .build();
     }

@@ -30,6 +30,7 @@ public class ScriptServiceImpl implements ScriptService {
      * 查询所有Script
      * @return
      */
+    @Override
     public List<ScriptDbBo> queryAllScript(){
         return Lists.newArrayList(scriptDbBo2ScriptDbDto.reverse().convertAll(scriptMapper.queryAllScript()));
     }
@@ -41,6 +42,7 @@ public class ScriptServiceImpl implements ScriptService {
      * @return
      */
 
+    @Override
     public PageInfo<ScriptDbBo> queryScriptDbByNameAndDbId(Integer page, String dbId, String scriptName){
         PageHelper.startPage(page, 10);
         List<ScriptDbDto> scriptDbDtos = scriptMapper.queryScriptDb(dbId, scriptName);
@@ -54,6 +56,7 @@ public class ScriptServiceImpl implements ScriptService {
      * @param scriptId
      * @return
      */
+    @Override
     public ScriptDbBo queryScriptById(String scriptId){
 
         ScriptDbDto scriptResponse = scriptMapper.queryScriptById(scriptId);
@@ -78,6 +81,7 @@ public class ScriptServiceImpl implements ScriptService {
      * @param scriptRequest
      * @return
      */
+    @Override
     @Transactional
     public String addScript(ScriptDbBo scriptRequest){
 
@@ -92,6 +96,7 @@ public class ScriptServiceImpl implements ScriptService {
      * @param scriptRequest
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateScriptById(ScriptDbBo scriptRequest){
        scriptMapper.updateScriptById(scriptDbBo2ScriptDbDto.convert(scriptRequest));
@@ -102,6 +107,7 @@ public class ScriptServiceImpl implements ScriptService {
      * @param scriptId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteScriptById(String scriptId){
         scriptMapper.deleteScriptById(scriptId);
