@@ -55,6 +55,9 @@ public class TestCase {
     @ApiModelProperty("用例类型")
     private String caseType;
 
+    @ApiModelProperty("全局变量")
+    private String globalVariables;
+
     @ApiModelProperty("全局请求头")
     private String globalHeaders;
 
@@ -70,8 +73,11 @@ public class TestCase {
     @ApiModelProperty("排序")
     private Integer sorting;
 
-    @ApiModelProperty("排序")
+    @ApiModelProperty("请求正文类型")
     private String contentType;
+
+    @ApiModelProperty("是否执行")
+    private Integer isRun;
 
     private List<Verify> verify;
 

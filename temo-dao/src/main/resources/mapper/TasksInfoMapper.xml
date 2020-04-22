@@ -4,18 +4,18 @@
 <mapper namespace="com.creams.temo.mapper.TasksInfoMapper">
 
     <select id="queryTaskNum" resultType="java.lang.Integer">
-        SELECT count(1) FROM task
+        SELECT count(1) FROM task where is_timing = 0
     </select>
 
 
     <select id="queryTaskIsTimingNum" resultType="java.lang.Integer">
-        SELECT count(1) FROM task where is_open=1
+        SELECT count(1) FROM task where is_timing = 1 and is_open = 1
     </select>
     <select id="queryTaskStatusIsEnd" resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT task_id) FROM task_result WHERE `status`=1
+        SELECT COUNT(*) FROM task_result WHERE `status`= 2
     </select>
 
     <select id="queryTaskStatusIsStart" resultType="java.lang.Integer">
-        SELECT COUNT(DISTINCT task_id) FROM task_result WHERE `status`=2
+        SELECT COUNT(*) FROM task_result WHERE `status`= 1
     </select>
 </mapper>

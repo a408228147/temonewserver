@@ -4,6 +4,7 @@ import com.creams.temo.entity.TestCase;
 import com.github.pagehelper.PageInfo;
 
 public interface TestCaseService {
+
     PageInfo<TestCase> queryTestCase(Integer page, String caseId, String envId, String setId, String caseDesc, String dbId, String caseType);
 
     TestCase queryTestCaseInfo(String id);
@@ -21,4 +22,6 @@ public interface TestCaseService {
     TestCase queryTestCaseById(String caseId);
 
     void deleteTestCase(String caseId);
+
+    void updateIsRun(String caseId,Integer isRun);
 }

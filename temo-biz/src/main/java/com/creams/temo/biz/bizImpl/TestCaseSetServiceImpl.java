@@ -117,6 +117,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param testSet
      * @throws Exception
      */
+    @Override
     public Boolean executeSetBySynchronizeTask(String taskResultId, TestSet testSet) throws Exception {
         return executeSetByTask(taskResultId, testSet);
     }
@@ -128,6 +129,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param testSet
      * @throws Exception
      */
+    @Override
     @Async("taskExecutor")
     public Future<Boolean> executeSetByAsynchronizeTask(String taskResultId, TestSet testSet) throws Exception {
         return new AsyncResult<>(executeSetByTask(taskResultId, testSet));
@@ -141,6 +143,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param projectId
      * @return
      */
+    @Override
     public PageInfo<TestCaseSet> queryTestCaseSetByNameAndId(Integer page, String setName, String projectId, String setStatus) {
         PageHelper.startPage(page, 10);
         List<TestCaseSet> testCaseSet = testCaseSetMapper.queryTestCaseSetByNameandId(setName, projectId, setStatus);
@@ -153,6 +156,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      *
      * @return
      */
+    @Override
     public List<TestCaseSet> queryAllTestCaseSet() {
         List<TestCaseSet> testCaseSetResponses = testCaseSetMapper.queryAllTestCaseSet();
         return testCaseSetResponses;
@@ -164,6 +168,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param userId
      * @return
      */
+    @Override
     public Integer statisticsTestCaseSetByUserId(String userId) {
         return testCaseSetMapper.statisticsTestCaseSetByUserId(userId);
     }
@@ -174,6 +179,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param setId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean copyTestCaseSet(String setId) {
         String copySetId = StringUtil.uuid();
@@ -204,6 +210,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param testCaseSetRequest
      * @return
      */
+    @Override
     public PageInfo<TestCaseSet> queryTestCaseSet(Integer page, TestCaseSet testCaseSetRequest) {
         PageHelper.startPage(page, 10);
         List<TestCaseSet> testCaseSet = testCaseSetMapper.queryTestCaseSet(testCaseSetRequest);
@@ -218,6 +225,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param testCaseSetRequest
      * @return
      */
+    @Override
     @Transactional
     public String addTestCaseSet(TestCaseSet testCaseSetRequest) {
         String setId = StringUtil.uuid();
@@ -234,6 +242,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param testCaseSetRequest
      * @return
      */
+    @Override
     @Transactional
     public void updateTestCaseSetById(TestCaseSet testCaseSetRequest) {
         testCaseSetMapper.updateTestCaseSetById(testCaseSetRequest);
@@ -245,6 +254,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param setId
      * @return
      */
+    @Override
     @Transactional
     public void deleteTestCaseSetById(String setId) {
         testCaseSetMapper.deleteTestCaseSetById(setId);
@@ -257,6 +267,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param setupScript
      * @return
      */
+    @Override
     @Transactional
     public void saveSetUpScript(String setId, String setupScript) {
         testCaseSetMapper.updateTestCaseSetOfSetUpScript(setId, setupScript);
@@ -269,6 +280,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param teardownScript
      * @return
      */
+    @Override
     @Transactional
     public void saveTearDownScript(String setId, String teardownScript) {
         testCaseSetMapper.updateTestCaseSetOfTearDownScript(setId, teardownScript);
@@ -279,6 +291,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      *
      * @param setId
      */
+    @Override
     public List<Env> getEnvsOfSet(String setId) {
         TestCaseSet testCaseSetResponse = testCaseSetMapper.queryTestCaseSetById(setId);
         return envMapper.queryEnvByProjectId(testCaseSetResponse.getProjectId());
@@ -290,6 +303,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
      * @param setId
      * @param envId
      */
+    @Override
     @Async
     public void debugSet(String setId, String envId) throws Exception {
         Map<String, String> variables = new HashMap<>();
@@ -376,10 +390,15 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
         ExecutedRow testResultRow;
         Map<String, String> globalCookies = new HashMap<>();
         Map<String, String> globalHeaders = new HashMap<>();
-        WebClientUtil webClientUtil = new WebClientUtil(env.getHost(), env.getPort().toString(), globalHeaders, globalCookies);
+        WebClientUtil webClientUtil;
         // 遍历所有用例集合
+        int index = 1;
         for (TestCase testCase : testCases) {
-            int index = testCases.indexOf(testCase) + 1;
+            // 判断是否运行
+            if (testCase.getIsRun()==0){
+                casesNum--;
+                continue;
+            }
             StringBuilder logs = new StringBuilder();
             logs.append(log("INFO", String.format("正在执行第%s条用例...", index)));
             logger.info(String.format("正在执行第%s条用例...", index));
@@ -395,7 +414,22 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
             String headers = getCommonParam(testCase.getHeader(), uuid, variables);
             String param = getCommonParam(testCase.getParam(), uuid, variables);
             String contentType = testCase.getContentType();
+            String globalVariables = testCase.getGlobalVariables();
             List<Saves> saves = testCase.getSaves();
+            // 设置全局参数
+            if (globalVariables != null && !"".equals(globalVariables)) {
+                logs.append(log("INFO", "Set Global Variables : " + globalVariables));
+                Map<String, String> maps = JSON.parseObject(globalVariables, new TypeReference<Map<String, String>>() {
+                });
+                for (Map.Entry<String, String> kvs : maps.entrySet()) {
+                    String key = getCommonParam(kvs.getKey(), uuid, variables);
+                    String value = getCommonParam(kvs.getValue(), uuid, variables);
+                    logs.append(log("INFO", String.format("储存全局参数到redis=> %s:%s", key, value)));
+                    logger.info(String.format("储存全局参数到redis=> %s:%s", key, value));
+                    // 往redis存值，设置默认过期时间为一小时
+                    redisUtil.set(key+":"+uuid, value, 3600);
+                }
+            }
             if (saves == null) {
                 saves = new ArrayList<>();
             }
@@ -437,9 +471,10 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
             // 设置默认总体断言结果为真
             boolean verifyResult = true;
             try {
+                String urlTemplate = (url.startsWith("http") | url.startsWith("https") ?url:(env.getHost()+":"+env.getPort()+url));
                 switch (method.toLowerCase()) {
                     case "get":
-                        logs.append(log("INFO", "=====> GET " + url));
+                        logs.append(log("INFO", "=====> GET " + urlTemplate));
                         logs.append(log("INFO", "=====> Param " + param));
                         logs.append(log("INFO", "=====> Header " + headers));
                         logs.append(log("INFO", "=====> Cookie " + cookies));
@@ -452,20 +487,20 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                             for (Map.Entry<String, String> kvs : bodyKV.entrySet()) {
                                 linkedMultiValueMap.add(kvs.getKey(), kvs.getValue());
                             }
-                            logs.append(log("INFO", "=====> POST " + url));
+                            logs.append(log("INFO", "=====> POST " + urlTemplate));
                             logs.append(log("INFO", "=====> FormData " + bodyKV));
                             logs.append(log("INFO", "=====> Header " + headers));
                             logs.append(log("INFO", "=====> Cookie " + cookies));
                             response = webClientUtil.postByFormData(url, linkedMultiValueMap, headersKv, cookiesKv);
                         } else if ("2".equals(contentType)) {
-                            logs.append(log("INFO", "=====> POST " + url));
+                            logs.append(log("INFO", "=====> POST " + urlTemplate));
                             logs.append(log("INFO", "=====> Param " + param));
                             logs.append(log("INFO", "=====> Header " + headers));
                             logs.append(log("INFO", "=====> Cookie " + cookies));
                             LinkedMultiValueMap<String, String> linkedMultiValueMap = new LinkedMultiValueMap<>();
                             response = webClientUtil.postByFormData(url, linkedMultiValueMap, headersKv, cookiesKv);
                         } else if ("3".equals(contentType)) {
-                            logs.append(log("INFO", "=====> POST " + url));
+                            logs.append(log("INFO", "=====> POST " + urlTemplate));
                             logs.append(log("INFO", "=====> Body " + body));
                             logs.append(log("INFO", "=====> Header " + headers));
                             logs.append(log("INFO", "=====> Cookie " + cookies));
@@ -476,14 +511,14 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                         }
                         break;
                     case "put":
-                        logs.append(log("INFO", "=====> PUT " + url));
+                        logs.append(log("INFO", "=====> PUT " + urlTemplate));
                         logs.append(log("INFO", "=====> Body " + body));
                         logs.append(log("INFO", "=====> Header " + headers));
                         logs.append(log("INFO", "=====> Cookie " + cookies));
                         response = webClientUtil.put(url, body, headersKv, cookiesKv);
                         break;
                     case "delete":
-                        logs.append(log("INFO", "=====> DELETE " + url));
+                        logs.append(log("INFO", "=====> DELETE " + urlTemplate));
                         logs.append(log("INFO", "=====> Header " + headers));
                         logs.append(log("INFO", "=====> Cookie " + cookies));
                         response = webClientUtil.delete(url, headersKv, cookiesKv);
@@ -690,8 +725,8 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
             String gHeaders = getCommonParam(testCase.getGlobalHeaders(), uuid, variables);
             // 判断是否有全局Cookie或者全局Header，如果有则重新生成webclient实例
             if (gCookies != null && !"".equals(gCookies)) {
-                logs.append(log("INFO", "Set Golbal Cookie : " + gCookies));
-                logs.append(log("INFO", "Set Golbal Header : " + gHeaders));
+                logs.append(log("INFO", "Set Global Cookie : " + gCookies));
+                logs.append(log("INFO", "Set Global Header : " + gHeaders));
                 Map<String, String> maps = JSON.parseObject(gCookies, new TypeReference<Map<String, String>>() {
                 });
                 for (Map.Entry<String, String> kvs : maps.entrySet()) {
@@ -721,6 +756,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                 testResultRow = new ExecutedRow("executedRow", index, caseName, 0, logs.toString());
                 executedRow = JSON.toJSONString(testResultRow);
             }
+
             // 把执行结果加到总体的执行结果中
             testResults.add(testResultRow);
             // 发送消息
@@ -734,6 +770,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
             TestResult testResult = new TestResult("testResult", index, index - error, error, casesNum, successRate, executedRate);
             String result = JSON.toJSONString(testResult);
             WebSocketUtil.sendInfo(result, user.getUserId());
+            index++;
         }
         return testResults;
     }
@@ -848,7 +885,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
         int error = 0;
         Map<String, String> globalCookies = new HashMap<>();
         Map<String, String> globalHeaders = new HashMap<>();
-        WebClientUtil webClientUtil = new WebClientUtil(env.getHost(), env.getPort().toString(), globalHeaders, globalCookies);
+        WebClientUtil webClientUtil;
         // 遍历所有用例集合
         for (TestCase testCase : testCases) {
             int index = testCases.indexOf(testCase) + 1;
@@ -865,7 +902,19 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
             String headers = getCommonParamFromMap(testCase.getHeader(), variables);
             String param = getCommonParamFromMap(testCase.getParam(), variables);
             String contentType = testCase.getContentType();
+            String globalVariables = testCase.getGlobalVariables();
             List<Saves> saves = testCase.getSaves();
+            // 设置全局参数
+            if (globalVariables != null && !"".equals(globalVariables)) {
+                Map<String, String> maps = JSON.parseObject(globalVariables, new TypeReference<Map<String, String>>() {
+                });
+                for (Map.Entry<String, String> kvs : maps.entrySet()) {
+                    String key = getCommonParamFromMap(kvs.getKey(), variables);
+                    String value = getCommonParamFromMap(kvs.getValue(), variables);
+                    // 往redis存值，设置默认过期时间为一小时
+                    redisUtil.set(key, value, 3600);
+                }
+            }
             if (saves == null) {
                 saves = new ArrayList<>();
             }

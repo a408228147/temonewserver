@@ -37,6 +37,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param project
      * @return
      */
+    @Override
     @Transactional
     public String addProject(ProjectBo project) {
         String projectId = StringUtil.uuid();
@@ -60,6 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
      *
      * @return
      */
+    @Override
     public List<ProjectBo> queryAllProjects() {
         List<ProjectDto> projectDtos = projectMapper.queryAllProject();
         List<ProjectBo> projectBos = Lists.newArrayList(projectDto2ProjectBo.reverse().convertAll(projectDtos));
@@ -72,6 +74,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
+    @Override
     public List<Env> queryEnvByProjectId(String projectId) {
         List<Env> envResponses = envMapper.queryEnvByProjectId(projectId);
         return envResponses;
@@ -83,6 +86,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param name
      * @return
      */
+    @Override
     public PageInfo<ProjectBo> queryByName(Integer page, String name) {
         PageHelper.startPage(page, 10);
         List<ProjectDto> projects = projectMapper.queryProjectByName(name);
@@ -98,6 +102,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
+    @Override
     public ProjectBo queryDetailById(String projectId) {
         ProjectDto projectDto = projectMapper.queryProjectById(projectId);
         ProjectBo projectBo = projectDto2ProjectBo.reverse().convert(projectDto);
@@ -111,6 +116,7 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectId
      * @return
      */
+    @Override
     @Transactional
     public Integer delProjectById(String projectId) {
         int i = projectMapper.delete(new QueryWrapper<ProjectDto>().lambda().eq(ProjectDto::getPid, projectId));
@@ -125,10 +131,9 @@ public class ProjectServiceImpl implements ProjectService {
      * @param project
      * @return
      */
+    @Override
     @Transactional
-    public String updateProjectById(String projectId, ProjectBo project) {
-        String updateId = StringUtil.uuid();
-        project.setPid(updateId);
+    public void updateProjectById(String projectId, ProjectBo project) {
         ProjectDto projectDto = projectDto2ProjectBo.convert(project);
         projectMapper.update(projectDto, new QueryWrapper<ProjectDto>().lambda().eq(ProjectDto::getPid, projectId));
         List<String> envIds = new ArrayList<>();
@@ -151,8 +156,6 @@ public class ProjectServiceImpl implements ProjectService {
                 envMapper.delete(new QueryWrapper<Env>().lambda().eq(Env::getEnvId, envId));
             }
         }
-
-        return updateId;
     }
 
 }

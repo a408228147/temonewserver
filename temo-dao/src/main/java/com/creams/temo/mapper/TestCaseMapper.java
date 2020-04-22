@@ -28,7 +28,7 @@ public interface TestCaseMapper {
 
     TestCase queryTestCaseById(@Param("case_id") String caseId);
 
-
+    void updateIsRun(@Param("case_id") String caseId,@Param("is_run") Integer isRun);
 
     List<TestCase> queryTestCaseBySetId(@Param("set_id") String setId);
 
@@ -39,7 +39,7 @@ public interface TestCaseMapper {
 
     void updateTestCaseById(TestCase testCaseRequest);
 
-    void updateTestCaseOrderById(String caseId, Integer sorting);
+    void updateTestCaseOrderById(@Param("case_id")String caseId, Integer sorting);
 
     void deleteTestCase(@Param("case_id") String caseId);
 

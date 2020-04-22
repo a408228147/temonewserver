@@ -123,11 +123,11 @@ public class ProjectController {
         }
         try{
             ProjectBo projectBo=projectAo2ProjectBo.convert(project);
-            String id = projectService.updateProjectById(projectId,projectBo);
-            return new JsonResult("操作成功",200,id,true);
+            projectService.updateProjectById(projectId,projectBo);
+            return new JsonResult("操作成功",200,null,true);
         }catch (Exception e){
-            logger.error(e.getMessage());
-            return new JsonResult("系统错误",500,null,true);
+            e.printStackTrace();
+            return new JsonResult("系统错误",500,e,true);
         }
     }
 
