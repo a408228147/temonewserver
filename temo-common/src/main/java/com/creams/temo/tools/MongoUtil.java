@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author ronin
  */
-@Component
+
 public class MongoUtil {
 
     @Autowired

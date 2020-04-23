@@ -4,6 +4,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,8 @@ import reactor.netty.http.client.HttpClient;
 
 import javax.net.ssl.SSLException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,8 +28,12 @@ import java.util.Map;
 
 public class WebClientUtil {
 
+
     private WebClient webClient;
+    private WebClient defaultWebclient;
     private static Logger logger = LoggerFactory.getLogger("fileInfoLog");
+
+
 
     public WebClientUtil(String host, String port, Map<String, String> headers, Map<String, String> cookies) throws SSLException {
         // 设置SSL
@@ -50,6 +57,7 @@ public class WebClientUtil {
                     }
                 })
                 .build();
+        defaultWebclient = WebClient.create();
 
     }
 
@@ -59,6 +67,15 @@ public class WebClientUtil {
      * @return
      */
     public ClientResponse get(String url,Map<String,String> params,Map<String,String> headers,Map<String,String> cookies){
+        StringBuilder urlBuilder = new StringBuilder(url);
+        for (Map.Entry<String,String> entry:params.entrySet()){
+            if (!urlBuilder.toString().contains("&")){
+                urlBuilder.append("&").append(entry.getKey()).append("=").append(entry.getValue());
+            }else{
+                urlBuilder.append(entry.getKey()).append("=").append(entry.getValue());
+            }
+
+        }
         logger.info("开始调用接口。。");
         logger.info("========================================");
         logger.info("GET "+url);
@@ -66,16 +83,9 @@ public class WebClientUtil {
         logger.info("Headers  "+headers);
         logger.info("Cookies "+cookies);
 
-        MultiValueMap<String,String> paramsKv = new LinkedMultiValueMap<>();
-        for (Map.Entry<String,String> entry:params.entrySet()){
-            paramsKv.add(entry.getKey(),entry.getValue());
-        }
-        Mono<ClientResponse> mono  = webClient.get()
-                .uri(u->u
-                        .path(url)
-                        .queryParams(paramsKv)
-                        .build()
-                )
+        url = urlBuilder.toString();
+        Mono<ClientResponse> mono  = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).get()
+                .uri(url)
                 .headers(n->{
                     for (Map.Entry<String,String> entry: headers.entrySet()){
                         n.add(entry.getKey(),entry.getValue());
@@ -108,7 +118,7 @@ public class WebClientUtil {
         logger.info("Cookies "+cookies);
         // 函数式编程，遍历请求头构造参数
 
-        Mono<ClientResponse> mono = webClient.post().uri(url)
+        Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).post().uri(url)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .body(BodyInserters.fromFormData(formData))
                 .headers(n->{
@@ -140,7 +150,7 @@ public class WebClientUtil {
         logger.info("Headers  "+headers);
         logger.info("Cookies "+cookies);
         // 函数式编程，遍历请求头构造参数
-        Mono<ClientResponse> mono = webClient.post().uri(url)
+        Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).post().uri(url)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(BodyInserters.fromObject(json))
                 .headers(n->{
@@ -172,7 +182,7 @@ public class WebClientUtil {
         logger.info("Headers  "+headers);
         logger.info("Cookies "+cookies);
         // 函数式编程，遍历请求头构造参数
-        Mono<ClientResponse> mono = webClient.put().uri(url)
+        Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).put().uri(url)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .body(BodyInserters.fromObject(json))
                 .headers(n->{
@@ -203,7 +213,7 @@ public class WebClientUtil {
         logger.info("Headers  "+headers);
         logger.info("Cookies "+cookies);
         // 函数式编程，遍历请求头构造参数
-        Mono<ClientResponse> mono = webClient.delete().uri(url)
+        Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).delete().uri(url)
                 .headers(n->{
                     for (Map.Entry<String,String> entry:headers.entrySet()){
                         n.add(entry.getKey(),entry.getValue());
@@ -220,25 +230,15 @@ public class WebClientUtil {
         return mono.block();
     }
 
-//    public static void main(String[] args) throws SSLException {
-////        WebClientUtil webClientUtil = new WebClientUtil("http://129.204.148.24:8080/temo",new HashMap<>(),new HashMap<>());
-////        Map<String,String> param = new HashMap<>();
-////        Map<String,String> headers = new HashMap<>();
-////        param.put("filter","123456");
-////        System.out.println(new JSONObject(webClientUtil.get("/project/1",param,headers,new HashMap<>()).bodyToMono(Map.class).block()));
-////       webClientUtil.put("/project/a3c948f2-bd99-4315-8e7c-1c1dd9991a8b", "{\n" +
-////               "\t\"pid\": \"a3c948f2-bd99-4315-8e7c-1c1dd9991a8b\",\n" +
-////               "\t\"envs\": [],\n" +
-////               "\t\"pname\": \"测试webClientAAA\"\n" +
-////               "}",new HashMap<>(),new HashMap<>());
-////        webClientUtil.delete("/prject/69cce7db-7b7f-4fbc-b1f8-d0f8e5dea6f4",new HashMap<>(),new HashMap<>());
-////        WebClientUtil webClientUtil = new WebClientUtil("","",new HashMap<>(),new HashMap<>() );
-////        System.out.println(webClientUtil.get("https://www.baidu.com",new HashMap<>(),new HashMap<>(),new HashMap<>()).bodyToMono(String.class));
-//        WebClient webClient = WebClient.create();
-//
-//        String url = "https://www.baidu.com";
-//        String  str1= webClient.get().uri(url).exchange().block().bodyToMono(String.class).block();
-////        String str1 = mono.block();
-//        System.out.println(str1);
-//    }
+    public static void main(String[] args) throws SSLException {
+        String url = "https://www.baidu.com";
+//        ClientResponse clientResponse =  WebClient.create().get().uri(url).exchange().block();
+//        assert clientResponse != null;
+//        System.out.println(clientResponse.bodyToMono(String.class).block());
+//        System.out.println(clientResponse.cookies());
+//        System.out.println(clientResponse.headers());
+        WebClientUtil webClientUtil = new WebClientUtil("xxx","12",new HashMap<>(),new HashMap<>());
+        webClientUtil.get(url,new HashMap<>(),new HashMap<>(),new HashMap<>());
+
+    }
 }
