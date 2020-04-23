@@ -13,6 +13,8 @@ public class ExecuteTodayDto2ExecuteTodayBo extends Converter<ExecuteTodayDto,Ex
     private static class SingletonHolder {
         private static final ExecuteTodayDto2ExecuteTodayBo INSTANCE = new ExecuteTodayDto2ExecuteTodayBo();
     }
+
+
     @Override
     protected ExecuteTodayBo doForward(ExecuteTodayDto executeTodayDto) {
         if (executeTodayDto==null){
