@@ -230,15 +230,15 @@ public class WebClientUtil {
         return mono.block();
     }
 
-    public static void main(String[] args) throws SSLException {
-        String url = "https://www.baidu.com";
+//    public static void main(String[] args) throws SSLException {
+//        String url = "https://www.baidu.com";
 //        ClientResponse clientResponse =  WebClient.create().get().uri(url).exchange().block();
 //        assert clientResponse != null;
 //        System.out.println(clientResponse.bodyToMono(String.class).block());
 //        System.out.println(clientResponse.cookies());
 //        System.out.println(clientResponse.headers());
-        WebClientUtil webClientUtil = new WebClientUtil("xxx","12",new HashMap<>(),new HashMap<>());
-        webClientUtil.get(url,new HashMap<>(),new HashMap<>(),new HashMap<>());
+//        WebClientUtil webClientUtil = new WebClientUtil("xxx","12",new HashMap<>(),new HashMap<>());
+//        webClientUtil.get(url,new HashMap<>(),new HashMap<>(),new HashMap<>());
 
-    }
+//    }
 }
