@@ -34,7 +34,6 @@ public class WebClientUtil {
     private static Logger logger = LoggerFactory.getLogger("fileInfoLog");
 
 
-
     public WebClientUtil(String host, String port, Map<String, String> headers, Map<String, String> cookies) throws SSLException {
         // 设置SSL
         HttpClient secure = HttpClient.create()
@@ -103,6 +102,40 @@ public class WebClientUtil {
     }
 
     /**
+     * post url-en请求
+     * @param url 请求地址
+     * @param paramData  参数
+     * @return
+     */
+    public ClientResponse postByFormUrlencoded(String url, MultiValueMap<String,String> paramData, Map<String,String> headers, Map<String,String> cookies){
+
+        logger.info("开始调用接口。。");
+        logger.info("========================================");
+        logger.info("POST "+url);
+        logger.info("paramData "+paramData);
+        logger.info("Headers  "+headers);
+        logger.info("Cookies "+cookies);
+        // 函数式编程，遍历请求头构造参数
+
+        Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).post().uri(url)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(BodyInserters.fromFormData(paramData))
+                .headers(n->{
+                    for (Map.Entry<String,String> entry:headers.entrySet()){
+                        n.add(entry.getKey(),entry.getValue());
+                    }
+                })
+                .cookies(n-> {
+                    for (Map.Entry<String, String> entry : cookies.entrySet()) {
+                        n.add(entry.getKey(), entry.getValue());
+                    }
+                })
+                .acceptCharset(StandardCharsets.UTF_8)
+                .exchange();
+        return mono.block();
+    }
+
+    /**
      * post 表单请求
      * @param url 请求地址
      * @param formData  表单参数
@@ -151,7 +184,7 @@ public class WebClientUtil {
         logger.info("Cookies "+cookies);
         // 函数式编程，遍历请求头构造参数
         Mono<ClientResponse> mono = (url.startsWith("http") | url.startsWith("https") ?defaultWebclient:webClient).post().uri(url)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(json))
                 .headers(n->{
                     for (Map.Entry<String,String> entry:headers.entrySet()){
