@@ -69,10 +69,10 @@ public class WebClientUtil {
     public ClientResponse get(String url,Map<String,String> params,Map<String,String> headers,Map<String,String> cookies){
         StringBuilder urlBuilder = new StringBuilder(url);
         for (Map.Entry<String,String> entry:params.entrySet()){
-            if (!urlBuilder.toString().contains("&")){
-                urlBuilder.append("&").append(entry.getKey()).append("=").append(entry.getValue());
+            if (!urlBuilder.toString().contains("?")){
+                urlBuilder.append("?").append(entry.getKey()).append("=").append(entry.getValue());
             }else{
-                urlBuilder.append(entry.getKey()).append("=").append(entry.getValue());
+                urlBuilder.append("&").append(entry.getKey()).append("=").append(entry.getValue());
             }
 
         }
