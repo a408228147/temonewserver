@@ -31,7 +31,12 @@ public class TestUtilController {
     @ApiOperation("调试接口")
     @PostMapping("/testApi")
     public JsonResult testApi(@RequestBody ApiTestEntity apiTestEntity) throws SSLException {
-        ApiTestBo apiTestBo = apiTestService.testApi(apiTestEntity);
-        return new JsonResult("调试成功",200,apiTestAo2ApiTestBo.reverse().convert(apiTestBo),true);
+        try {
+            ApiTestBo apiTestBo = apiTestService.testApi(apiTestEntity);
+            return new JsonResult("调试成功",200,apiTestAo2ApiTestBo.reverse().convert(apiTestBo),true);
+        }catch (Exception e){
+            return new JsonResult("调试失败",500,e.getMessage(),false);
+        }
+
     }
 }
