@@ -20,6 +20,9 @@ public class DatabaseBo {
     @ApiModelProperty("数据库名称")
     private String dbName;
 
+    @ApiModelProperty("数据库类型:100-mysql,200-redis")
+    private String dbType;
+
     @ApiModelProperty("主机Ip")
     private String host;
 

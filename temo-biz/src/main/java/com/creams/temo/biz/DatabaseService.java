@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface DatabaseService {
-    List<DatabaseBo> queryAllDatabase();
+    List<DatabaseBo> queryAllDatabase(String dbType);
     PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String filter);
     DatabaseBo queryDatabaseById(String dbId);
     String addDatabase(DatabaseBo databaseBo);

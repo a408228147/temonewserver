@@ -11,10 +11,12 @@ import com.creams.temo.model.ScriptDbBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,17 +31,27 @@ public class SqlExecuteServiceImpl implements SqlExecuteService {
     private DatabaseMapper databaseMapper;
     final DatabaseDto2DatabaseBo databaseDto2DatabaseBo = DatabaseDto2DatabaseBo.getInstance();
 
+    @Override
     public void testConnect(DatabaseBo databaseInfo) {
-        // 构建数据库实例
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl(String.format("jdbc:mysql://%s:%d/%s?characterEncoding=utf-8", databaseInfo.getHost(), databaseInfo.getPort(),
-                databaseInfo.getDbLibraryName()));
-        dataSource.setUsername(databaseInfo.getUser());
-        dataSource.setPassword(databaseInfo.getPwd());
-        DataSourceUtils.getConnection(dataSource);
+        // test mysql 链接
+        if ("100".equals(databaseInfo.getDbType())){
+            // 构建数据库实例
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
+            dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+            dataSource.setUrl(String.format("jdbc:mysql://%s:%d/%s?characterEncoding=utf-8", databaseInfo.getHost(), databaseInfo.getPort(),
+                    databaseInfo.getDbLibraryName()));
+            dataSource.setUsername(databaseInfo.getUser());
+            dataSource.setPassword(databaseInfo.getPwd());
+            DataSourceUtils.getConnection(dataSource);
+            // test reids 链接
+        }else if ("200".equals(databaseInfo.getDbType())){
+            //创建Jedis实例
+            Jedis jedis = new Jedis(databaseInfo.getHost(), databaseInfo.getPort());
+            jedis.ping();
+        }
     }
 
+    @Override
     public DriverManagerDataSource getDataSource(String dbId) {
         DatabaseDto databaseInfo = databaseMapper.queryDatabaseById(dbId);
         DatabaseBo databaseBo = databaseDto2DatabaseBo.convert(databaseInfo);
@@ -60,6 +72,7 @@ public class SqlExecuteServiceImpl implements SqlExecuteService {
      * @param scriptRequest
      * @return
      */
+    @Override
     public Map sqlExecute(ScriptDbBo scriptRequest) {
         //1.拿到数据库实例
         DriverManagerDataSource dataSource = getDataSource(scriptRequest.getDbId());
