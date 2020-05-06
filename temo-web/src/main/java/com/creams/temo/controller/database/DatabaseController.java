@@ -48,12 +48,10 @@ public class DatabaseController {
     @ApiOperation("模糊查询数据库列表")
     @GetMapping(value = "/{page}")
     public JsonResult queryDatabaseByName(@PathVariable(required = false) @ApiParam("页数") Integer page,
-                                       @RequestParam(value = "filter",required = false) @ApiParam("查询条件") String filter){
-        if (filter == null){
-            filter = "";
-        }
+                                       @RequestParam(value = "dbName",required = false) @ApiParam("数据库名") String dbName,
+                                          @RequestParam(value = "dbType",required = false) @ApiParam("数据库类型") String dbType){
         try {
-            PageInfo<DatabaseBo> pageInfo = databaseService.queryDatabaseByName(page, filter);
+            PageInfo<DatabaseBo> pageInfo = databaseService.queryDatabaseByName(page, dbName,dbType);
             HashMap<String,Object> map = new HashMap<>();
             map.put("list", pageInfo.getList());
             map.put("total", pageInfo.getTotal());
@@ -100,8 +98,8 @@ public class DatabaseController {
     }
 
     @ApiOperation("修改数据库")
-    @PutMapping(value = "/update")
-    public JsonResult updateDatabaseById( @RequestBody DatabaseAo databaseRequest){
+    @PutMapping(value = "/{id}")
+    public JsonResult updateDatabaseById(@PathVariable(value = "id") String dbId, @RequestBody DatabaseAo databaseRequest){
         try {
             databaseService.updateDatabaseById(databaseAo2DatabaseBo.convert(databaseRequest));
             return new JsonResult("操作成功", 200, null, true);
@@ -130,13 +128,8 @@ public class DatabaseController {
     @PostMapping(value = "/testConnect")
     public JsonResult testConnect(@RequestBody DatabaseAo databaseRequest){
         try{
-
-            if ("200".equals(databaseRequest.getDbType()) || "100".equals(databaseRequest.getDbType())){
-                sqlExecuteService.testConnect(databaseAo2DatabaseBo.convert(databaseRequest));
-                return new JsonResult("连接成功", 200, null, true);
-            }else {
-                return new JsonResult("连接失败", 500, null, true);
-            }
+            sqlExecuteService.testConnect(databaseAo2DatabaseBo.convert(databaseRequest));
+            return new JsonResult("连接成功", 200, null, true);
 
         }catch (Exception e){
             e.printStackTrace();

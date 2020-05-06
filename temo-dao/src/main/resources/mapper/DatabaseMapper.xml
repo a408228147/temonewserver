@@ -25,7 +25,16 @@
 
 
     <select id="queryDatabase" parameterType="java.lang.String" resultMap="BaseResultMap">
-      SELECT * FROM db where db_name like concat('%',#{db_name},'%') order by updatetime desc
+      SELECT * FROM db
+       <where>
+           <if test="db_name!=null and db_name!=''">
+                and db_name like concat('%',#{db_name},'%')
+           </if>
+           <if test="db_type!=null and db_type!=''">
+               and db_type=#{db_type}
+           </if>
+       </where>
+       order by updatetime desc
     </select>
 
     <select id="queryDatabaseById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -35,7 +44,7 @@
     <insert id="addDatabase" parameterType="com.creams.temo.model.DatabaseDto">
         insert into db (db_id ,db_name,db_type,host,port,user,pwd,db_library_name)
         VALUES
-        {(#{dbId},#{dbName},#dbType},#{host},#{port},#{user},#{pwd},#{dbLibraryName})
+        {(#{dbId},#{dbName},#{dbType},#{host},#{port},#{user},#{pwd},#{dbLibraryName})
     </insert>
 
     <update id="updateDatabaseById" parameterType="com.creams.temo.model.DatabaseDto">

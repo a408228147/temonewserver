@@ -10,7 +10,7 @@ import java.util.List;
 public interface DatabaseMapper {
     List<DatabaseDto> queryAllDatabase(@Param("db_type") String dbType);
 
-    List<DatabaseDto> queryDatabase(@Param("db_name") String name);
+    List<DatabaseDto> queryDatabase(@Param("db_name") String name,@Param("db_type") String dbType);
     DatabaseDto queryDatabaseById(@Param("db_id") String dbId);
 
     void addDatabase(DatabaseDto databaseDto);

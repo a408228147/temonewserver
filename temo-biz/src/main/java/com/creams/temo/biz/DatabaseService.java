@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DatabaseService {
     List<DatabaseBo> queryAllDatabase(String dbType);
-    PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String filter);
+    PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String dbName,String dbType);
     DatabaseBo queryDatabaseById(String dbId);
     String addDatabase(DatabaseBo databaseBo);
     void updateDatabaseById(DatabaseBo databaseBo);

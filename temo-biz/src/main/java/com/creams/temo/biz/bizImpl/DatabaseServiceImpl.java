@@ -30,9 +30,9 @@ public class DatabaseServiceImpl implements DatabaseService {
      * @return
      */
     @Override
-    public PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String name){
+    public PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String name,String type){
         PageHelper.startPage(page, 10);
-        List<DatabaseBo> databaseResponses =Lists.newArrayList(databbaseDto2DatabaseBo.convertAll(databaseMapper.queryDatabase(name)));
+        List<DatabaseBo> databaseResponses =Lists.newArrayList(databbaseDto2DatabaseBo.convertAll(databaseMapper.queryDatabase(name,type)));
         return new PageInfo<>(databaseResponses);
     }
 
