@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface DatabaseMapper {
-    List<DatabaseDto> queryAllDatabase();
+    List<DatabaseDto> queryAllDatabase(@Param("db_type") String dbType);
 
     List<DatabaseDto> queryDatabase(@Param("db_name") String name);
     DatabaseDto queryDatabaseById(@Param("db_id") String dbId);

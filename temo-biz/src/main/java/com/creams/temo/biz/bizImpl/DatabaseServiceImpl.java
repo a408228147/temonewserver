@@ -20,14 +20,16 @@ public class DatabaseServiceImpl implements DatabaseService {
     private DatabaseMapper databaseMapper;
     final DatabaseDto2DatabaseBo databbaseDto2DatabaseBo =DatabaseDto2DatabaseBo.getInstance();
 
-    public List<DatabaseBo> queryAllDatabase(){
-        return Lists.newArrayList(databbaseDto2DatabaseBo.convertAll(databaseMapper.queryAllDatabase()));
+    @Override
+    public List<DatabaseBo> queryAllDatabase(String dbType){
+        return Lists.newArrayList(databbaseDto2DatabaseBo.convertAll(databaseMapper.queryAllDatabase(dbType)));
     }
 
     /**
      * 分页查询数据库配置信息
      * @return
      */
+    @Override
     public PageInfo<DatabaseBo> queryDatabaseByName(Integer page, String name){
         PageHelper.startPage(page, 10);
         List<DatabaseBo> databaseResponses =Lists.newArrayList(databbaseDto2DatabaseBo.convertAll(databaseMapper.queryDatabase(name)));
@@ -39,6 +41,7 @@ public class DatabaseServiceImpl implements DatabaseService {
      * @param dbId
      * @return
      */
+    @Override
     public DatabaseBo queryDatabaseById(String dbId){
         return  databbaseDto2DatabaseBo.convert(databaseMapper.queryDatabaseById(dbId));
     }
@@ -48,6 +51,7 @@ public class DatabaseServiceImpl implements DatabaseService {
      * @param databaseBo
      * @return
      */
+    @Override
     @Transactional
     public String addDatabase(DatabaseBo databaseBo){
         String dbId = StringUtil.uuid();
@@ -61,6 +65,7 @@ public class DatabaseServiceImpl implements DatabaseService {
      * @param databaseBo
      * @return
      */
+    @Override
     @Transactional
     public void updateDatabaseById(DatabaseBo databaseBo){
           databaseMapper.updateDatabaseById(databbaseDto2DatabaseBo.reverse().convert(databaseBo));
@@ -71,6 +76,7 @@ public class DatabaseServiceImpl implements DatabaseService {
      * @param dbId
      * @return
      */
+    @Override
     @Transactional
     public void deleteDatabaseById(String dbId){
           databaseMapper.deteleDatabaseById(dbId);

@@ -7,6 +7,7 @@ import com.creams.temo.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,11 @@ public class SqlExecuteController {
      * @param scriptRequest
      * @return
      */
-    @ApiOperation("执行脚本中的sql")
+    @ApiOperation("执行数据库脚本")
     @PostMapping(value = "/")
     public JsonResult sqlExecute(@RequestBody ScriptDbAo scriptRequest) {
         Map result = sqlExecuteService.sqlExecute(scriptDbAo2ScriptDbBo.convert(scriptRequest));
-        if ((Integer)result.get("error") > 0){
+        if (!result.isEmpty() &&  (Integer)result.get("error") > 0){
             return new JsonResult("操作失败", 500, result,false );
         }
         return new JsonResult("操作成功",200,result,true);

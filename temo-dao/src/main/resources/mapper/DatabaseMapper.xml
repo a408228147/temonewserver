@@ -6,6 +6,7 @@
         <result property="id" column="id"/>
         <result property="dbId" column="db_id" jdbcType="VARCHAR"/>
         <result property="dbName" column="db_name" jdbcType="VARCHAR"/>
+        <result property="dbType" column="db_type" jdbcType="VARCHAR"/>
         <result property="host" column="host" jdbcType="VARCHAR"/>
         <result property="port" column="port"/>
         <result property="user" column="user" jdbcType="VARCHAR"/>
@@ -13,7 +14,13 @@
         <result property="dbLibraryName" column="db_library_name" jdbcType="VARCHAR"/>
     </resultMap>
     <select id="queryAllDatabase" resultMap="BaseResultMap">
-        SELECT * FROM db order by updatetime desc
+        SELECT * FROM db
+        <where>
+            <if test="db_type!=null" >
+                and db_type = #{db_type}
+            </if>
+        </where>
+         order by updatetime desc
     </select>
 
 
@@ -26,13 +33,13 @@
     </select>
 
     <insert id="addDatabase" parameterType="com.creams.temo.model.DatabaseDto">
-        insert into db (db_id ,db_name,host,port,user,pwd,db_library_name)
+        insert into db (db_id ,db_name,db_type,host,port,user,pwd,db_library_name)
         VALUES
-        (#{dbId},#{dbName},#{host},#{port},#{user},#{pwd},#{dbLibraryName})
+        {(#{dbId},#{dbName},#dbType},#{host},#{port},#{user},#{pwd},#{dbLibraryName})
     </insert>
 
     <update id="updateDatabaseById" parameterType="com.creams.temo.model.DatabaseDto">
-        update  db  set db_name=#{dbName},host=#{host},port=#{port},user=#{user},pwd=#{pwd},db_library_name=#{dbLibraryName}
+        update  db  set db_name=#{dbName},db_type=#{dbType}, host=#{host},port=#{port},user=#{user},pwd=#{pwd},db_library_name=#{dbLibraryName}
         where db_id = #{dbId}
     </update>
 

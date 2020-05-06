@@ -35,12 +35,12 @@ public class DatabaseController {
 
     @ApiOperation("查询所有数据库信息")
     @GetMapping(value = "/")
-    public JsonResult queryAllDatabase(){
+    public JsonResult queryAllDatabase( @RequestParam(required = false) @ApiParam("100-mysql,200-redis") String dbType){
         try{
-            List<DatabaseBo> databaseResponses = databaseService.queryAllDatabase();
-
+            List<DatabaseBo> databaseResponses = databaseService.queryAllDatabase(dbType);
             return new JsonResult("操作成功", 200, databaseResponses, true);
         }catch (Exception e ){
+            e.printStackTrace();
             return new JsonResult("操作失败",500,null,false);
         }
     }
@@ -100,10 +100,9 @@ public class DatabaseController {
     }
 
     @ApiOperation("修改数据库")
-    @PutMapping(value = "/{id}")
-    public JsonResult updateDatabaseById(@PathVariable("id") @ApiParam("数据库id") String dbId, @RequestBody DatabaseAo databaseRequest){
+    @PutMapping(value = "/update")
+    public JsonResult updateDatabaseById( @RequestBody DatabaseAo databaseRequest){
         try {
-            databaseRequest.setDbId(dbId);
             databaseService.updateDatabaseById(databaseAo2DatabaseBo.convert(databaseRequest));
             return new JsonResult("操作成功", 200, null, true);
         }catch (Exception e){
@@ -115,7 +114,7 @@ public class DatabaseController {
 
 
     @ApiOperation("删除数据库")
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public JsonResult deleteDatabaseById(@PathVariable("id") @ApiParam("数据库id") String dbId){
         try {
             databaseService.deleteDatabaseById(dbId);
@@ -131,8 +130,14 @@ public class DatabaseController {
     @PostMapping(value = "/testConnect")
     public JsonResult testConnect(@RequestBody DatabaseAo databaseRequest){
         try{
-            sqlExecuteService.testConnect(databaseAo2DatabaseBo.convert(databaseRequest));
-            return new JsonResult("连接成功", 200, null, true);
+
+            if ("200".equals(databaseRequest.getDbType()) || "100".equals(databaseRequest.getDbType())){
+                sqlExecuteService.testConnect(databaseAo2DatabaseBo.convert(databaseRequest));
+                return new JsonResult("连接成功", 200, null, true);
+            }else {
+                return new JsonResult("连接失败", 500, null, true);
+            }
+
         }catch (Exception e){
             e.printStackTrace();
             return new JsonResult("连接失败",500,e.getMessage(),false);

@@ -56,6 +56,7 @@ public class TaskController {
     }
 
 
+
     @ApiOperation(value = "查询任务详情")
     @GetMapping("/{taskId}/info")
     public JsonResult queryTaskDetail(@PathVariable("taskId") String taskId) {

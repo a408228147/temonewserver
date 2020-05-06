@@ -8,6 +8,8 @@ import com.creams.temo.biz.SqlExecuteService;
 import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.entity.*;
 import com.creams.temo.mapper.*;
+import com.creams.temo.model.DatabaseBo;
+import com.creams.temo.model.DatabaseDto;
 import com.creams.temo.model.ScriptDbDto;
 import com.creams.temo.model.UserBo;
 import com.creams.temo.tools.RedisUtil;
@@ -32,12 +34,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.ClientResponse;
+import redis.clients.jedis.Jedis;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,6 +62,9 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
 
     @Autowired
     VerifyMapper verifyMapper;
+
+    @Autowired
+    DatabaseMapper databaseMapper;
 
     @Autowired
     EnvMapper envMapper;
@@ -314,6 +317,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
         if (setupScript != null) {
             List<SetupScript> setupScripts = JSON.parseArray(setupScript, SetupScript.class);
             for (SetupScript s : setupScripts) {
+                //如果前置为用例集
                 if ("SET".equals(s.getScriptType())) {
                     variables.putAll(executeSetUpSet(s.getScriptId(), envId));
                 } else {
@@ -1215,30 +1219,77 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public Map<String, String> executeSetupDbScript(String scriptId) {
 
         Map<String, String> variables = new HashMap<>();
-        //1.拿到数据库实例
         ScriptDbDto scriptResponse = scriptMapper.queryScriptById(scriptId);
-        DriverManagerDataSource dataSource = sqlExecuteService.getDataSource(scriptResponse.getDbId());
-        //2. 创建jdbctemplate 实例
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-        //3. 遍历sql列表，执行sql
-        List<SqlScript> sqlScripts = JSON.parseArray(scriptResponse.getSqlScript(), SqlScript.class);
+        DatabaseDto databaseDto = databaseMapper.queryDatabaseById(scriptResponse.getDbId());
 
-        for (SqlScript sqlScript : sqlScripts) {
-            try {
-                if (sqlScript.getScript().toLowerCase().trim().startsWith("select")) {
-                    Map map = (Map<String, String>) JSON.parseObject(JSON.toJSONString(jdbcTemplate.queryForMap(sqlScript.getScript())), Map.class);
-                    if (sqlScript.getSaveParam()) {
-                        variables.putAll((Map<String, String>) map);
+        //判断其为mysql前置脚本
+        if ("100".equals(databaseDto.getDbType())){
+            //1.拿到数据库实例
+            DriverManagerDataSource dataSource = sqlExecuteService.getDataSource(scriptResponse.getDbId());
+            //2. 创建jdbctemplate 实例
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            //3. 遍历sql列表，执行sql
+            List<SqlScript> sqlScripts = JSON.parseArray(scriptResponse.getSqlScript(), SqlScript.class);
+
+            for (SqlScript sqlScript : sqlScripts) {
+                try {
+                    // 判断是否为查询操作，如果是则需要保存到map，给后续用例集使用
+                    if (sqlScript.getScript().toLowerCase().trim().startsWith("select")) {
+                        Map map = (Map<String, String>) JSON.parseObject(JSON.toJSONString(jdbcTemplate.queryForMap(sqlScript.getScript())), Map.class);
+                        if (sqlScript.getSaveParam()) {
+                            variables.putAll((Map<String, String>) map);
+                        }
+                    } else {
+                        jdbcTemplate.execute(sqlScript.getScript());
                     }
-                } else {
-                    jdbcTemplate.execute(sqlScript.getScript());
+                    logger.info("sql=====>" + sqlScript.getScript() + " 执行成功");
+                } catch (Exception e) {
+                    logger.error("sql=====>" + sqlScript.getScript() + " 执行异常！错误原因：" + e);
                 }
-                logger.info("sql=====>" + sqlScript.getScript() + " 执行成功");
-            } catch (Exception e) {
-                logger.error("sql=====>" + sqlScript.getScript() + " 执行异常！错误原因：" + e);
+            }
+            return variables;
+            //判断其为redis前置脚本
+        }else if ("200".equals(databaseDto.getDbType())){
+            //1. 遍历脚本列表，执行sql
+            List<SqlScript> redisScripts = JSON.parseArray(scriptResponse.getSqlScript(), SqlScript.class);
+            for (SqlScript redisScript : redisScripts
+                 ) {
+                try {
+                    // 判断redis命令，目前支持string，list，set
+                    if(redisScript.getScript().toLowerCase().trim().startsWith("set")){
+                        List<String> list = Arrays.asList(redisScript.getScript().split("\\s+"));
+                        if (list.size() == 3 && redisScript.getSaveParam()){
+                            variables.put(list.get(1), list.get(2));
+                            logger.info("redis=====>" + redisScript.getScript() + " 执行成功" + variables);
+                            return variables;
+                        }
+                        logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
+
+                    // 还需要处理，看看后续怎么设计
+                    }else if (redisScript.getScript().toLowerCase().trim().startsWith("lpush")){
+                        List<String> list = Arrays.asList(redisScript.getScript().split("\\s+"));
+                        if (list.size() == 3 && redisScript.getSaveParam()){
+                            variables.put(list.get(1), list.get(2));
+                            logger.info("redis=====>" + redisScript.getScript() + " 执行成功");
+                            return variables;
+                        }
+                        logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
+
+                    }else if (redisScript.getScript().toLowerCase().trim().startsWith("sadd")){
+                        List<String> list = Arrays.asList(redisScript.getScript().split("\\s+"));
+                        if (list.size() == 3 && redisScript.getSaveParam()){
+                            variables.put(list.get(1), list.get(2));
+                            logger.info("redis=====>" + redisScript.getScript() + " 执行成功");
+                            return variables;
+                        }
+                        logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
+                    }
+                    logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
+                }catch (Exception e){
+                    logger.error("redis=====>" + redisScript.getScript() + " 执行异常！错误原因：" + e);
+                }
             }
         }
-
         return variables;
     }
 }
