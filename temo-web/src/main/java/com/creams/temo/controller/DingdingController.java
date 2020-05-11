@@ -73,7 +73,7 @@ public class DingdingController {
     }
 
     @ApiOperation("删除钉钉机器人")
-    @PutMapping(value = "/{descId}")
+    @DeleteMapping(value = "/{descId}")
     public JsonResult deleteDingding(@PathVariable("descId") String descId) {
 
         try {
