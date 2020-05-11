@@ -4,6 +4,7 @@ import com.creams.temo.biz.DingdingService;
 import com.creams.temo.entity.DingdingEntity;
 import com.creams.temo.entity.UserInfo;
 import com.creams.temo.mapper.DingdingMapper;
+import com.creams.temo.model.UserBo;
 import com.creams.temo.tools.StringUtil;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class DingdingServiceImpl implements DingdingService {
     @Transactional
     public void addDingding(DingdingEntity dingdingEntity) {
         dingdingEntity.setDescId(StringUtil.uuid());
-        UserInfo user = (UserInfo) SecurityUtils.getSubject().getPrincipal();
+        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
         dingdingEntity.setCreater(user.getUserName());
         dingdingMapper.addDingding(dingdingEntity);
     }
