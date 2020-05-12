@@ -28,7 +28,10 @@ public class TaskAo2TaskBo extends Converter<TaskAo,TaskBo> {
                 .taskId(taskAo.getTaskId())
                 .taskName(taskAo.getTaskName())
                 .testSets(taskAo.getTestSets())
-                .times(taskAo.getTimes()).build();
+                .times(taskAo.getTimes())
+                .isDing(taskAo.getIsDing())
+                .dingId(taskAo.getDingId())
+                .build();
     }
 
     @Override
@@ -44,6 +47,9 @@ public class TaskAo2TaskBo extends Converter<TaskAo,TaskBo> {
                 .taskId(taskBo.getTaskId())
                 .taskName(taskBo.getTaskName())
                 .testSets(taskBo.getTestSets())
-                .times(taskBo.getTimes()).build();
+                .times(taskBo.getTimes())
+                .isDing(taskBo.getIsDing())
+                .dingId(taskBo.getDingId())
+                .build();
     }
 }

@@ -3,12 +3,14 @@ package com.creams.temo.entity;
 import com.alibaba.fastjson.JSONObject;
 import com.creams.temo.tools.DingdingUtils;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Builder
 public class TextEntity {
     @ApiModelProperty(hidden = true)
     private String msgType;

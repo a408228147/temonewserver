@@ -44,6 +44,12 @@ public class TimingTaskAo {
     @ApiModelProperty("邮件")
     private String mail;
 
+    @ApiModelProperty("钉钉开关")
+    private Integer isDing;
+
+    @ApiModelProperty("钉钉id")
+    private String dingId;
+
     @ApiModelProperty("用例集")
     private String testSets;
 

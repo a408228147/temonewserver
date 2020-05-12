@@ -15,7 +15,7 @@
             `webhook` = #{webhook}
         WHERE
             `desc_id` = #{descId};
-    </update>   
+    </update>
     <delete id="deleteDingding">
         delete from dingding where desc_id = #{desc_id}
     </delete>

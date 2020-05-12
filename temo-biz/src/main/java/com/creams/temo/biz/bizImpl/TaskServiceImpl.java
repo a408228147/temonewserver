@@ -2,13 +2,12 @@ package com.creams.temo.biz.bizImpl;
 
 import com.alibaba.fastjson.JSON;
 import com.creams.temo.TaskScheduler;
+import com.creams.temo.biz.DingdingService;
 import com.creams.temo.biz.TaskService;
 import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.convert.TaskDto2TaskBo;
 import com.creams.temo.convert.TimingTaskDto2TimingTaskBo;
-import com.creams.temo.entity.SetResult;
-import com.creams.temo.entity.TaskResult;
-import com.creams.temo.entity.TestSet;
+import com.creams.temo.entity.*;
 
 import com.creams.temo.mapper.SetResultMapper;
 import com.creams.temo.mapper.TaskMapper;
@@ -16,6 +15,7 @@ import com.creams.temo.mapper.TaskMapper;
 import com.creams.temo.mapper.TaskResultMapper;
 import com.creams.temo.model.*;
 import com.creams.temo.tools.DateUtil;
+import com.creams.temo.tools.DingdingUtils;
 import com.creams.temo.tools.StringUtil;
 
 import com.github.pagehelper.PageHelper;
@@ -31,6 +31,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -62,6 +64,10 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     public SetResultMapper setResultMapper;
+
+    @Autowired
+    public DingdingService dingdingService;
+
     final TaskDto2TaskBo taskDto2TaskBo = TaskDto2TaskBo.getInstance();
     final TimingTaskDto2TimingTaskBo timingTaskDto2TimingTaskBo = TimingTaskDto2TimingTaskBo.getInstance();
 
@@ -176,14 +182,19 @@ public class TaskServiceImpl implements TaskService {
     public void startSynchronizeTask(String taskId) {
         // 获取任务相关联的需要执行的用例集
         TimingTaskBo taskResponse = queryTaskDetail(taskId);
-        // 添加执行记录
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        DingdingEntity dingdingEntity = dingdingService.queryDingdingBydescId(taskResponse.getDingId());
+        UserBo user;
+        try{
+            user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        }catch (Exception e){
+            user = null;
+        }
         String taskResultId = StringUtil.uuid();
         TaskResult taskResult = TaskResult.builder()
                 .taskResultNum("task-" + System.currentTimeMillis())
                 .taskName(taskResponse.getTaskName())
                 .status(1)
-                .person(user.getUserName())
+                .person(user!=null?user.getUserName():"系统定时执行")
                 .taskId(taskId)
                 .taskResultId(taskResultId)
                 .startTime(DateUtil.getCurrentTimestamp()).build();
@@ -193,6 +204,21 @@ public class TaskServiceImpl implements TaskService {
         // 立即执行
         Integer total = testSets.size();
         Integer successNum = 0;
+        // 发送钉钉通知
+        long beforeTime = System.currentTimeMillis();
+        String dingMsg;
+        TextEntity textEntity;
+        if (taskResponse.getIsDing()==1){
+            dingMsg = String.format("\n任务：%s\n执行方式：串行\n包含用例集：%d 个\n现在开始执行......",
+                    taskResponse.getTaskName(),total);
+            textEntity = TextEntity.builder()
+                    .atMobiles(Collections.emptyList())
+                    .content(dingMsg)
+                    .isAtAll(false)
+                    .build();
+            DingdingUtils.sendToDingding(textEntity.getJSONObjectString(dingdingEntity.getKeysWord()),dingdingEntity.getWebhook());
+        }
+
         for (TestSet testSet : testSets) {
             try {
                 // 同步调用用例集
@@ -217,6 +243,18 @@ public class TaskServiceImpl implements TaskService {
         } else {
             successRate = df.format(((float) successNum / total) * 100);
         }
+        long afterTime = System.currentTimeMillis();
+        if (taskResponse.getIsDing()==1){
+            dingMsg = String.format("\n任务：%s 执行结束！本次共执行用例集 %d 个，成功 %d 个，失败 %d 个，成功率为 %s %%,共耗时 %d s",
+                    taskResponse.getTaskName(),total,successNum,total-successNum,successRate,(afterTime-beforeTime)/1000);
+            textEntity = TextEntity.builder()
+                    .atMobiles(Collections.emptyList())
+                    .content(dingMsg)
+                    .isAtAll(false)
+                    .build();
+            DingdingUtils.sendToDingding(textEntity.getJSONObjectString(dingdingEntity.getKeysWord()),dingdingEntity.getWebhook());
+        }
+
         taskResult.setSuccessRate(successRate);
         taskResultMapper.updateTaskResult(taskResult);
 
@@ -231,14 +269,20 @@ public class TaskServiceImpl implements TaskService {
     public void startAsnchronizeTask(String taskId) {
         // 获取任务相关联的需要执行的用例集
         TimingTaskBo taskResponse = queryTaskDetail(taskId);
+        DingdingEntity dingdingEntity = dingdingService.queryDingdingBydescId(taskResponse.getDingId());
         // 添加执行记录
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserBo user;
+        try{
+            user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        }catch (Exception e){
+            user = null;
+        }
         String taskResultId = StringUtil.uuid();
         TaskResult taskResult = TaskResult.builder()
                 .taskResultNum("task-" + System.currentTimeMillis())
                 .taskName(taskResponse.getTaskName())
                 .status(1)
-                .person(user.getUserName())
+                .person(user!=null?user.getUserName():"系统定时执行")
                 .taskId(taskId)
                 .taskResultId(taskResultId)
                 .startTime(DateUtil.getCurrentTimestamp()).build();
@@ -250,6 +294,20 @@ public class TaskServiceImpl implements TaskService {
         // 立即执行
         Integer total = testSets.size();
         Integer successNum = 0;
+        // 发送钉钉通知
+        long beforeTime = System.currentTimeMillis();
+        String dingMsg;
+        TextEntity textEntity;
+        if (taskResponse.getIsDing()==1){
+            dingMsg = String.format("\n任务：%s\n执行方式：并行\n包含用例集：%d 个\n现在开始执行......",
+                    taskResponse.getTaskName(),total);
+            textEntity = TextEntity.builder()
+                    .atMobiles(Collections.emptyList())
+                    .content(dingMsg)
+                    .isAtAll(false)
+                    .build();
+            DingdingUtils.sendToDingding(textEntity.getJSONObjectString(dingdingEntity.getKeysWord()),dingdingEntity.getWebhook());
+        }
         for (TestSet testSet : testSets)
             try {
                 // 异步调用用例集
@@ -293,6 +351,17 @@ public class TaskServiceImpl implements TaskService {
             successRate = "0.00";
         } else {
             successRate = df.format(((float) successNum / total) * 100);
+        }
+        long afterTime = System.currentTimeMillis();
+        if (taskResponse.getIsDing()==1){
+            dingMsg = String.format("\n任务：%s 执行结束！本次共执行用例集 %d 个，成功 %d 个，失败 %d 个，成功率为 %s %%,共耗时 %d s",
+                    taskResponse.getTaskName(),total,successNum,total-successNum,successRate,(afterTime-beforeTime)/1000);
+            textEntity = TextEntity.builder()
+                    .atMobiles(Collections.emptyList())
+                    .content(dingMsg)
+                    .isAtAll(false)
+                    .build();
+            DingdingUtils.sendToDingding(textEntity.getJSONObjectString(dingdingEntity.getKeysWord()),dingdingEntity.getWebhook());
         }
         taskResult.setSuccessRate(successRate);
         taskResultMapper.updateTaskResult(taskResult);

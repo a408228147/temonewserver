@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import com.alibaba.fastjson.TypeReference;
+import com.creams.temo.biz.DingdingService;
 import com.creams.temo.biz.SqlExecuteService;
 import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.entity.*;
@@ -12,10 +13,7 @@ import com.creams.temo.model.DatabaseBo;
 import com.creams.temo.model.DatabaseDto;
 import com.creams.temo.model.ScriptDbDto;
 import com.creams.temo.model.UserBo;
-import com.creams.temo.tools.RedisUtil;
-import com.creams.temo.tools.StringUtil;
-import com.creams.temo.tools.WebClientUtil;
-import com.creams.temo.tools.WebSocketUtil;
+import com.creams.temo.tools.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
@@ -86,6 +84,9 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
 
     @Autowired
     WebSocketUtil webSocketServer;
+
+    @Autowired
+    DingdingService dingdingService;
 
     private static Logger logger = LoggerFactory.getLogger("fileInfoLog");
 

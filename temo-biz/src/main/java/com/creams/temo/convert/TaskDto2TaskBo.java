@@ -28,7 +28,10 @@ public class TaskDto2TaskBo extends Converter<TaskDto,TaskBo> {
                 .taskId(taskDto.getTaskId())
                 .taskName(taskDto.getTaskName())
                 .testSets(taskDto.getTestSets())
-                .times(taskDto.getTimes()).build();
+                .times(taskDto.getTimes())
+                .isDing(taskDto.getIsDing())
+                .dingId(taskDto.getDingId())
+                .build();
     }
 
     @Override
@@ -44,6 +47,9 @@ public class TaskDto2TaskBo extends Converter<TaskDto,TaskBo> {
                 .taskId(taskBo.getTaskId())
                 .taskName(taskBo.getTaskName())
                 .testSets(taskBo.getTestSets())
-                .times(taskBo.getTimes()).build();
+                .times(taskBo.getTimes())
+                .isDing(taskBo.getIsDing())
+                .dingId(taskBo.getDingId())
+                .build();
     }
 }

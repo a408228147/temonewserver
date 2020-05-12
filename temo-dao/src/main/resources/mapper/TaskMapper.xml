@@ -7,16 +7,16 @@
 
     <insert id="addTask" parameterType="com.creams.temo.model.TaskDto">
         INSERT into task
-        (task_id, task_name, task_desc, is_timing, is_parallel,  times,  testsets, creator)
+        (task_id, task_name, task_desc, is_timing, is_parallel,is_ding,ding_id,  times,  testsets, creator)
         values
-        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{isParallel},  #{times},  #{testSets}, #{creator})
+        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{isParallel},#{isDing},#{dingId},  #{times},  #{testSets}, #{creator})
     </insert>
 
     <insert id="addTimingTask" parameterType="com.creams.temo.model.TimingTaskDto">
         INSERT into task
-        (task_id, task_name, task_desc, is_timing, cron, is_mail,mail, is_parallel, times,is_open, testsets, creator)
+        (task_id, task_name, task_desc, is_timing, cron, is_mail,mail,is_ding,ding_id, is_parallel, times,is_open, testsets, creator)
         values
-        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{cron},#{isMail},#{mail},#{isParallel}, #{times},#{isOpen}, #{testSets}, #{creator})
+        (#{taskId}, #{taskName}, #{taskDesc}, #{isTiming},#{cron},#{isMail},#{mail},#{isDing},#{dingId},#{isParallel}, #{times},#{isOpen}, #{testSets}, #{creator})
     </insert>
     <delete id="deleteTask">
         delete from task where task_id = #{task_id}
@@ -60,7 +60,9 @@
         task_desc = #{taskDesc},
         is_parallel = #{isParallel},
         times = #{times},
-        testsets = #{testSets}
+        testsets = #{testSets},
+        is_ding = #{isDing},
+        ding_id = #{dingId}
         where task_id = #{taskId}
     </update>
 
@@ -72,6 +74,8 @@
         cron = #{cron},
         is_mail = #{isMail},
         mail = #{mail},
+        is_ding = #{isDing},
+        ding_id = #{dingId},
         is_open = #{isOpen},
         times = #{times},
         testsets = #{testSets}

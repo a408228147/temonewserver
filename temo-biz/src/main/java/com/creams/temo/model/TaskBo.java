@@ -23,6 +23,12 @@ public class TaskBo {
     @ApiModelProperty("是否并行，0为否，1为是")
     private String isParallel;
 
+    @ApiModelProperty("钉钉开关")
+    private Integer isDing;
+
+    @ApiModelProperty("钉钉id")
+    private String dingId;
+
     @ApiModelProperty("创建人")
     private String creator;
 

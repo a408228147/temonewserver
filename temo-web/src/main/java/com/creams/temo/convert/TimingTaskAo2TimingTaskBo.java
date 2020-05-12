@@ -34,6 +34,8 @@ public class TimingTaskAo2TimingTaskBo extends Converter<TimingTaskAo,TimingTask
                 .testSetList(timingTaskAo.getTestSetList())
                 .testSets(timingTaskAo.getTestSets())
                 .times(timingTaskAo.getTimes())
+                .isDing(timingTaskAo.getIsDing())
+                .dingId(timingTaskAo.getDingId())
                 .updateTime(timingTaskAo.getUpdateTime()).build();
     }
 
@@ -56,6 +58,8 @@ public class TimingTaskAo2TimingTaskBo extends Converter<TimingTaskAo,TimingTask
                 .testSetList(timingTaskBo.getTestSetList())
                 .testSets(timingTaskBo.getTestSets())
                 .times(timingTaskBo.getTimes())
+                .isDing(timingTaskBo.getIsDing())
+                .dingId(timingTaskBo.getDingId())
                 .updateTime(timingTaskBo.getUpdateTime()).build();
     }
 }
