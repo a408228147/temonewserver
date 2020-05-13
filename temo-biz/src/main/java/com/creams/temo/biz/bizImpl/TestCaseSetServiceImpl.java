@@ -448,7 +448,6 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                 Thread.sleep(Integer.valueOf(delayTime) * 1000);
             }
 
-
             // 判断是否有附带请求头或者cookie
             Map cookiesKv = new HashMap<>();
             Map headersKv = new HashMap<>();
@@ -1293,4 +1292,5 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
         }
         return variables;
     }
+
 }

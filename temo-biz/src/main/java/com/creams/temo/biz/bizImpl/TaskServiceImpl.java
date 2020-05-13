@@ -137,9 +137,10 @@ public class TaskServiceImpl implements TaskService {
      */
     public TimingTaskBo queryTaskDetail(String taskId) {
         TimingTaskDto taskResponse = taskMapper.queryTaskDetail(taskId);
-        List<TestSet> testSets = JSON.parseArray(taskResponse.getTestSets().replaceAll("\\\\", ""), TestSet.class);
-        taskResponse.setTestSetList(testSets);
-
+        if (taskResponse!=null){
+            List<TestSet> testSets = JSON.parseArray(taskResponse.getTestSets().replaceAll("\\\\", ""), TestSet.class);
+            taskResponse.setTestSetList(testSets);
+        }
         return timingTaskDto2TimingTaskBo.convert(taskResponse);
     }
 
