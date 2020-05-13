@@ -44,7 +44,7 @@ public class SqlExecuteServiceImpl implements SqlExecuteService {
         }else if ("200".equals(databaseInfo.getDbType())){
             //创建Jedis实例
             Jedis jedis = new Jedis(databaseInfo.getHost(), databaseInfo.getPort());
-            if (databaseInfo.getPwd() != null || !databaseInfo.getPwd().isEmpty()){
+            if (databaseInfo.getPwd() != null && !databaseInfo.getPwd().isEmpty()){
                 jedis.auth(databaseInfo.getPwd());
             }
             jedis.ping();
