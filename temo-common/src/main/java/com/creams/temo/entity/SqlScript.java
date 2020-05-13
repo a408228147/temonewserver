@@ -11,7 +11,9 @@ import lombok.Data;
 @Builder
 public class SqlScript {
 
+    // 执行脚本
     private String script;
 
+    // 是否需要保存到map
     private Boolean saveParam;
 }

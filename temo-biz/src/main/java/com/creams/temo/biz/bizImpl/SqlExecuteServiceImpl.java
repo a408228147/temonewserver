@@ -44,6 +44,9 @@ public class SqlExecuteServiceImpl implements SqlExecuteService {
         }else if ("200".equals(databaseInfo.getDbType())){
             //创建Jedis实例
             Jedis jedis = new Jedis(databaseInfo.getHost(), databaseInfo.getPort());
+            if (databaseInfo.getPwd() != null || !databaseInfo.getPwd().isEmpty()){
+                jedis.auth(databaseInfo.getPwd());
+            }
             jedis.ping();
         }
     }
@@ -78,6 +81,16 @@ public class SqlExecuteServiceImpl implements SqlExecuteService {
         DatabaseDto databaseInfo = databaseMapper.queryDatabaseById(dbId);
         DatabaseBo databaseBo = databaseDto2DatabaseBo.convert(databaseInfo);
         Jedis jedis = new Jedis(databaseBo.getHost(), databaseBo.getPort());
+        //设置redis密码
+        if (databaseBo.getPwd() != null && !(databaseBo.getPwd().length() <=0)) {
+            jedis.auth(databaseBo.getPwd());
+        }
+        // 选择redis库 当db为redis-getDbLibraryName--> 0-16
+        String index = databaseBo.getDbLibraryName();
+        if (index !=null && !index.isEmpty() && ( 0<=Integer.parseInt(index)  && Integer.parseInt(index) <17)){
+            jedis.select(Integer.parseInt(databaseBo.getDbLibraryName()));
+            logger.info("当前的redis库为=====>" + databaseBo.getDbLibraryName());
+        }
         return jedis;
     }
 

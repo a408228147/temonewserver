@@ -1267,6 +1267,15 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                         logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
 
                     // 还需要处理，看看后续怎么设计
+                    }else if (redisScript.getScript().toLowerCase().trim().startsWith("get")){
+                        List<String> list = Arrays.asList(redisScript.getScript().split("\\s+"));
+                        if (list.size() == 2 && redisScript.getSaveParam()){
+                            variables.put(list.get(0), list.get(1));
+                            logger.info("redis=====>" + redisScript.getScript() + " 执行成功");
+                            return variables;
+                        }
+                        logger.info("redis=====>" + redisScript.getScript() + "ERROR: Invalid command");
+
                     }else if (redisScript.getScript().toLowerCase().trim().startsWith("lpush")){
                         List<String> list = Arrays.asList(redisScript.getScript().split("\\s+"));
                         if (list.size() == 3 && redisScript.getSaveParam()){
@@ -1293,4 +1302,5 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
         }
         return variables;
     }
+
 }
