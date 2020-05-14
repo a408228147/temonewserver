@@ -91,9 +91,9 @@ public class FuncToolsController {
     public JsonResult deletefunc(@RequestParam("id") Integer id){
         try {
             funcToolsService.deleteFuncById(id);
-            return new JsonResult("更新成功", 200, "", true);
+            return new JsonResult("删除成功", 200, "", true);
         } catch (Exception e) {
-            return new JsonResult("更新失败", 500, e.getMessage(), false);
+            return new JsonResult("删除失败", 500, e.getMessage(), false);
         }
     }
 }
