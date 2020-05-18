@@ -69,6 +69,7 @@ public class DatabaseController {
 
     @ApiOperation("查询数据库详情")
     @GetMapping(value = "/{id}/info")
+    @CheckPermissions()
     public JsonResult queryDatabaseById(@PathVariable("id") @ApiParam("数据库id") String dbId){
 
         try {
@@ -88,6 +89,7 @@ public class DatabaseController {
 
     @ApiOperation("新增数据库配置")
     @PostMapping(value = "/addDatabase")
+    @CheckPermissions()
     public JsonResult addDatabase(@RequestBody DatabaseAo databaseRequest){
         try {
             String dbId = databaseService.addDatabase(databaseAo2DatabaseBo.convert(databaseRequest));
@@ -102,6 +104,7 @@ public class DatabaseController {
 
     @ApiOperation("修改数据库")
     @PutMapping(value = "/{id}")
+    @CheckPermissions()
     public JsonResult updateDatabaseById(@PathVariable(value = "id") String dbId, @RequestBody DatabaseAo databaseRequest){
         try {
             databaseService.updateDatabaseById(databaseAo2DatabaseBo.convert(databaseRequest));
@@ -116,6 +119,7 @@ public class DatabaseController {
 
     @ApiOperation("删除数据库")
     @DeleteMapping(value = "/delete/{id}")
+    @CheckPermissions()
     public JsonResult deleteDatabaseById(@PathVariable("id") @ApiParam("数据库id") String dbId){
         try {
             databaseService.deleteDatabaseById(dbId);
@@ -129,6 +133,7 @@ public class DatabaseController {
 
     @ApiOperation("测试数据库连接")
     @PostMapping(value = "/testConnect")
+    @CheckPermissions()
     public JsonResult testConnect(@RequestBody DatabaseAo databaseRequest){
         try{
             sqlExecuteService.testConnect(databaseAo2DatabaseBo.convert(databaseRequest));

@@ -1,5 +1,6 @@
 package com.creams.temo.controller.Datastatistics;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.*;
 import com.creams.temo.convert.*;
 import com.creams.temo.entity.result.JsonResult;
@@ -38,6 +39,7 @@ public class DataStatisticsController {
     final TesSetInfoAo2TesSetInfoBo tesSetInfoAo2TesSetInfoBo =TesSetInfoAo2TesSetInfoBo.getInstance();
     @ApiOperation(value = "查询任务库信息")
     @GetMapping("/taskInfo")
+    @CheckPermissions()
     public JsonResult queryTasksInfo() {
         try {
             TaskInfoBo taskInfoResponse = tasksInfoService.queryTasksInfo();
@@ -49,6 +51,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询任务执行信息")
     @GetMapping("/taskExecuteInfo")
+    @CheckPermissions()
     public JsonResult queryTasksExecuteInfo() {
         try {
             TaskInfoBo taskInfoResponse = tasksInfoService.queryTasksExecuteInfo();
@@ -61,6 +64,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询用例库信息")
     @GetMapping("/setInfo")
+    @CheckPermissions()
     public JsonResult queryTestCaseSetInfo() {
         try {
             TesSetInfoBo tesSetInfoResponse = testCaseSetInfoService.queryTestSetInfo();
@@ -73,6 +77,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询今日执行情况")
     @GetMapping("/todayInfo")
+    @CheckPermissions()
     public JsonResult queryTodayExecuteTaskInfo() {
         try {
             ExecuteTodayBo executeTodayResponse = executeTodayService.queryTodayExecuteTaskInfo();
@@ -94,6 +99,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询今日用例执行情况")
     @GetMapping("/todayCaseInfo")
+    @CheckPermissions()
     public JsonResult queryTodayExecuteTestCaseInfo() {
         try {
             ExecuteTodayBo executeTodayResponse = executeTodayService.queryTodayExecuteTestCaseInfo();
@@ -117,6 +123,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询运行信息")
     @GetMapping("/executeInfoNow")
+    @CheckPermissions()
     public JsonResult queryExecuteTaskInfoNow() {
         try {
             ExecuteTimeInfoBo executeInfoResponse = executeTimeInfoService.queryExecuteTimeInfo();
@@ -128,6 +135,7 @@ public class DataStatisticsController {
 
     @ApiOperation(value = "查询七日用例执行情况")
     @GetMapping("/SevenDaysInfo")
+    @CheckPermissions()
     public JsonResult querySevenDaysExecuteInfo() {
         try {
             ExecuteSevenDaysBo executeSevenDaysResponse = sevenDaysExecuteInfoService.querySevenDaysExecuteInfo();

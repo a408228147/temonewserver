@@ -1,7 +1,6 @@
 package com.creams.temo.annotation.Aop;
 
 import com.creams.temo.annotation.CheckPermissions;
-import com.google.common.collect.Lists;
 import org.aspectj.lang.reflect.MethodSignature;
 import com.creams.temo.tools.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.*;
 import java.util.List;
@@ -44,6 +41,10 @@ public class AspectCheckPermissions {
                     methodPath = method.getAnnotation(GetMapping.class).value()[0];
                 } else if (method.getAnnotation(PostMapping.class) != null) {
                     methodPath = method.getAnnotation(PostMapping.class).value()[0];
+                } else if (method.getAnnotation(DeleteMapping.class) != null) {
+                    methodPath = method.getAnnotation(DeleteMapping.class).value()[0];
+                } else if (method.getAnnotation(PutMapping.class) != null) {
+                    methodPath = method.getAnnotation(PutMapping.class).value()[0];
                 }
                 String route = classPath + methodPath;
                 subject.checkPermission(route);

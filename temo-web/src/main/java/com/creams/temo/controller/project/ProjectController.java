@@ -1,5 +1,6 @@
 package com.creams.temo.controller.project;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.ProjectBo;
 import com.creams.temo.biz.ProjectService;
@@ -36,6 +37,7 @@ public class ProjectController {
 
     @ApiOperation("模糊查询项目列表")
     @GetMapping("/queryProject/{page}")
+    @CheckPermissions()
     public JsonResult queryProject(@PathVariable(value = "page")  Integer page, @RequestParam(value = "filter",required = false)@ApiParam(value = "查询条件") String filter){
         try{
             if (filter == null){
@@ -56,6 +58,7 @@ public class ProjectController {
 
     @ApiOperation("查询项目列表")
     @GetMapping("/list")
+    @CheckPermissions()
     public JsonResult queryDetail(){
         try{
             return new JsonResult("操作成功",200, projectService.queryAllProjects(),true);
@@ -66,6 +69,7 @@ public class ProjectController {
 
     @ApiOperation("根据项目Id查询所属环境")
     @GetMapping("/env")
+    @CheckPermissions()
     public JsonResult queryEnvByProjectId(@RequestParam String projectId){
         try{
             return new JsonResult("操作成功",200, projectService.queryEnvByProjectId(projectId),true);
@@ -76,6 +80,7 @@ public class ProjectController {
 
     @ApiOperation("查询项目详情")
     @GetMapping("/{projectId}/info")
+    @CheckPermissions()
     public JsonResult queryDetail(@PathVariable @ApiParam("项目id")String projectId){
         try{
             ProjectBo projectResponse = projectService.queryDetailById(projectId);
@@ -91,6 +96,7 @@ public class ProjectController {
 
     @ApiOperation("创建项目")
     @PostMapping("/addProject")
+    @CheckPermissions()
     public JsonResult addProject(@RequestBody(required = false) ProjectAo project){
         logger.info("接受到参数："+project);
         if (project==null){
@@ -112,6 +118,7 @@ public class ProjectController {
 
     @ApiOperation("编辑项目")
     @PutMapping("/updateProject/{projectId}")
+    @CheckPermissions()
     public JsonResult updateProject(@PathVariable @ApiParam("项目id") String projectId, @RequestBody(required = false) @ApiParam("项目") ProjectAo project){
         logger.info("接受到参数："+project);
         project.setPid(projectId);
@@ -133,6 +140,7 @@ public class ProjectController {
 
     @ApiOperation("删除项目")
     @DeleteMapping("/delProject/{projectId}")
+    @CheckPermissions()
     public JsonResult delProject(@PathVariable @ApiParam("项目id") String projectId){
         try{
             Integer i = projectService.delProjectById(projectId);

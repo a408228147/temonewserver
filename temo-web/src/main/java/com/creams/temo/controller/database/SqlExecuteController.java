@@ -1,5 +1,6 @@
 package com.creams.temo.controller.database;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.SqlExecuteService;
 import com.creams.temo.convert.ScriptDbAo2ScriptDbBo;
 import com.creams.temo.entity.result.JsonResult;
@@ -30,6 +31,7 @@ public class SqlExecuteController {
      */
     @ApiOperation("执行数据库脚本")
     @PostMapping(value = "/sqlExecute")
+    @CheckPermissions()
     public JsonResult sqlExecute(@RequestBody ScriptDbAo scriptRequest) {
         Map result = sqlExecuteService.sqlExecute(scriptDbAo2ScriptDbBo.convert(scriptRequest));
         if (!result.isEmpty() &&  (Integer)result.get("error") > 0){

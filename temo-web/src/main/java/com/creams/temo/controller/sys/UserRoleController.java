@@ -1,5 +1,6 @@
 package com.creams.temo.controller.sys;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.UserRoleService;
 import com.creams.temo.convert.UserRoleAo2UserRoleBo;
 import com.creams.temo.entity.UserRoleEntity;
@@ -22,6 +23,7 @@ public class UserRoleController {
     final UserRoleAo2UserRoleBo userRoleAo2UserRoleBo = UserRoleAo2UserRoleBo.getInstance();
     @ApiOperation("查询该用户下的角色")
     @GetMapping("/{userId}/info")
+    @CheckPermissions(role = "admin")
     public JsonResult queryRolesByUserId(@PathVariable("userId") String userId) {
         try {
             List<UserRoleEntity> roles = userRoleService.queryRoleByUserId(userId);
@@ -33,6 +35,7 @@ public class UserRoleController {
 
     @ApiOperation("用户绑定角色")
     @PostMapping("/bindRole")
+    @CheckPermissions(role = "admin")
     public JsonResult bindRole(@RequestBody UserRoleAo userRoleAo){
         try {
             userRoleService.addUserRole(userRoleAo2UserRoleBo.convert(userRoleAo));
@@ -44,6 +47,7 @@ public class UserRoleController {
 
     @ApiOperation("用户解除绑定")
     @PostMapping("/removeUserRole")
+    @CheckPermissions(role = "admin")
     public JsonResult removeUserRole(@RequestBody UserRoleAo userRoleAo){
         try {
             userRoleService.removeUserRole(userRoleAo2UserRoleBo.convert(userRoleAo));

@@ -1,5 +1,6 @@
 package com.creams.temo.controller.testUtil;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.ApiTestService;
 import com.creams.temo.convert.ApiTestAo2ApiTestBo;
 import com.creams.temo.entity.ApiTestEntity;
@@ -28,6 +29,7 @@ public class TestUtilController {
 
     @ApiOperation("调试接口")
     @PostMapping("/testApi")
+    @CheckPermissions()
     public JsonResult testApi(@RequestBody ApiTestEntity apiTestEntity) throws SSLException {
         try {
             ApiTestBo apiTestBo = apiTestService.testApi(apiTestEntity);

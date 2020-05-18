@@ -1,6 +1,7 @@
 package com.creams.temo.controller.task;
 
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.TaskService;
 import com.creams.temo.convert.TimingTaskAo2TimingTaskBo;
 import com.creams.temo.entity.result.JsonResult;
@@ -30,7 +31,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "新增定时任务")
     @PostMapping("/addTask")
-
+    @CheckPermissions()
     public JsonResult addTask(@RequestBody TimingTaskAo task) {
         try {
             taskService.addTimingTask(timingTaskAo2TimingTaskBo.convert(task));
@@ -43,6 +44,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "根据定时任务名和执行方式查询定时任务")
     @GetMapping("queryTasks/{page}")
+    @CheckPermissions()
     public JsonResult queryTasks(@PathVariable(value = "page") Integer page, @RequestParam(value = "taskName", required = false) String taskName, @RequestParam(value = "isParallel", required = false) String isParallel) {
         PageInfo<TimingTaskAo> pageInfo = new PageInfo<>(Lists.newArrayList(timingTaskAo2TimingTaskBo.reverse().convertAll(taskService.queryTimingTasks(page, taskName, isParallel).getList())));
         HashMap<String, Object> map = new HashMap<>();
@@ -54,6 +56,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "查询定时任务详情")
     @GetMapping("/{taskId}/info")
+    @CheckPermissions()
     public JsonResult queryTaskDetail(@PathVariable("taskId") String taskId) {
         TimingTaskBo timingTaskResponse = taskService.queryTimingTaskDetail(taskId);
         return new JsonResult("操作成功", 200, timingTaskAo2TimingTaskBo.reverse().convert(timingTaskResponse), true);
@@ -62,6 +65,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "编辑定时任务")
     @PutMapping("/updateTask/{taskId}")
+    @CheckPermissions()
     public JsonResult updateTask(@PathVariable("taskId") String taskId, @RequestBody TimingTaskAo timingTaskRequest) {
         try {
             taskService.updateTimingTask(timingTaskAo2TimingTaskBo.convert(timingTaskRequest));
@@ -74,6 +78,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "删除定时任务")
     @DeleteMapping("/deleteTask/{taskId}")
+    @CheckPermissions()
     public JsonResult deleteTask(@PathVariable("taskId") String taskId) {
         try {
             taskService.deleteTask(taskId);
@@ -86,6 +91,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "开启定时任务")
     @PostMapping("/start/{taskId}")
+    @CheckPermissions()
     public JsonResult startTimingTask(@PathVariable("taskId") String taskId) {
         try {
             taskService.startTimingTask(taskId);
@@ -98,6 +104,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "关闭定时任务")
     @PostMapping("/close/{taskId}")
+    @CheckPermissions()
     public JsonResult closeTimingTask(@PathVariable("taskId") String taskId) {
         try {
             taskService.closeTimingTask(taskId);
@@ -110,6 +117,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "批量开启定时任务")
     @PostMapping("/startTasks")
+    @CheckPermissions()
     public JsonResult startTimingTasks(@RequestBody List<String> taskIds) {
         try {
             for (String taskId : taskIds) {
@@ -126,6 +134,7 @@ public class TimingTaskController {
 
     @ApiOperation(value = "批量关闭定时任务")
     @PostMapping("/closeTasks")
+    @CheckPermissions()
     public JsonResult closeTimingTask(@RequestBody List<String> taskIds) {
         try {
             for (String taskId : taskIds) {

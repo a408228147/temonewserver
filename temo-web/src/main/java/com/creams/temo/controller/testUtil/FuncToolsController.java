@@ -1,6 +1,7 @@
 package com.creams.temo.controller.testUtil;
 
 import com.alibaba.fastjson.JSON;
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.FuncToolsService;
 import com.creams.temo.convert.FuncToolsAo2FuncToolsBo;
 import com.creams.temo.entity.FuncToolsEntity;
@@ -33,6 +34,7 @@ public class FuncToolsController {
 
     @ApiOperation("保存接口")
     @PostMapping("/savaFunc")
+    @CheckPermissions()
     public JsonResult saveFunc(@RequestBody FuncToolsAo funcToolsAo) {
         try {
             UserInfo user = ShiroUtils.getUserEntity();
@@ -45,6 +47,7 @@ public class FuncToolsController {
     }
     @ApiOperation("更新函数")
     @PostMapping("/updateFunc")
+    @CheckPermissions()
     public JsonResult updateFunc(@RequestBody FuncToolsAo funcToolsAo){
         try {
             UserInfo user = ShiroUtils.getUserEntity();
@@ -57,6 +60,7 @@ public class FuncToolsController {
     }
     @ApiOperation("查询函数接口")
     @GetMapping("/findFunc")
+    @CheckPermissions()
     public JsonResult findFunc(@RequestParam("funcName") String funcName) {
         try {
             FuncToolsBo funcToolsBo = FuncToolsBo.builder().funcName(funcName).build();
@@ -70,6 +74,7 @@ public class FuncToolsController {
     }
     @ApiOperation("测试接口")
     @GetMapping("/testFunc")
+    @CheckPermissions()
     public JsonResult testFunc(@RequestParam("id") Integer id, @RequestParam("params") String params) {
         try {
             UserInfo user = ShiroUtils.getUserEntity();
@@ -90,6 +95,7 @@ public class FuncToolsController {
 
     @ApiOperation("调试接口")
     @GetMapping("/debugFunc")
+    @CheckPermissions()
     public JsonResult debugFunc(@RequestBody FuncToolsAo funcToolsAo, @RequestParam("params") String params) {
         try {
             FuncToolsEntity funcToolsEntity = FuncToolsEntity.builder()
@@ -107,6 +113,7 @@ public class FuncToolsController {
 
     @ApiOperation("删除函数")
     @GetMapping("/deleteFunc")
+    @CheckPermissions()
     public JsonResult deletefunc(@RequestParam("id") Integer id){
         try {
             funcToolsService.deleteFuncById(id);

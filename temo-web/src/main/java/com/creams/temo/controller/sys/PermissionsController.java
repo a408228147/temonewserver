@@ -40,6 +40,7 @@ public class PermissionsController {
 
     @ApiOperation("修改权限")
     @PutMapping("/updatePermissions")
+    @CheckPermissions(role = "admin")
     public JsonResult updatePermissions(@RequestBody PermissionsAo permissions) {
         try {
             permissionsService.updatePermission(permissionsAo2PermissionsBo.convert(permissions));
@@ -51,6 +52,7 @@ public class PermissionsController {
 
     @ApiOperation("查询所有权限")
     @GetMapping("/queryPermissions/{page}")
+    @CheckPermissions(role = "admin")
     public JsonResult queryPermissions(@PathVariable(value = "page") Integer page) {
         try {
             PageInfo<PermissionsAo> pageInfo = new PageInfo<>(Lists.newArrayList(permissionsAo2PermissionsBo.reverse().convertAll(permissionsService.queryPermissionsByPage(page).getList())));
@@ -65,6 +67,7 @@ public class PermissionsController {
 
     @ApiOperation("查询该角色下的权限")
     @GetMapping("/{roleId}/info")
+    @CheckPermissions(role = "admin")
     public JsonResult queryPermissionsByRoleId(@PathVariable(value = "roleId") String roleId) {
         try {
             List<PermissionsAo> permissions =Lists.newArrayList(permissionsAo2PermissionsBo.reverse().convertAll(permissionsService.queryPermissionsByRoleId(roleId)));
@@ -76,6 +79,7 @@ public class PermissionsController {
 
     @ApiOperation("更新权限状态")
     @PutMapping("/setPermissionsStatus/{id}")
+    @CheckPermissions(role = "admin")
     public JsonResult setPermissionsStatus(@PathVariable(value = "id") String permissionsId, Integer status) {
         try {
             permissionsService.updatePermissionStatus(permissionsId, status);
@@ -87,6 +91,7 @@ public class PermissionsController {
 
     @ApiOperation("查询模块信息")
     @GetMapping("/getModule")
+    @CheckPermissions(role = "admin")
     public JsonResult getPermissionsModule(){
         try {
             return new JsonResult("操作成功", 200, permissionsService.queryPermissonsModule(), true);
@@ -97,6 +102,7 @@ public class PermissionsController {
 
     @ApiOperation("根据模块查询权限")
     @GetMapping("/getPermissonsByModule/{moduleId}")
+    @CheckPermissions(role = "admin")
     public JsonResult getPermissonsByModule(@PathVariable("moduleId") Integer moduleId ){
         try {
 

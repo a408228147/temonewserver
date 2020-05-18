@@ -1,5 +1,6 @@
 package com.creams.temo.controller.sys;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.RoleService;
 
 import com.creams.temo.convert.RoleAo2RoleBo;
@@ -30,6 +31,7 @@ public class RoleController {
 
     @ApiOperation("新增角色")
     @PostMapping(value = "/addRole")
+    @CheckPermissions(role = "admin")
     public JsonResult addRole(@RequestBody RoleAo role) {
         try {
             roleService.addRole(roleAo2RoleBo.convert(role));
@@ -41,6 +43,7 @@ public class RoleController {
 
     @ApiOperation("修改角色")
     @GetMapping("/updateRole")
+    @CheckPermissions(role = "admin")
     public JsonResult updateRole(@RequestBody RoleAo role) {
         try {
             roleService.updateRole(roleAo2RoleBo.convert(role));
@@ -52,6 +55,7 @@ public class RoleController {
 
     @ApiOperation("查询所有角色")
     @GetMapping("/queryRoles/{page}")
+    @CheckPermissions(role = "admin")
     public JsonResult queryRoles(@PathVariable(value = "page") Integer page) {
         try {
             PageInfo<RoleAo> pageInfo = new PageInfo<>(Lists.newArrayList(roleAo2RoleBo.reverse().convertAll(roleService.queryRole(page).getList())));
@@ -67,6 +71,7 @@ public class RoleController {
 
     @ApiOperation("角色绑定权限")
     @PostMapping("/bindPermissions")
+    @CheckPermissions(role = "admin")
     public JsonResult bindPermissions(@RequestParam String roleId, List<String> permissionsId){
         try {
             roleService.bindPermissions(roleId,permissionsId);

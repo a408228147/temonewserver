@@ -1,5 +1,6 @@
 package com.creams.temo.controller.testcase;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.entity.TestCaseSet;
 import com.creams.temo.entity.result.JsonResult;
@@ -29,6 +30,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "查询用例集")
     @GetMapping(value = "queryTestCaseSetByNameAndId/{page}")
+    @CheckPermissions()
     public JsonResult queryTestCaseSetByNameAndId(@PathVariable(value = "page") Integer page,
                                                   @RequestParam(value = "set_name", required = false)
                                                   @ApiParam(value = "用例集名字") String setName,
@@ -51,6 +53,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "查询用例集列表")
     @GetMapping(value = "/list")
+    @CheckPermissions()
     public JsonResult queryTestCaseSetByStatus(){
         try {
             return new JsonResult("操作成功", 200, testCaseSetService.queryAllTestCaseSet(), true);
@@ -63,6 +66,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "根据set_id获取用例集详情")
     @GetMapping(value = "/{setId}/info")
+    @CheckPermissions()
     public JsonResult queryTestCaseSet(@PathVariable String setId){
         try {
             TestCaseSet testCaseSetResponse = testCaseSetService.queryTestCaseSetInfo(setId);
@@ -76,6 +80,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "统计个人用例集")
     @GetMapping(value = "/statisticsTestCaseSet/{userId}")
+    @CheckPermissions()
     public JsonResult statisticsTestCaseSetByUserId(@PathVariable("userId") String userId){
         try{
             return new JsonResult("操作成功", 200, testCaseSetService.statisticsTestCaseSetByUserId(userId), true);
@@ -88,6 +93,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "复制用例集")
     @PostMapping("/copySet/{setId}")
+    @CheckPermissions()
     public JsonResult copyTestCaseSet(@PathVariable String setId){
         try {
             if (testCaseSetService.copyTestCaseSet(setId)){
@@ -104,6 +110,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "查询用例集(已废弃)")
     @PostMapping(value = "/{page}/discard")
+    @CheckPermissions()
     public JsonResult queryTestCaseSet(@PathVariable(value = "page") Integer page,
                                        @RequestBody(required = false) TestCaseSet testCaseSetRequest){
         try {
@@ -121,6 +128,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "新增用例集")
     @PostMapping(value = "/addTestCaseSet")
+    @CheckPermissions()
     public JsonResult addTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
             String setId = testCaseSetService.addTestCaseSet(testCaseSetRequest);
@@ -134,6 +142,7 @@ public class TestCaseSetController {
 
     @ApiOperation(value = "修改用例集")
     @PutMapping(value = "/updateTestCaseSet/{id}")
+    @CheckPermissions()
     public JsonResult updateTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
             testCaseSetService.updateTestCaseSetById(testCaseSetRequest);
@@ -146,6 +155,7 @@ public class TestCaseSetController {
 
     @ApiOperation("删除用例集")
     @DeleteMapping(value = "/deleteTestCaseSet/{id}")
+    @CheckPermissions()
     public JsonResult deleteTestCaseSet(@PathVariable("id") @ApiParam("用例集id")  String setId){
         try {
             testCaseSetService.deleteTestCaseSetById(setId);
@@ -158,6 +168,7 @@ public class TestCaseSetController {
 
     @ApiOperation("保存前置用例")
     @PutMapping(value = "/setup/{id}")
+    @CheckPermissions()
     public JsonResult saveSetUpScript(@PathVariable("id") @ApiParam("用例集id")  String setId,
                                       @RequestParam(value = "setupScript",required = false) String setupScript){
         try {
@@ -171,6 +182,7 @@ public class TestCaseSetController {
 
     @ApiOperation("保存后置用例")
     @PutMapping(value = "/teardown/{id}")
+    @CheckPermissions()
     public JsonResult saveTearDownScript(@PathVariable("id") @ApiParam("用例集id")  String setId,
                                       @RequestParam(value = "teardownScript",required = false) String teardownScript){
         try {
@@ -184,6 +196,7 @@ public class TestCaseSetController {
 
     @ApiOperation("查询用例集的执行环境")
     @GetMapping(value = "/{id}/env")
+    @CheckPermissions()
     public JsonResult queryEnvOfSet(@PathVariable("id") @ApiParam("用例集id")  String setId){
         try {
             return new JsonResult("操作成功", 200, testCaseSetService.getEnvsOfSet(setId), true);
@@ -195,6 +208,7 @@ public class TestCaseSetController {
 
     @ApiOperation("调试用例集")
     @PostMapping(value = "/execute/{id}")
+    @CheckPermissions()
     public JsonResult executeTestCaseSet(@PathVariable("id") @ApiParam("用例集id")  String setId,
                                          @RequestParam(value = "envId") String envId){
         String vaild = testCaseSetService.queryTestCaseSetInfo(setId).getValid();

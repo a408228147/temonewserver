@@ -1,6 +1,7 @@
 package com.creams.temo.controller.sys;
 
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.UserService;
 import com.creams.temo.convert.UserAo2UserBo;
 import com.creams.temo.entity.result.JsonResult;
@@ -26,6 +27,7 @@ public class UserController {
 
     @ApiOperation("新增用户")
     @PostMapping(value = "/addUser")
+    @CheckPermissions(role = "admin")
     public JsonResult addUser(@RequestBody UserAo user) {
         try {
             userService.addUser(userAo2UserBo.reverse().convert(user));
@@ -38,6 +40,7 @@ public class UserController {
 
     @ApiOperation("修改用户")
     @PutMapping(value = "/update/{id}")
+    @CheckPermissions(role = "admin")
     public JsonResult updateUser(@RequestBody UserAo user) {
         try {
             userService.updateUser(userAo2UserBo.reverse().convert(user));
@@ -50,6 +53,7 @@ public class UserController {
 
     @ApiOperation("查询所有用户")
     @GetMapping(value = "queryUsers/{page}")
+    @CheckPermissions(role = "admin")
     public JsonResult queryUsers(@PathVariable(value = "page") Integer page) {
         try {
             PageInfo<UserBo> pageInfo = userService.queryUsers(page);
@@ -65,6 +69,7 @@ public class UserController {
 
     @ApiOperation("更新用户状态")
     @PutMapping(value = "setUserStatus/{id}")
+    @CheckPermissions(role = "admin")
     public JsonResult setUserStatus(@PathVariable(value = "id") @ApiParam("用户id") String userId, Integer status) {
         try {
             userService.updateUserStatus(userId, status);
