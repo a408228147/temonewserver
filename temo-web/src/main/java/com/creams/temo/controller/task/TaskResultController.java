@@ -23,7 +23,7 @@ public class TaskResultController {
     final
 
     @ApiOperation(value = "根据任务名和状态查询任务执行结果")
-    @GetMapping(value = "queryTaskResults/{page}")
+    @GetMapping(value = "/{page}")
     @CheckPermissions()
     public JsonResult queryTaskResults(@PathVariable("page") Integer page, @RequestParam(value = "taskName",required = false) String taskName,
                                        @RequestParam(value = "status",required = false) Integer status){

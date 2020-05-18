@@ -48,8 +48,8 @@ public class DatabaseController {
     }
 
     @ApiOperation("模糊查询数据库列表")
-    @GetMapping(value = "/queryDatabaseByName/{page}")
-    @CheckPermissions(route = "/database/queryDatabaseByName/{page}")
+    @GetMapping(value = "/{page}")
+    @CheckPermissions(route = "/database/{page}")
     public JsonResult queryDatabaseByName(@PathVariable(required = false) @ApiParam("页数") Integer page,
                                        @RequestParam(value = "dbName",required = false) @ApiParam("数据库名") String dbName,
                                           @RequestParam(value = "dbType",required = false) @ApiParam("数据库类型") String dbType){
@@ -88,7 +88,7 @@ public class DatabaseController {
     }
 
     @ApiOperation("新增数据库配置")
-    @PostMapping(value = "/addDatabase")
+    @PostMapping(value = "/")
     @CheckPermissions()
     public JsonResult addDatabase(@RequestBody DatabaseAo databaseRequest){
         try {
@@ -118,7 +118,7 @@ public class DatabaseController {
 
 
     @ApiOperation("删除数据库")
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/{id}")
     @CheckPermissions()
     public JsonResult deleteDatabaseById(@PathVariable("id") @ApiParam("数据库id") String dbId){
         try {

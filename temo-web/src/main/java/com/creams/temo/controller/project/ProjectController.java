@@ -36,7 +36,7 @@ public class ProjectController {
     ProjectService projectService;
 
     @ApiOperation("模糊查询项目列表")
-    @GetMapping("/queryProject/{page}")
+    @GetMapping("/{page}")
     @CheckPermissions()
     public JsonResult queryProject(@PathVariable(value = "page")  Integer page, @RequestParam(value = "filter",required = false)@ApiParam(value = "查询条件") String filter){
         try{
@@ -95,7 +95,7 @@ public class ProjectController {
     }
 
     @ApiOperation("创建项目")
-    @PostMapping("/addProject")
+    @PostMapping("/")
     @CheckPermissions()
     public JsonResult addProject(@RequestBody(required = false) ProjectAo project){
         logger.info("接受到参数："+project);
@@ -117,7 +117,7 @@ public class ProjectController {
     }
 
     @ApiOperation("编辑项目")
-    @PutMapping("/updateProject/{projectId}")
+    @PutMapping("/{projectId}")
     @CheckPermissions()
     public JsonResult updateProject(@PathVariable @ApiParam("项目id") String projectId, @RequestBody(required = false) @ApiParam("项目") ProjectAo project){
         logger.info("接受到参数："+project);
@@ -139,7 +139,7 @@ public class ProjectController {
     }
 
     @ApiOperation("删除项目")
-    @DeleteMapping("/delProject/{projectId}")
+    @DeleteMapping("/{projectId}")
     @CheckPermissions()
     public JsonResult delProject(@PathVariable @ApiParam("项目id") String projectId){
         try{

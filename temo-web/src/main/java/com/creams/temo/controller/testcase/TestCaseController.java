@@ -25,7 +25,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "查询用例")
-    @GetMapping(value = "queryTestCase/{page}")
+    @GetMapping(value = "/{page}")
     @CheckPermissions()
     public JsonResult queryTestCase(@PathVariable(value = "page") Integer page,
                                     @RequestParam(value = "case_id", required = false)
@@ -80,7 +80,7 @@ public class TestCaseController {
     }
 
     @ApiOperation(value = "新增用例")
-    @PostMapping(value = "/addTestCase")
+    @PostMapping(value = "/")
     @CheckPermissions()
     public JsonResult addTestCase(@RequestBody TestCase testCaseRequest){
         try {
@@ -94,7 +94,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "修改用例")
-    @PutMapping("updateTestCase/{id}")
+    @PutMapping("/{id}")
     @CheckPermissions()
     public JsonResult updateTestCase(@RequestBody TestCase testCaseRequest){
         try {
@@ -152,7 +152,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "删除用例")
-    @DeleteMapping("/deleteTestCase/{id}")
+    @DeleteMapping("/{id}")
     @CheckPermissions()
     public JsonResult deleteTestCase(@PathVariable("id") @ApiParam("用例id") String caseId){
         try {

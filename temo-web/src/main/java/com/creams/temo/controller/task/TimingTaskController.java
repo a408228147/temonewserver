@@ -30,7 +30,7 @@ public class TimingTaskController {
     final TimingTaskAo2TimingTaskBo timingTaskAo2TimingTaskBo=TimingTaskAo2TimingTaskBo.getInstance();
 
     @ApiOperation(value = "新增定时任务")
-    @PostMapping("/addTask")
+    @PostMapping("/")
     @CheckPermissions()
     public JsonResult addTask(@RequestBody TimingTaskAo task) {
         try {
@@ -43,7 +43,7 @@ public class TimingTaskController {
     }
 
     @ApiOperation(value = "根据定时任务名和执行方式查询定时任务")
-    @GetMapping("queryTasks/{page}")
+    @GetMapping("/{page}")
     @CheckPermissions()
     public JsonResult queryTasks(@PathVariable(value = "page") Integer page, @RequestParam(value = "taskName", required = false) String taskName, @RequestParam(value = "isParallel", required = false) String isParallel) {
         PageInfo<TimingTaskAo> pageInfo = new PageInfo<>(Lists.newArrayList(timingTaskAo2TimingTaskBo.reverse().convertAll(taskService.queryTimingTasks(page, taskName, isParallel).getList())));
@@ -64,7 +64,7 @@ public class TimingTaskController {
 
 
     @ApiOperation(value = "编辑定时任务")
-    @PutMapping("/updateTask/{taskId}")
+    @PutMapping("/{taskId}")
     @CheckPermissions()
     public JsonResult updateTask(@PathVariable("taskId") String taskId, @RequestBody TimingTaskAo timingTaskRequest) {
         try {
@@ -77,7 +77,7 @@ public class TimingTaskController {
 
 
     @ApiOperation(value = "删除定时任务")
-    @DeleteMapping("/deleteTask/{taskId}")
+    @DeleteMapping("/{taskId}")
     @CheckPermissions()
     public JsonResult deleteTask(@PathVariable("taskId") String taskId) {
         try {

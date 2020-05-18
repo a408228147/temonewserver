@@ -39,7 +39,7 @@ public class ScriptController {
     }
 
     @ApiOperation(value = "根据脚本名称和数据库id获取脚本")
-    @GetMapping(value = "/queryScriptDbByNameAndDbId/{page}")
+    @GetMapping(value = "/{page}")
     @CheckPermissions()
     public JsonResult queryScriptDbByNameAndDbId(@PathVariable(value = "page")  Integer page ,
                                                  @RequestParam(value = "dbId", required = false)
@@ -90,7 +90,7 @@ public class ScriptController {
     }
 
     @ApiOperation("新增脚本")
-    @PostMapping(value = "/addScript")
+    @PostMapping(value = "/")
     @CheckPermissions()
     public JsonResult addScript(@RequestBody ScriptDbAo scriptRequest){
         try {
@@ -106,7 +106,7 @@ public class ScriptController {
     }
 
     @ApiOperation("修改脚本")
-    @PutMapping(value = "updateScriptById/{id}")
+    @PutMapping(value = "/{id}")
     @CheckPermissions()
     public JsonResult updateScriptById( @RequestBody ScriptDbAo scriptRequest){
         try {
@@ -121,7 +121,7 @@ public class ScriptController {
 
 
     @ApiOperation("删除脚本")
-    @DeleteMapping(value = "deleteScriptById/{id}")
+    @DeleteMapping(value = "/{id}")
     @CheckPermissions()
     public JsonResult deleteScriptById(@PathVariable("id") @ApiParam("脚本id") String scriptId){
         try {

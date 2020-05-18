@@ -29,7 +29,7 @@ public class TestCaseSetController {
     TestCaseSetService testCaseSetService;
 
     @ApiOperation(value = "查询用例集")
-    @GetMapping(value = "queryTestCaseSetByNameAndId/{page}")
+    @GetMapping(value = "/{page}")
     @CheckPermissions()
     public JsonResult queryTestCaseSetByNameAndId(@PathVariable(value = "page") Integer page,
                                                   @RequestParam(value = "set_name", required = false)
@@ -127,7 +127,7 @@ public class TestCaseSetController {
     }
 
     @ApiOperation(value = "新增用例集")
-    @PostMapping(value = "/addTestCaseSet")
+    @PostMapping(value = "/")
     @CheckPermissions()
     public JsonResult addTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
@@ -141,7 +141,7 @@ public class TestCaseSetController {
 
 
     @ApiOperation(value = "修改用例集")
-    @PutMapping(value = "/updateTestCaseSet/{id}")
+    @PutMapping(value = "/{id}")
     @CheckPermissions()
     public JsonResult updateTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
@@ -154,7 +154,7 @@ public class TestCaseSetController {
     }
 
     @ApiOperation("删除用例集")
-    @DeleteMapping(value = "/deleteTestCaseSet/{id}")
+    @DeleteMapping(value = "/{id}")
     @CheckPermissions()
     public JsonResult deleteTestCaseSet(@PathVariable("id") @ApiParam("用例集id")  String setId){
         try {

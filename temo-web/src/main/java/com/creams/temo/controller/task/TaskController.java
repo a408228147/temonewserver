@@ -34,7 +34,7 @@ public class TaskController {
    final TimingTaskAo2TimingTaskBo timingTaskAo2TimingTaskBo =TimingTaskAo2TimingTaskBo.getInstance();
 
     @ApiOperation(value = "新增任务")
-    @PostMapping("/addTask")
+    @PostMapping("/")
     @CheckPermissions()
     public JsonResult addTask(@RequestBody TaskAo task) {
         try {
@@ -47,7 +47,7 @@ public class TaskController {
     }
 
     @ApiOperation(value = "根据任务名和执行方式查询任务")
-    @GetMapping("queryTasks/{page}")
+    @GetMapping("/{page}")
     @CheckPermissions()
     public JsonResult queryTasks(@PathVariable(value = "page") Integer page, @RequestParam(value = "taskName", required = false) String taskName, @RequestParam(value = "isParallel", required = false) String isParallel) {
         PageInfo<TimingTaskAo> pageInfo =new PageInfo<>(Lists.newArrayList(timingTaskAo2TimingTaskBo.reverse().convertAll(taskService.queryTasks(page,taskName, isParallel).getList())));
@@ -69,7 +69,7 @@ public class TaskController {
 
 
     @ApiOperation(value = "编辑任务")
-    @PutMapping("/updateTask/{taskId}")
+    @PutMapping("/{taskId}")
     @CheckPermissions()
     public JsonResult updateTask(@PathVariable("taskId") String taskId, @RequestBody TaskAo taskRequest) {
         try {
@@ -82,7 +82,7 @@ public class TaskController {
 
 
     @ApiOperation(value = "删除任务")
-    @DeleteMapping("/updateTask/{taskId}")
+    @DeleteMapping("/{taskId}")
     @CheckPermissions()
     public JsonResult updateTask(@PathVariable("taskId") String taskId) {
         try {
