@@ -20,7 +20,6 @@ public class TaskResultController {
 
     @Autowired
     private TaskService taskService;
-    final
 
     @ApiOperation(value = "根据任务名和状态查询任务执行结果")
     @GetMapping(value = "/{page}")

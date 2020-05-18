@@ -30,7 +30,7 @@ public class SqlExecuteController {
      * @return
      */
     @ApiOperation("执行数据库脚本")
-    @PostMapping(value = "/sqlExecute")
+    @PostMapping(value = "/")
     @CheckPermissions()
     public JsonResult sqlExecute(@RequestBody ScriptDbAo scriptRequest) {
         Map result = sqlExecuteService.sqlExecute(scriptDbAo2ScriptDbBo.convert(scriptRequest));
