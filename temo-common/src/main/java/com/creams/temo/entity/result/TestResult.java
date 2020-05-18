@@ -1,4 +1,4 @@
-package com.creams.temo.result;
+package com.creams.temo.entity.result;
 
 import lombok.Data;
 

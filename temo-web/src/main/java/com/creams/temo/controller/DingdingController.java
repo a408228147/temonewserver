@@ -2,7 +2,7 @@ package com.creams.temo.controller;
 
 import com.creams.temo.biz.DingdingService;
 import com.creams.temo.entity.*;
-import com.creams.temo.result.JsonResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.tools.DingdingUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

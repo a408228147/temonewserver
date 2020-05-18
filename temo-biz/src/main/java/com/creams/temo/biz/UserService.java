@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface UserService {
     UserBo  queryUserByName(String userName);
-    List<RoleBo> queryRoleByUserId(String userId);
     List<PermissionsBo> queryPermissionsByRoleId(String roleId);
 
     void addUser(UserBo convert);

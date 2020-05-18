@@ -2,8 +2,8 @@ package com.creams.temo.controller.task;
 
 import com.creams.temo.biz.TaskService;
 import com.creams.temo.entity.TaskResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.TaskBo;
-import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +22,7 @@ public class TaskResultController {
     final
 
     @ApiOperation(value = "根据任务名和状态查询任务执行结果")
-    @GetMapping(value = "/{page}")
+    @GetMapping(value = "queryTaskResults/{page}")
     public JsonResult queryTaskResults(@PathVariable("page") Integer page, @RequestParam(value = "taskName",required = false) String taskName,
                                        @RequestParam(value = "status",required = false) Integer status){
         PageInfo<TaskResult> pageInfo = taskService.queryTaskResults(page, taskName,status);

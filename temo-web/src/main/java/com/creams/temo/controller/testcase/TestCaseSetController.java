@@ -2,7 +2,7 @@ package com.creams.temo.controller.testcase;
 
 import com.creams.temo.biz.TestCaseSetService;
 import com.creams.temo.entity.TestCaseSet;
-import com.creams.temo.result.JsonResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +28,7 @@ public class TestCaseSetController {
     TestCaseSetService testCaseSetService;
 
     @ApiOperation(value = "查询用例集")
-    @GetMapping(value = "/{page}")
+    @GetMapping(value = "queryTestCaseSetByNameAndId/{page}")
     public JsonResult queryTestCaseSetByNameAndId(@PathVariable(value = "page") Integer page,
                                                   @RequestParam(value = "set_name", required = false)
                                                   @ApiParam(value = "用例集名字") String setName,
@@ -75,7 +75,7 @@ public class TestCaseSetController {
     }
 
     @ApiOperation(value = "统计个人用例集")
-    @GetMapping(value = "statisticsTestCaseSet/{userId}")
+    @GetMapping(value = "/statisticsTestCaseSet/{userId}")
     public JsonResult statisticsTestCaseSetByUserId(@PathVariable("userId") String userId){
         try{
             return new JsonResult("操作成功", 200, testCaseSetService.statisticsTestCaseSetByUserId(userId), true);
@@ -120,7 +120,7 @@ public class TestCaseSetController {
     }
 
     @ApiOperation(value = "新增用例集")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/addTestCaseSet")
     public JsonResult addTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
             String setId = testCaseSetService.addTestCaseSet(testCaseSetRequest);
@@ -133,7 +133,7 @@ public class TestCaseSetController {
 
 
     @ApiOperation(value = "修改用例集")
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/updateTestCaseSet/{id}")
     public JsonResult updateTestCaseSet(@RequestBody TestCaseSet testCaseSetRequest){
         try {
             testCaseSetService.updateTestCaseSetById(testCaseSetRequest);
@@ -145,7 +145,7 @@ public class TestCaseSetController {
     }
 
     @ApiOperation("删除用例集")
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/deleteTestCaseSet/{id}")
     public JsonResult deleteTestCaseSet(@PathVariable("id") @ApiParam("用例集id")  String setId){
         try {
             testCaseSetService.deleteTestCaseSetById(setId);

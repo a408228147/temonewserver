@@ -3,10 +3,9 @@ package com.creams.temo.controller.sys;
 
 import com.creams.temo.biz.UserService;
 import com.creams.temo.convert.UserAo2UserBo;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.UserAo;
 import com.creams.temo.model.UserBo;
-import com.creams.temo.result.JsonResult;
-import com.creams.temo.tools.ShiroUtils;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,11 +25,9 @@ public class UserController {
     final UserAo2UserBo userAo2UserBo = UserAo2UserBo.getInstance();
 
     @ApiOperation("新增用户")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/addUser")
     public JsonResult addUser(@RequestBody UserAo user) {
         try {
-            String shaPwd = ShiroUtils.sha256(user.getPassword(), user.getUserName());
-            user.setPassword(shaPwd);
             userService.addUser(userAo2UserBo.reverse().convert(user));
             return new JsonResult("操作成功", 200, null, true);
 
@@ -52,7 +49,7 @@ public class UserController {
     }
 
     @ApiOperation("查询所有用户")
-    @GetMapping(value = "/{page}")
+    @GetMapping(value = "queryUsers/{page}")
     public JsonResult queryUsers(@PathVariable(value = "page") Integer page) {
         try {
             PageInfo<UserBo> pageInfo = userService.queryUsers(page);
@@ -67,7 +64,7 @@ public class UserController {
 
 
     @ApiOperation("更新用户状态")
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "setUserStatus/{id}")
     public JsonResult setUserStatus(@PathVariable(value = "id") @ApiParam("用户id") String userId, Integer status) {
         try {
             userService.updateUserStatus(userId, status);

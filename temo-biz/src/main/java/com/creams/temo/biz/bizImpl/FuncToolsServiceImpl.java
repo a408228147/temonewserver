@@ -2,9 +2,11 @@ package com.creams.temo.biz.bizImpl;
 
 import com.creams.temo.biz.FuncToolsService;
 import com.creams.temo.convert.FuncToolsDto2FuncToolsBo;
+import com.creams.temo.entity.UserInfo;
 import com.creams.temo.mapper.FuncToolsMapper;
 import com.creams.temo.model.FuncToolsBo;
 import com.creams.temo.model.UserBo;
+import com.creams.temo.tools.ShiroUtils;
 import com.google.common.collect.Lists;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class FuncToolsServiceImpl implements FuncToolsService {
     @Override
     @Transactional
     public void deleteFuncById(Integer id) {
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = ShiroUtils.getUserEntity();
         funcToolsMapper.deleteFuncById(id ,user.getUserName());
     }
 

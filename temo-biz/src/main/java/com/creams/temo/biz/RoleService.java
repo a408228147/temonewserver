@@ -12,7 +12,6 @@ public interface RoleService {
 
     PageInfo<RoleBo> queryRole(Integer page);
 
-    List<RoleBo> queryRoleByUserId(String userId);
+    void bindPermissions(String roleId,List<String> permissionsId);
 
-    void updateRoleStatus(String roleId, Integer status);
 }

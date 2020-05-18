@@ -2,7 +2,7 @@ package com.creams.temo.controller.testcase;
 
 import com.creams.temo.biz.TestCaseService;
 import com.creams.temo.entity.TestCase;
-import com.creams.temo.result.JsonResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,7 +24,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "查询用例")
-    @GetMapping(value = "/{page}")
+    @GetMapping(value = "queryTestCase/{page}")
     public JsonResult queryTestCase(@PathVariable(value = "page") Integer page,
                                     @RequestParam(value = "case_id", required = false)
                                     @ApiParam(value = "用例id") String caseId,
@@ -65,7 +65,7 @@ public class TestCaseController {
     }
 
     @ApiOperation(value = "统计个人用例")
-    @GetMapping(value = "statisticsTestCase/{userId}")
+    @GetMapping(value = "/statisticsTestCase/{userId}")
     public JsonResult statisticsTestCaseByUserId(@PathVariable("userId") String userId){
         try{
             return new JsonResult("操作成功", 200, testCaseService.statisticsTestCaseByUserId(userId), true);
@@ -89,7 +89,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "修改用例")
-    @PutMapping("/{id}")
+    @PutMapping("updateTestCase/{id}")
     public JsonResult updateTestCase(@RequestBody TestCase testCaseRequest){
         try {
             String caseId = testCaseRequest.getCaseId();
@@ -143,7 +143,7 @@ public class TestCaseController {
 
 
     @ApiOperation(value = "删除用例")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteTestCase/{id}")
     public JsonResult deleteTestCase(@PathVariable("id") @ApiParam("用例id") String caseId){
         try {
             TestCase testCaseResponse = testCaseService.queryTestCaseById(caseId);

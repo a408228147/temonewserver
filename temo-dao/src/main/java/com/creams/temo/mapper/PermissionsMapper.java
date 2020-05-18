@@ -1,6 +1,7 @@
 package com.creams.temo.mapper;
 
 import com.creams.temo.model.PermissionsDto;
+import com.creams.temo.model.PermissionsModuleDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,8 @@ public interface PermissionsMapper {
     void updatePermissionStatus(@Param("permissions_id") String permissionsId, @Param("status") Integer status);
 
     void addPermissions(PermissionsDto permissionsDto);
+
+    List<PermissionsModuleDto> queryPermissonsModule();
+
+    List<PermissionsDto> queryPermissionsByModuleId(@Param("module_id") Integer moduleId);
 }

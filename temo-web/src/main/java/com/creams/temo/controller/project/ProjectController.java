@@ -1,10 +1,10 @@
 package com.creams.temo.controller.project;
 
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.ProjectBo;
 import com.creams.temo.biz.ProjectService;
 import com.creams.temo.convert.ProjectAo2ProjectBo;
 import com.creams.temo.model.ProjectAo;
-import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +35,7 @@ public class ProjectController {
     ProjectService projectService;
 
     @ApiOperation("模糊查询项目列表")
-    @GetMapping("/{page}")
+    @GetMapping("/queryProject/{page}")
     public JsonResult queryProject(@PathVariable(value = "page")  Integer page, @RequestParam(value = "filter",required = false)@ApiParam(value = "查询条件") String filter){
         try{
             if (filter == null){
@@ -90,7 +90,7 @@ public class ProjectController {
     }
 
     @ApiOperation("创建项目")
-    @PostMapping("")
+    @PostMapping("/addProject")
     public JsonResult addProject(@RequestBody(required = false) ProjectAo project){
         logger.info("接受到参数："+project);
         if (project==null){
@@ -111,7 +111,7 @@ public class ProjectController {
     }
 
     @ApiOperation("编辑项目")
-    @PutMapping("/{projectId}")
+    @PutMapping("/updateProject/{projectId}")
     public JsonResult updateProject(@PathVariable @ApiParam("项目id") String projectId, @RequestBody(required = false) @ApiParam("项目") ProjectAo project){
         logger.info("接受到参数："+project);
         project.setPid(projectId);
@@ -132,7 +132,7 @@ public class ProjectController {
     }
 
     @ApiOperation("删除项目")
-    @DeleteMapping("/{projectId}")
+    @DeleteMapping("/delProject/{projectId}")
     public JsonResult delProject(@PathVariable @ApiParam("项目id") String projectId){
         try{
             Integer i = projectService.delProjectById(projectId);

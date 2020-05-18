@@ -38,12 +38,6 @@ public class UserServiceImpl implements UserService {
         return userBo;
     }
 
-    @Override
-    public List<RoleBo> queryRoleByUserId(String userId) {
-        List<RoleDto> roleDtoList = roleMapper.queryRolesByUserId(userId);
-        List<RoleBo> roleBoList = Lists.newArrayList(roleDto2RoleBo.convertAll(roleDtoList));
-        return roleBoList;
-    }
 
     @Override
     public List<PermissionsBo> queryPermissionsByRoleId(String roleId) {

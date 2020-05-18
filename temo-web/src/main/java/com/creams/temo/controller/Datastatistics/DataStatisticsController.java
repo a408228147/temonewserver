@@ -2,8 +2,8 @@ package com.creams.temo.controller.Datastatistics;
 
 import com.creams.temo.biz.*;
 import com.creams.temo.convert.*;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.*;
-import com.creams.temo.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

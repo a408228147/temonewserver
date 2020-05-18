@@ -1,11 +1,12 @@
 package com.creams.temo.controller.database;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.DatabaseService;
 import com.creams.temo.biz.SqlExecuteService;
 import com.creams.temo.convert.DatabaseAo2DatabaseBo;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.DatabaseAo;
 import com.creams.temo.model.DatabaseBo;
-import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,8 +35,9 @@ public class DatabaseController {
     final DatabaseAo2DatabaseBo databaseAo2DatabaseBo= DatabaseAo2DatabaseBo.getInstance();
 
     @ApiOperation("查询所有数据库信息")
-    @GetMapping(value = "/")
-    public JsonResult queryAllDatabase( @RequestParam(required = false) @ApiParam("100-mysql,200-redis") String dbType){
+    @GetMapping(value = "/queryAllDatabase")
+    @CheckPermissions(route = "/database/queryAllDatabase")
+    public JsonResult queryAllDatabase(@RequestParam(required = false) @ApiParam("100-mysql,200-redis") String dbType){
         try{
             List<DatabaseBo> databaseResponses = databaseService.queryAllDatabase(dbType);
             return new JsonResult("操作成功", 200, databaseResponses, true);
@@ -46,7 +48,8 @@ public class DatabaseController {
     }
 
     @ApiOperation("模糊查询数据库列表")
-    @GetMapping(value = "/{page}")
+    @GetMapping(value = "/queryDatabaseByName/{page}")
+    @CheckPermissions(route = "/database/queryDatabaseByName/{page}")
     public JsonResult queryDatabaseByName(@PathVariable(required = false) @ApiParam("页数") Integer page,
                                        @RequestParam(value = "dbName",required = false) @ApiParam("数据库名") String dbName,
                                           @RequestParam(value = "dbType",required = false) @ApiParam("数据库类型") String dbType){
@@ -84,7 +87,7 @@ public class DatabaseController {
     }
 
     @ApiOperation("新增数据库配置")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/addDatabase")
     public JsonResult addDatabase(@RequestBody DatabaseAo databaseRequest){
         try {
             String dbId = databaseService.addDatabase(databaseAo2DatabaseBo.convert(databaseRequest));

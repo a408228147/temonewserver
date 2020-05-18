@@ -24,8 +24,8 @@ public class RoleAo2RoleBo extends Converter<RoleAo,RoleBo> {
         }
         return RoleBo.builder().id(roleAo.getId())
                 .roleId(roleAo.getRoleId())
-                .roleName(roleAo.getRoleName())
-                .userId(roleAo.getUserId()).build();
+                .status(roleAo.getStatus())
+                .roleName(roleAo.getRoleName()).build();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class RoleAo2RoleBo extends Converter<RoleAo,RoleBo> {
         }
         return RoleAo.builder().id(roleBo.getId())
                 .roleId(roleBo.getRoleId())
-                .roleName(roleBo.getRoleName())
-                .userId(roleBo.getUserId()).build();
+                .status(roleBo.getStatus())
+                .roleName(roleBo.getRoleName()).build();
     }
 }

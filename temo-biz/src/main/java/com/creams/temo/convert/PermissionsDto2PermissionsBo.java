@@ -22,12 +22,13 @@ public class PermissionsDto2PermissionsBo extends Converter<PermissionsDto,Permi
         if (permissionsDto==null){
             return null;
         }
-        return PermissionsBo.builder()
+        return PermissionsBo.builder().status(permissionsDto.getStatus())
+                .permissionsName(permissionsDto.getPermissionsName())
                 .id(permissionsDto.getId())
                 .permissionsId(permissionsDto.getPermissionsId())
-                .permissionsName(permissionsDto.getPermissionsName())
-                .roleId(permissionsDto.getRoleId())
-                .status(permissionsDto.getStatus()).build();
+                .moduleId(permissionsDto.getModuleId())
+                .permissionsRoute(permissionsDto.getPermissionsRoute())
+                .build();
     }
 
     @Override
@@ -35,11 +36,12 @@ public class PermissionsDto2PermissionsBo extends Converter<PermissionsDto,Permi
         if (permissionsBo==null){
             return null;
         }
-        return PermissionsDto.builder()
+        return PermissionsDto.builder().status(permissionsBo.getStatus())
+                .permissionsName(permissionsBo.getPermissionsName())
                 .id(permissionsBo.getId())
                 .permissionsId(permissionsBo.getPermissionsId())
-                .permissionsName(permissionsBo.getPermissionsName())
-                .roleId(permissionsBo.getRoleId())
-                .status(permissionsBo.getStatus()).build();
+                .moduleId(permissionsBo.getModuleId())
+                .permissionsRoute(permissionsBo.getPermissionsRoute())
+                .build();
     }
 }

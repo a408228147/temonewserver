@@ -16,6 +16,7 @@ import com.creams.temo.mapper.TaskResultMapper;
 import com.creams.temo.model.*;
 import com.creams.temo.tools.DateUtil;
 import com.creams.temo.tools.DingdingUtils;
+import com.creams.temo.tools.ShiroUtils;
 import com.creams.temo.tools.StringUtil;
 
 import com.github.pagehelper.PageHelper;
@@ -78,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
      */
     public void addTask(TaskBo taskRequest) {
         taskRequest.setTaskId(StringUtil.uuid());
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = ShiroUtils.getUserEntity();
         taskRequest.setCreator(user.getUserName());
         taskMapper.addTask(taskDto2TaskBo.reverse().convert(taskRequest));
     }
