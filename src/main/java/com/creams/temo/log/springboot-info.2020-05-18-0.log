@@ -4077,3 +4077,245 @@ Caused by: java.net.ConnectException: Connection refused (Connection refused)
 [2020-05-18 15:40:59] [INFO ] [org.quartz.core.QuartzScheduler:740] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
 [2020-05-18 15:40:59] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:218] -- Shutting down ExecutorService 'taskExecutor'
 [2020-05-18 15:40:59] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} closed
+[2020-05-18 16:42:08] [INFO ] [com.creams.temo.temoWebApplication:55] -- Starting temoWebApplication on haoqiang with PID 7801 (/Users/zhenghaoqiang/aojiang/myproject/temonewserver/temo-web/target/classes started by zhenghaoqiang in /Users/zhenghaoqiang/aojiang/myproject/temonewserver)
+[2020-05-18 16:42:08] [INFO ] [com.creams.temo.temoWebApplication:651] -- No active profile set, falling back to default profiles: default
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:249] -- Multiple Spring Data modules found, entering strict repository configuration mode!
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:127] -- Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:187] -- Finished Spring Data repository scanning in 43ms. Found 0 MongoDB repository interfaces.
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:249] -- Multiple Spring Data modules found, entering strict repository configuration mode!
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:127] -- Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2020-05-18 16:42:09] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:187] -- Finished Spring Data repository scanning in 18ms. Found 0 Redis repository interfaces.
+[2020-05-18 16:42:10] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'shiroConfig' of type [com.creams.temo.config.ShiroConfig$$EnhancerBySpringCGLIB$$b8d72de3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:10] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:10] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration$$EnhancerBySpringCGLIB$$ad4fcdc6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:10] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Generic' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Generic] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:11] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:11] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:11] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} inited
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userMapper' of type [com.sun.proxy.$Proxy90] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'permissionsMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'permissionsMapper' of type [com.sun.proxy.$Proxy91] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'roleMapper' of type [com.sun.proxy.$Proxy92] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userServiceImpl' of type [com.creams.temo.biz.bizImpl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy93] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleServiceImpl' of type [com.creams.temo.biz.bizImpl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisConfig' of type [com.creams.temo.config.RedisConfig$$EnhancerBySpringCGLIB$$3a5b52d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisUtil' of type [com.creams.temo.tools.RedisUtil] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'myShiroRealm' of type [com.creams.temo.util.CustomRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:12] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:42:13] [INFO ] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer:92] -- Tomcat initialized with port(s): 8096 (http)
+[2020-05-18 16:42:13] [INFO ] [org.apache.coyote.http11.Http11NioProtocol:173] -- Initializing ProtocolHandler ["http-nio-8096"]
+[2020-05-18 16:42:13] [INFO ] [org.apache.catalina.core.StandardService:173] -- Starting service [Tomcat]
+[2020-05-18 16:42:13] [INFO ] [org.apache.catalina.core.StandardEngine:173] -- Starting Servlet engine: [Apache Tomcat/9.0.33]
+[2020-05-18 16:42:13] [INFO ] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173] -- Initializing Spring embedded WebApplicationContext
+[2020-05-18 16:42:13] [INFO ] [org.springframework.web.context.ContextLoader:284] -- Root WebApplicationContext: initialization completed in 5017 ms
+[2020-05-18 16:42:14] [INFO ] [org.quartz.impl.StdSchedulerFactory:1220] -- Using default implementation for ThreadExecutor
+[2020-05-18 16:42:14] [INFO ] [org.quartz.simpl.SimpleThreadPool:268] -- Job execution threads will use class loader of thread: main
+[2020-05-18 16:42:14] [INFO ] [org.quartz.core.SchedulerSignalerImpl:61] -- Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2020-05-18 16:42:14] [INFO ] [org.quartz.core.QuartzScheduler:229] -- Quartz Scheduler v.2.3.2 created.
+[2020-05-18 16:42:14] [INFO ] [org.quartz.simpl.RAMJobStore:155] -- RAMJobStore initialized.
+[2020-05-18 16:42:14] [INFO ] [org.quartz.core.QuartzScheduler:294] -- Scheduler meta-data: Quartz Scheduler (v2.3.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2020-05-18 16:42:14] [INFO ] [org.quartz.impl.StdSchedulerFactory:1374] -- Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2020-05-18 16:42:14] [INFO ] [org.quartz.impl.StdSchedulerFactory:1378] -- Quartz scheduler version: 2.3.2
+[2020-05-18 16:42:14] [INFO ] [org.quartz.core.QuartzScheduler:547] -- Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2020-05-18 16:42:14] [INFO ] [springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69] -- Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2020-05-18 16:42:14] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:181] -- Initializing ExecutorService 'taskExecutor'
+[2020-05-18 16:42:15] [INFO ] [org.mongodb.driver.cluster:71] -- Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+[2020-05-18 16:42:15] [INFO ] [org.mongodb.driver.cluster:76] -- Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:70)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:128)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:79)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:65)
+	... 3 common frames omitted
+[2020-05-18 16:42:16] [INFO ] [org.quartz.impl.StdSchedulerFactory:1220] -- Using default implementation for ThreadExecutor
+[2020-05-18 16:42:16] [INFO ] [org.quartz.core.SchedulerSignalerImpl:61] -- Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2020-05-18 16:42:16] [INFO ] [org.quartz.core.QuartzScheduler:229] -- Quartz Scheduler v.2.3.2 created.
+[2020-05-18 16:42:16] [INFO ] [org.quartz.simpl.RAMJobStore:155] -- RAMJobStore initialized.
+[2020-05-18 16:42:16] [INFO ] [org.quartz.core.QuartzScheduler:294] -- Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2020-05-18 16:42:16] [INFO ] [org.quartz.impl.StdSchedulerFactory:1374] -- Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2020-05-18 16:42:16] [INFO ] [org.quartz.impl.StdSchedulerFactory:1378] -- Quartz scheduler version: 2.3.2
+[2020-05-18 16:42:16] [INFO ] [org.quartz.core.QuartzScheduler:2293] -- JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@7204d98f
+[2020-05-18 16:42:16] [INFO ] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160] -- Context refreshed
+[2020-05-18 16:42:16] [INFO ] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163] -- Found 1 custom documentation plugin(s)
+[2020-05-18 16:42:16] [INFO ] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41] -- Scanning for api listing references
+[2020-05-18 16:42:16] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryDetailUsingGET_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: copyTestCaseSetUsingPOST_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: addTaskUsingPOST_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: closeTimingTaskUsingPOST_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryTaskDetailUsingGET_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryTasksUsingGET_1
+[2020-05-18 16:42:17] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: updateTaskUsingPUT_1
+[2020-05-18 16:42:17] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:727] -- Starting Quartz Scheduler now
+[2020-05-18 16:42:17] [INFO ] [org.quartz.core.QuartzScheduler:547] -- Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2020-05-18 16:42:17] [INFO ] [org.apache.coyote.http11.Http11NioProtocol:173] -- Starting ProtocolHandler ["http-nio-8096"]
+[2020-05-18 16:42:17] [INFO ] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer:204] -- Tomcat started on port(s): 8096 (http) with context path ''
+[2020-05-18 16:42:17] [INFO ] [com.creams.temo.temoWebApplication:61] -- Started temoWebApplication in 9.707 seconds (JVM running for 11.519)
+[2020-05-18 16:42:31] [INFO ] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173] -- Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2020-05-18 16:42:31] [INFO ] [org.springframework.web.servlet.DispatcherServlet:525] -- Initializing Servlet 'dispatcherServlet'
+[2020-05-18 16:42:31] [INFO ] [org.springframework.web.servlet.DispatcherServlet:547] -- Completed initialization in 13 ms
+[2020-05-18 16:42:32] [INFO ] [io.lettuce.core.EpollProvider:68] -- Starting without optional epoll library
+[2020-05-18 16:42:32] [INFO ] [io.lettuce.core.KqueueProvider:70] -- Starting without optional kqueue library
+[2020-05-18 16:44:37] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-18 16:44:37] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:845] -- Shutting down Quartz Scheduler
+[2020-05-18 16:44:37] [INFO ] [org.quartz.core.QuartzScheduler:666] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2020-05-18 16:44:37] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-18 16:44:37] [INFO ] [org.quartz.core.QuartzScheduler:740] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2020-05-18 16:44:37] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:218] -- Shutting down ExecutorService 'taskExecutor'
+[2020-05-18 16:44:37] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} closed
+[2020-05-18 16:45:32] [INFO ] [com.creams.temo.temoWebApplication:55] -- Starting temoWebApplication on haoqiang with PID 7824 (/Users/zhenghaoqiang/aojiang/myproject/temonewserver/temo-web/target/classes started by zhenghaoqiang in /Users/zhenghaoqiang/aojiang/myproject/temonewserver)
+[2020-05-18 16:45:32] [INFO ] [com.creams.temo.temoWebApplication:651] -- No active profile set, falling back to default profiles: default
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:249] -- Multiple Spring Data modules found, entering strict repository configuration mode!
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:127] -- Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:187] -- Finished Spring Data repository scanning in 47ms. Found 0 MongoDB repository interfaces.
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:249] -- Multiple Spring Data modules found, entering strict repository configuration mode!
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:127] -- Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2020-05-18 16:45:33] [INFO ] [org.springframework.data.repository.config.RepositoryConfigurationDelegate:187] -- Finished Spring Data repository scanning in 20ms. Found 0 Redis repository interfaces.
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'shiroConfig' of type [com.creams.temo.config.ShiroConfig$$EnhancerBySpringCGLIB$$ba095a6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration$$EnhancerBySpringCGLIB$$193589] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Generic' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceConfiguration$Generic] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'dataSource' of type [com.alibaba.druid.pool.DruidDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:34] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} inited
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userMapper' of type [com.sun.proxy.$Proxy90] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'permissionsMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'permissionsMapper' of type [com.sun.proxy.$Proxy91] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'roleMapper' of type [com.sun.proxy.$Proxy92] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userServiceImpl' of type [com.creams.temo.biz.bizImpl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy93] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'userRoleServiceImpl' of type [com.creams.temo.biz.bizImpl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisConfig' of type [com.creams.temo.config.RedisConfig$$EnhancerBySpringCGLIB$$566f1cf0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'spring.redis-org.springframework.boot.autoconfigure.data.redis.RedisProperties' of type [org.springframework.boot.autoconfigure.data.redis.RedisProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration' of type [org.springframework.boot.autoconfigure.data.redis.LettuceConnectionConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:35] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'lettuceClientResources' of type [io.lettuce.core.resource.DefaultClientResources] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisConnectionFactory' of type [org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisTemplate' of type [org.springframework.data.redis.core.RedisTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'redisUtil' of type [com.creams.temo.tools.RedisUtil] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'myShiroRealm' of type [com.creams.temo.util.CustomRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:330] -- Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-05-18 16:45:36] [INFO ] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer:92] -- Tomcat initialized with port(s): 8096 (http)
+[2020-05-18 16:45:36] [INFO ] [org.apache.coyote.http11.Http11NioProtocol:173] -- Initializing ProtocolHandler ["http-nio-8096"]
+[2020-05-18 16:45:36] [INFO ] [org.apache.catalina.core.StandardService:173] -- Starting service [Tomcat]
+[2020-05-18 16:45:36] [INFO ] [org.apache.catalina.core.StandardEngine:173] -- Starting Servlet engine: [Apache Tomcat/9.0.33]
+[2020-05-18 16:45:36] [INFO ] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173] -- Initializing Spring embedded WebApplicationContext
+[2020-05-18 16:45:36] [INFO ] [org.springframework.web.context.ContextLoader:284] -- Root WebApplicationContext: initialization completed in 4483 ms
+[2020-05-18 16:45:37] [INFO ] [org.quartz.impl.StdSchedulerFactory:1220] -- Using default implementation for ThreadExecutor
+[2020-05-18 16:45:37] [INFO ] [org.quartz.simpl.SimpleThreadPool:268] -- Job execution threads will use class loader of thread: main
+[2020-05-18 16:45:37] [INFO ] [org.quartz.core.SchedulerSignalerImpl:61] -- Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2020-05-18 16:45:37] [INFO ] [org.quartz.core.QuartzScheduler:229] -- Quartz Scheduler v.2.3.2 created.
+[2020-05-18 16:45:37] [INFO ] [org.quartz.simpl.RAMJobStore:155] -- RAMJobStore initialized.
+[2020-05-18 16:45:37] [INFO ] [org.quartz.core.QuartzScheduler:294] -- Scheduler meta-data: Quartz Scheduler (v2.3.2) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2020-05-18 16:45:37] [INFO ] [org.quartz.impl.StdSchedulerFactory:1374] -- Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+[2020-05-18 16:45:37] [INFO ] [org.quartz.impl.StdSchedulerFactory:1378] -- Quartz scheduler version: 2.3.2
+[2020-05-18 16:45:37] [INFO ] [org.quartz.core.QuartzScheduler:547] -- Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+[2020-05-18 16:45:37] [INFO ] [springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69] -- Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2020-05-18 16:45:37] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:181] -- Initializing ExecutorService 'taskExecutor'
+[2020-05-18 16:45:38] [INFO ] [org.mongodb.driver.cluster:71] -- Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+[2020-05-18 16:45:38] [INFO ] [org.mongodb.driver.cluster:76] -- Exception in monitor thread while connecting to server localhost:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:70)
+	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:128)
+	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64)
+	at com.mongodb.internal.connection.SocketStream.initializeSocket(SocketStream.java:79)
+	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:65)
+	... 3 common frames omitted
+[2020-05-18 16:45:39] [INFO ] [org.quartz.impl.StdSchedulerFactory:1220] -- Using default implementation for ThreadExecutor
+[2020-05-18 16:45:39] [INFO ] [org.quartz.core.SchedulerSignalerImpl:61] -- Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+[2020-05-18 16:45:39] [INFO ] [org.quartz.core.QuartzScheduler:229] -- Quartz Scheduler v.2.3.2 created.
+[2020-05-18 16:45:39] [INFO ] [org.quartz.simpl.RAMJobStore:155] -- RAMJobStore initialized.
+[2020-05-18 16:45:39] [INFO ] [org.quartz.core.QuartzScheduler:294] -- Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+[2020-05-18 16:45:39] [INFO ] [org.quartz.impl.StdSchedulerFactory:1374] -- Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+[2020-05-18 16:45:39] [INFO ] [org.quartz.impl.StdSchedulerFactory:1378] -- Quartz scheduler version: 2.3.2
+[2020-05-18 16:45:39] [INFO ] [org.quartz.core.QuartzScheduler:2293] -- JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@6e12f38c
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160] -- Context refreshed
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163] -- Found 1 custom documentation plugin(s)
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41] -- Scanning for api listing references
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryDetailUsingGET_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: copyTestCaseSetUsingPOST_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: addTaskUsingPOST_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: closeTimingTaskUsingPOST_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryTaskDetailUsingGET_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: queryTasksUsingGET_1
+[2020-05-18 16:45:39] [INFO ] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40] -- Generating unique operation named: updateTaskUsingPUT_1
+[2020-05-18 16:45:39] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:727] -- Starting Quartz Scheduler now
+[2020-05-18 16:45:39] [INFO ] [org.quartz.core.QuartzScheduler:547] -- Scheduler quartzScheduler_$_NON_CLUSTERED started.
+[2020-05-18 16:45:39] [INFO ] [org.apache.coyote.http11.Http11NioProtocol:173] -- Starting ProtocolHandler ["http-nio-8096"]
+[2020-05-18 16:45:39] [INFO ] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer:204] -- Tomcat started on port(s): 8096 (http) with context path ''
+[2020-05-18 16:45:39] [INFO ] [com.creams.temo.temoWebApplication:61] -- Started temoWebApplication in 8.581 seconds (JVM running for 9.876)
+[2020-05-18 16:45:49] [INFO ] [org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173] -- Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2020-05-18 16:45:49] [INFO ] [org.springframework.web.servlet.DispatcherServlet:525] -- Initializing Servlet 'dispatcherServlet'
+[2020-05-18 16:45:49] [INFO ] [org.springframework.web.servlet.DispatcherServlet:547] -- Completed initialization in 14 ms
+[2020-05-18 16:45:49] [INFO ] [io.lettuce.core.EpollProvider:68] -- Starting without optional epoll library
+[2020-05-18 16:45:49] [INFO ] [io.lettuce.core.KqueueProvider:70] -- Starting without optional kqueue library
+[2020-05-18 16:46:20] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-18 16:46:20] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:845] -- Shutting down Quartz Scheduler
+[2020-05-18 16:46:20] [INFO ] [org.quartz.core.QuartzScheduler:666] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2020-05-18 16:46:20] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-18 16:46:20] [INFO ] [org.quartz.core.QuartzScheduler:740] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2020-05-18 16:46:20] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:218] -- Shutting down ExecutorService 'taskExecutor'
+[2020-05-18 16:46:20] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} closed

@@ -1,6 +1,7 @@
 package com.creams.temo.annotation.Aop;
 
 import com.creams.temo.annotation.CheckPermissions;
+import com.creams.temo.tools.RedisUtil;
 import org.aspectj.lang.reflect.MethodSignature;
 import com.creams.temo.tools.ShiroUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,9 @@ import java.util.List;
 @Component
 public class AspectCheckPermissions {
 
+    @Autowired
+    RedisUtil redisUtil;
+
     @Pointcut("@annotation(com.creams.temo.annotation.CheckPermissions)")
     public void check() {
 
@@ -29,6 +34,9 @@ public class AspectCheckPermissions {
     @Before("check()&&@annotation(checkPermissions)")
     public void checkPermissions(JoinPoint joinPoint, CheckPermissions checkPermissions) {
         try {
+            if (!(boolean)redisUtil.get("permissions_button")){
+                return;
+            }
             Subject subject = ShiroUtils.getSubject();
             if (checkPermissions.role().equals("") && checkPermissions.route().equals("")) {
                 MethodSignature sign = (MethodSignature) joinPoint.getSignature();
