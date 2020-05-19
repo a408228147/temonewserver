@@ -36,7 +36,7 @@ public class DatabaseController {
 
     @ApiOperation("查询所有数据库信息")
     @GetMapping(value = "/queryAllDatabase")
-    @CheckPermissions(route = "/database/queryAllDatabase")
+    @CheckPermissions(route = "Get/database/queryAllDatabase")
     public JsonResult queryAllDatabase(@RequestParam(required = false) @ApiParam("100-mysql,200-redis") String dbType){
         try{
             List<DatabaseBo> databaseResponses = databaseService.queryAllDatabase(dbType);
@@ -49,7 +49,7 @@ public class DatabaseController {
 
     @ApiOperation("模糊查询数据库列表")
     @GetMapping(value = "/{page}")
-    @CheckPermissions(route = "/database/{page}")
+    @CheckPermissions(route = "Get/database/{page}")
     public JsonResult queryDatabaseByName(@PathVariable(required = false) @ApiParam("页数") Integer page,
                                        @RequestParam(value = "dbName",required = false) @ApiParam("数据库名") String dbName,
                                           @RequestParam(value = "dbType",required = false) @ApiParam("数据库类型") String dbType){

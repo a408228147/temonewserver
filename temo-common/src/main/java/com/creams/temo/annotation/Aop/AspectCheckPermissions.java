@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.*;
-import java.util.List;
 
 @Aspect
 @Slf4j
@@ -34,7 +33,7 @@ public class AspectCheckPermissions {
     @Before("check()&&@annotation(checkPermissions)")
     public void checkPermissions(JoinPoint joinPoint, CheckPermissions checkPermissions) {
         try {
-            if (!(boolean)redisUtil.get("permissions_button")){
+            if (!(boolean) redisUtil.get("permissions_button")) {
                 return;
             }
             Subject subject = ShiroUtils.getSubject();
@@ -42,19 +41,24 @@ public class AspectCheckPermissions {
                 MethodSignature sign = (MethodSignature) joinPoint.getSignature();
                 Method method = sign.getMethod();
                 //类上面的注解
+                String requestType = "";
                 String classPath = method.getDeclaringClass().getAnnotation(RequestMapping.class).value()[0];
                 String methodPath = "";
                 //获取方法上的注解
                 if (method.getAnnotation(GetMapping.class) != null) {
                     methodPath = method.getAnnotation(GetMapping.class).value()[0];
+                    requestType = "Get";
                 } else if (method.getAnnotation(PostMapping.class) != null) {
                     methodPath = method.getAnnotation(PostMapping.class).value()[0];
+                    requestType = "Post";
                 } else if (method.getAnnotation(DeleteMapping.class) != null) {
                     methodPath = method.getAnnotation(DeleteMapping.class).value()[0];
+                    requestType = "Delete";
                 } else if (method.getAnnotation(PutMapping.class) != null) {
                     methodPath = method.getAnnotation(PutMapping.class).value()[0];
+                    requestType = "Put";
                 }
-                String route = classPath + methodPath;
+                String route = requestType + classPath + methodPath;
                 subject.checkPermission(route);
             }
             if (!checkPermissions.role().equals("")) {

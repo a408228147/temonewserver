@@ -8,6 +8,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckPermissions {
+    /**
+     * route:  post/url
+     * @return
+     */
     String route() default "";
     String role() default "";
 }
