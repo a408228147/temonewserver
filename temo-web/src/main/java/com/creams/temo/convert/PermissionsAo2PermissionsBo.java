@@ -22,8 +22,10 @@ public class PermissionsAo2PermissionsBo extends Converter<PermissionsAo,Permiss
             return null;
         }
         return PermissionsBo.builder().status(permissionsAo.getStatus())
-                .roleId(permissionsAo.getRoleId())
                 .permissionsName(permissionsAo.getPermissionsName())
+                .permissionsId(permissionsAo.getPermissionsId())
+                .moduleId(permissionsAo.getModuleId())
+                .permissionsRoute(permissionsAo.getPermissionsRoute())
                 .id(permissionsAo.getId())
                 .build();
     }
@@ -34,9 +36,11 @@ public class PermissionsAo2PermissionsBo extends Converter<PermissionsAo,Permiss
             return null;
         }
         return PermissionsAo.builder().status(permissionsBo.getStatus())
-                .roleId(permissionsBo.getRoleId())
                 .permissionsName(permissionsBo.getPermissionsName())
                 .id(permissionsBo.getId())
+                .permissionsId(permissionsBo.getPermissionsId())
+                .moduleId(permissionsBo.getModuleId())
+                .permissionsRoute(permissionsBo.getPermissionsRoute())
                 .build();
     }
 }

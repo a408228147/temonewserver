@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.creams.temo.mapper.FuncToolsMapper">
+    <resultMap id="BaseResultMap" type="com.creams.temo.model.FuncToolsDto">
+        <result property="id" column="id"/>
+        <result property="funcName" column="func_name" jdbcType="VARCHAR"/>
+        <result property="funcScript" column="func_script" jdbcType="LONGVARCHAR"/>
+        <result property="funcLang" column="func_lang" jdbcType="VARCHAR"/>
+        <result property="funcDescribe" column="func_describe" jdbcType="LONGVARCHAR"/>
+        <result property="creator" column="creator" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="funcParams" column="func_params" jdbcType="VARCHAR"/>
+    </resultMap>
+    <insert id="saveFunc">
+        INSERT into func_tools (`func_name`,`func_script`,`func_lang`,`func_describe`,`creator`,`func_params`) values
+        (#{funcName},#{funcScript},#{funcLang},#{funcDescribe},#{creator},#{funcParams})
+    </insert>
+    <update id="updateFuncById" parameterType="com.creams.temo.model.FuncToolsDto">
+        update func_tools set func_name=#{funcName},func_script=#{funcScript},func_lang=#{funcLang},
+        func_describe=#{funcDescribe},func_params=#{funcParams},is_share=#{isShare}
+        where id=#{id} and creator=#{creator}
+    </update>
+    <delete id="deleteFuncById">
+        delete from func_tools where id=#{id} and creator=#{creator}
+    </delete>
+    <select id="findFunc" resultMap="BaseResultMap" parameterType="com.creams.temo.model.FuncToolsDto">
+        select * from func_tools
+         <where>
+             <if test="id !=null and id != ''">
+                AND id=#{id}
+             </if>
+             <if test="funcName != null and funcName!=''">
+                AND func_name like concat('%', #{funcName}, '%')
+             </if>
+             <if test="creator !=null and creator !='' ">
+                AND creator=#{creator}
+             </if>
+             <if test="true">
+                OR  is_share=1
+             </if>
+        </where>
+    </select>
+</mapper>

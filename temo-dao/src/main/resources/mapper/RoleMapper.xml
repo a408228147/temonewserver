@@ -4,33 +4,36 @@
 <mapper namespace="com.creams.temo.mapper.RoleMapper">
     <resultMap id="BaseResultMap" type="com.creams.temo.model.RoleDto">
         <result column="id" jdbcType="INTEGER" property="id"/>
-        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
     <insert id="addRole" parameterType="com.creams.temo.model.RoleDto">
-       INSERT INTO role (user_id, role_id, role_name)
+       INSERT INTO role ( role_id, role_name)
        VALUES
-       (#{userId},#{roleId}, #{roleName})
+       (#{roleId}, #{roleName})
+    </insert>
+    <insert id="bindPermissions">
+        insert into role_permissions (`role_id`,`permissions_id`)values
+        <foreach item="permissions_id" collection="list" separator=",">
+            (#{role_id},#{permissions_id})
+        </foreach>
     </insert>
 
     <update id="updateRoleStatus">
         update role set status = #{status} where role_id = #{role_id}
     </update>
     <update id="updateRole" parameterType="com.creams.temo.model.RoleDto">
-               UPDATE role SET
-       user_id = #{userId} ,
-       role_name = #{roleName},
+      UPDATE role SET role_name = #{roleName},
        status = #{status}
        WHERE
        role_id = #{roleId}
     </update>
+    <delete id="removeAllPermissionsByRole" parameterType="java.lang.String">
+        delete from role_permissions where role_id=${role_id}
+    </delete>
 
-    <select id="queryRolesByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from role where user_id = #{user_id}
-    </select>
     <select id="queryRoles" resultMap="BaseResultMap">
-        select * from role
+        select * from role where status=1
     </select>
 </mapper>

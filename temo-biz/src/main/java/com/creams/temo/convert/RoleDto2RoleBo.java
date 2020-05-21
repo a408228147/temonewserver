@@ -23,8 +23,8 @@ public class RoleDto2RoleBo extends Converter<RoleDto,RoleBo> {
         }
         return RoleBo.builder().id(roleDto.getId())
                 .roleId(roleDto.getRoleId())
-                .roleName(roleDto.getRoleName())
-                .userId(roleDto.getUserId()).build();
+                .status(roleDto.getStatus())
+                .roleName(roleDto.getRoleName()).build();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RoleDto2RoleBo extends Converter<RoleDto,RoleBo> {
         }
         return RoleDto.builder().id(roleBo.getId())
                 .roleId(roleBo.getRoleId())
-                .roleName(roleBo.getRoleName())
-                .userId(roleBo.getUserId()).build();
+                .status(roleBo.getStatus())
+                .roleName(roleBo.getRoleName()).build();
     }
 }

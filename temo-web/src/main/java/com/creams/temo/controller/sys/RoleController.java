@@ -1,12 +1,11 @@
 package com.creams.temo.controller.sys;
 
-import com.baomidou.mybatisplus.extension.api.R;
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.RoleService;
 
 import com.creams.temo.convert.RoleAo2RoleBo;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.RoleAo;
-import com.creams.temo.model.RoleBo;
-import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -26,10 +25,13 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
+
     final RoleAo2RoleBo roleAo2RoleBo = RoleAo2RoleBo.getInstance();
 
+
     @ApiOperation("新增角色")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/addRole")
+    @CheckPermissions(role = "admin")
     public JsonResult addRole(@RequestBody RoleAo role) {
         try {
             roleService.addRole(roleAo2RoleBo.convert(role));
@@ -40,7 +42,8 @@ public class RoleController {
     }
 
     @ApiOperation("修改角色")
-    @PutMapping()
+    @GetMapping("/updateRole")
+    @CheckPermissions(role = "admin")
     public JsonResult updateRole(@RequestBody RoleAo role) {
         try {
             roleService.updateRole(roleAo2RoleBo.convert(role));
@@ -51,7 +54,8 @@ public class RoleController {
     }
 
     @ApiOperation("查询所有角色")
-    @GetMapping("/{page}")
+    @GetMapping("/queryRoles/{page}")
+    @CheckPermissions(role = "admin")
     public JsonResult queryRoles(@PathVariable(value = "page") Integer page) {
         try {
             PageInfo<RoleAo> pageInfo = new PageInfo<>(Lists.newArrayList(roleAo2RoleBo.reverse().convertAll(roleService.queryRole(page).getList())));
@@ -64,26 +68,17 @@ public class RoleController {
         }
     }
 
-    @ApiOperation("查询该用户下的角色")
-    @GetMapping("/{userId}/info")
-    public JsonResult queryRolesByUserId(@PathVariable("userId") String userId) {
-        try {
-            List<RoleBo> roles = roleService.queryRoleByUserId(userId);
-            return new JsonResult("操作成功", 200, Lists.newArrayList(roleAo2RoleBo.reverse().convertAll(roles)), true);
-        } catch (Exception e) {
-            return new JsonResult("操作失败", 500, null, false);
-        }
-    }
 
-    @ApiOperation("更新角色状态")
-    @PutMapping(value = "/{id}")
-    public JsonResult setRoleStatus(@PathVariable(value = "id") @ApiParam("角色id") String roleId, Integer status) {
+    @ApiOperation("角色绑定权限")
+    @PostMapping("/bindPermissions")
+    @CheckPermissions(role = "admin")
+    public JsonResult bindPermissions(@RequestParam String roleId, List<String> permissionsId){
         try {
-            roleService.updateRoleStatus(roleId, status);
+            roleService.bindPermissions(roleId,permissionsId);
             return new JsonResult("操作成功", 200, null, true);
-
         } catch (Exception e) {
             return new JsonResult("操作失败", 500, null, false);
         }
     }
+
 }

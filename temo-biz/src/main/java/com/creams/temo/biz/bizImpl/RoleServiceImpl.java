@@ -6,6 +6,7 @@ import com.creams.temo.convert.RoleDto2RoleBo;
 import com.creams.temo.mapper.RoleMapper;
 import com.creams.temo.model.RoleBo;
 import com.creams.temo.model.RoleDto;
+import com.creams.temo.tools.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -21,6 +22,7 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     RoleMapper roleMapper;
     final RoleDto2RoleBo roleDto2RoleBo = RoleDto2RoleBo.getInstance();
+
     /**
      * 分页查询所有角色
      *
@@ -32,14 +34,13 @@ public class RoleServiceImpl implements RoleService {
         return new PageInfo<>(Lists.newArrayList(roleDto2RoleBo.convertAll(roles)));
     }
 
-    /**
-     * 根据用户id查询角色
-     *
-     * @param userId
-     * @return
-     */
-    public List<RoleBo> queryRoleByUserId(String userId) {
-        return Lists.newArrayList(roleDto2RoleBo.convertAll(roleMapper.queryRolesByUserId(userId)));
+    @Override
+    @Transactional
+    public void bindPermissions(String roleId, List<String> permissionsId) {
+
+        //绑定默认先清空再覆盖
+        roleMapper.removeAllPermissionsByRole(roleId);
+        roleMapper.bindPermissions(roleId, permissionsId);
     }
 
     /**
@@ -50,6 +51,7 @@ public class RoleServiceImpl implements RoleService {
      */
     @Transactional(rollbackFor = Exception.class)
     public void addRole(RoleBo role) {
+        role.setRoleId(StringUtil.uuid());
         roleMapper.addRole(roleDto2RoleBo.reverse().convert(role));
     }
 

@@ -1,8 +1,9 @@
 package com.creams.temo.controller.testcase;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.TestCaseService;
 import com.creams.temo.entity.TestCase;
-import com.creams.temo.result.JsonResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "查询用例")
     @GetMapping(value = "/{page}")
+    @CheckPermissions()
     public JsonResult queryTestCase(@PathVariable(value = "page") Integer page,
                                     @RequestParam(value = "case_id", required = false)
                                     @ApiParam(value = "用例id") String caseId,
@@ -53,6 +55,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "根据case_id查询用例信息")
     @GetMapping(value = "/{id}/info")
+    @CheckPermissions()
     public JsonResult queryTestCaseInfo(@PathVariable("id") String id){
         try{
             TestCase testCaseResponse = testCaseService.queryTestCaseInfo(id);
@@ -65,7 +68,8 @@ public class TestCaseController {
     }
 
     @ApiOperation(value = "统计个人用例")
-    @GetMapping(value = "statisticsTestCase/{userId}")
+    @GetMapping(value = "/statisticsTestCase/{userId}")
+    @CheckPermissions()
     public JsonResult statisticsTestCaseByUserId(@PathVariable("userId") String userId){
         try{
             return new JsonResult("操作成功", 200, testCaseService.statisticsTestCaseByUserId(userId), true);
@@ -77,6 +81,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "新增用例")
     @PostMapping(value = "/")
+    @CheckPermissions()
     public JsonResult addTestCase(@RequestBody TestCase testCaseRequest){
         try {
             String caseId = testCaseService.addTestCase(testCaseRequest);
@@ -90,6 +95,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "修改用例")
     @PutMapping("/{id}")
+    @CheckPermissions()
     public JsonResult updateTestCase(@RequestBody TestCase testCaseRequest){
         try {
             String caseId = testCaseRequest.getCaseId();
@@ -103,6 +109,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "复制用例")
     @PostMapping("/copyTestCase/{caseId}")
+    @CheckPermissions()
     public JsonResult copyTestCaseSet(@PathVariable String caseId){
         try {
             if (testCaseService.copyTestCase(caseId)){
@@ -118,6 +125,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "更新用例是否运行")
     @PutMapping("/{caseId}/isRun/{isRun}")
+    @CheckPermissions()
     public JsonResult updateIsRun(@PathVariable String caseId,@PathVariable Integer isRun){
         testCaseService.updateIsRun(caseId,isRun);
         return new JsonResult("操作成功", 200, null, true);
@@ -125,6 +133,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "根据用例id修改执行顺序")
     @PutMapping("/{caseId}/order")
+    @CheckPermissions()
     public JsonResult updateTestCaseOrder(@PathVariable @ApiParam(value = "用例id", required = true) String caseId,
                                           @RequestParam @ApiParam(value = "up上移/down下移", required = true) String move){
         try {
@@ -144,6 +153,7 @@ public class TestCaseController {
 
     @ApiOperation(value = "删除用例")
     @DeleteMapping("/{id}")
+    @CheckPermissions()
     public JsonResult deleteTestCase(@PathVariable("id") @ApiParam("用例id") String caseId){
         try {
             TestCase testCaseResponse = testCaseService.queryTestCaseById(caseId);

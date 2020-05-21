@@ -1,9 +1,10 @@
 package com.creams.temo.controller.database;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.SqlExecuteService;
 import com.creams.temo.convert.ScriptDbAo2ScriptDbBo;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.ScriptDbAo;
-import com.creams.temo.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ public class SqlExecuteController {
      */
     @ApiOperation("执行数据库脚本")
     @PostMapping(value = "/")
+    @CheckPermissions()
     public JsonResult sqlExecute(@RequestBody ScriptDbAo scriptRequest) {
         Map result = sqlExecuteService.sqlExecute(scriptDbAo2ScriptDbBo.convert(scriptRequest));
         if (!result.isEmpty() &&  (Integer)result.get("error") > 0){

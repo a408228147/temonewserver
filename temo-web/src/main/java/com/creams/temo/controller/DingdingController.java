@@ -1,8 +1,9 @@
 package com.creams.temo.controller;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.DingdingService;
 import com.creams.temo.entity.*;
-import com.creams.temo.result.JsonResult;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.tools.DingdingUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ public class DingdingController {
 
     @ApiOperation("查询所有钉钉机器人")
     @GetMapping(value = "/list")
+    @CheckPermissions()
     public JsonResult queryAllDingding() {
 
         try {
@@ -34,6 +36,7 @@ public class DingdingController {
 
     @ApiOperation("根据id查询钉钉机器人")
     @GetMapping(value = "/{DescId}")
+    @CheckPermissions()
     public JsonResult queryDingdingByDescId(@PathVariable(value = "DescId") String DescId) {
 
         try {
@@ -46,6 +49,7 @@ public class DingdingController {
 
     @ApiOperation("添加钉钉机器人")
     @PostMapping(value = "/")
+    @CheckPermissions()
     public JsonResult addDingding(@RequestBody DingdingEntity dingdingEntity) {
 
         try {
@@ -59,6 +63,7 @@ public class DingdingController {
 
     @ApiOperation("修改钉钉机器人")
     @PutMapping(value = "/update/")
+    @CheckPermissions()
     public JsonResult updateDingding(@RequestBody DingdingEntity dingdingEntity) {
 
         try {
@@ -74,6 +79,7 @@ public class DingdingController {
 
     @ApiOperation("删除钉钉机器人")
     @DeleteMapping(value = "/{descId}")
+    @CheckPermissions()
     public JsonResult deleteDingding(@PathVariable("descId") String descId) {
 
         try {
@@ -89,6 +95,7 @@ public class DingdingController {
 
 
     @PostMapping(value = "/sendText/{descId}")
+    @CheckPermissions()
     public JsonResult sendTextMessage(@PathVariable("descId") String descId, @RequestBody TextEntity text) {
 
         try {
@@ -108,6 +115,7 @@ public class DingdingController {
     }
 
     @PostMapping(value = "/sendLink/{descId}")
+    @CheckPermissions()
     public JsonResult sendLinkMessage(@PathVariable("descId") String descId, @RequestBody LinkEntity linkEntity) {
         try {
             if (StringUtils.isEmpty(linkEntity)) {
@@ -126,6 +134,7 @@ public class DingdingController {
 
 
     @PostMapping(value = "/sendMarkdown/{descId}")
+    @CheckPermissions()
     public JsonResult sendMarkdownMessage(@PathVariable("descId") String descId, @RequestBody MarkdownEntity markdownEntity) {
         try {
             if (StringUtils.isEmpty(markdownEntity)) {
@@ -149,6 +158,7 @@ public class DingdingController {
      * @return
      */
     @PostMapping(value = "/sendFeedCard/{descId}")
+    @CheckPermissions()
     public JsonResult sendFeedCardMessage(@PathVariable("descId") String descId, @RequestBody FeedCardEntity feedCardEntity) {
         try {
             if (StringUtils.isEmpty(feedCardEntity)) {

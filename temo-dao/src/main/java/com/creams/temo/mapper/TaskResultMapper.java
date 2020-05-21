@@ -14,7 +14,7 @@ public interface TaskResultMapper {
 
     void updateTaskResult(TaskResult taskResult);
 
-    List<TaskResult>  queryTaskResults(String taskName, @Param(value = "status") Integer status);
+    List<TaskResult>  queryTaskResults(@Param("taskName") String taskName, @Param(value = "status") Integer status);
 
     TaskResult queryTaskResult(String taskResultId);
 

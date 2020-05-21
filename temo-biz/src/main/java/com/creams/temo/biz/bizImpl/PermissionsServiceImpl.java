@@ -3,9 +3,11 @@ package com.creams.temo.biz.bizImpl;
 import com.creams.temo.biz.PermissionsService;
 
 import com.creams.temo.convert.PermissionsDto2PermissionsBo;
+import com.creams.temo.convert.PermissionsModuleDto2PermissionsModuleBo;
 import com.creams.temo.mapper.PermissionsMapper;
 import com.creams.temo.model.PermissionsBo;
 import com.creams.temo.model.PermissionsDto;
+import com.creams.temo.model.PermissionsModuleBo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -21,6 +23,7 @@ public class PermissionsServiceImpl implements PermissionsService {
     @Autowired
     PermissionsMapper permissionsMapper;
     final PermissionsDto2PermissionsBo permissionsDto2PermissionsBo=PermissionsDto2PermissionsBo.getInstance();
+    final PermissionsModuleDto2PermissionsModuleBo permissionsModuleDto2PermissionsModuleBo =PermissionsModuleDto2PermissionsModuleBo.getInstance();
     /**
      * 分页查询所有权限
      * @return
@@ -60,6 +63,16 @@ public class PermissionsServiceImpl implements PermissionsService {
     @Transactional(rollbackFor = Exception.class)
     public void updatePermissionStatus(String permissionsId, Integer status){
         permissionsMapper.updatePermissionStatus(permissionsId, status);
+    }
+
+    @Override
+    public List<PermissionsModuleBo> queryPermissonsModule() {
+        return Lists.newArrayList(permissionsModuleDto2PermissionsModuleBo.convertAll(permissionsMapper.queryPermissonsModule()));
+    }
+
+    @Override
+    public List<PermissionsBo> queryPermissionsByModuleId(Integer moduleId) {
+        return Lists.newArrayList(permissionsDto2PermissionsBo.convertAll(permissionsMapper.queryPermissionsByModuleId(moduleId)));
     }
 
     /**

@@ -1,12 +1,11 @@
 package com.creams.temo.controller.testUtil;
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.ApiTestService;
-import com.creams.temo.biz.PermissionsService;
 import com.creams.temo.convert.ApiTestAo2ApiTestBo;
-import com.creams.temo.convert.PermissionsAo2PermissionsBo;
 import com.creams.temo.entity.ApiTestEntity;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.ApiTestBo;
-import com.creams.temo.result.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,7 @@ public class TestUtilController {
 
     @ApiOperation("调试接口")
     @PostMapping("/testApi")
+    @CheckPermissions()
     public JsonResult testApi(@RequestBody ApiTestEntity apiTestEntity) throws SSLException {
         try {
             ApiTestBo apiTestBo = apiTestService.testApi(apiTestEntity);

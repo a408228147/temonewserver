@@ -11,7 +11,7 @@ import java.util.List;
 public interface TaskMapper {
 
 
-    List<TimingTaskDto> queryTasks(String taskName, String isParallel);
+    List<TimingTaskDto> queryTasks(@Param("taskName") String taskName,@Param("isParallel") String isParallel);
 
     TimingTaskDto queryTaskDetail(@Param("task_id") String taskId);
 
@@ -25,7 +25,7 @@ public interface TaskMapper {
 
     void updateTimingTask(TimingTaskDto timingTaskRequest);
 
-    List<TimingTaskDto> queryTimingTasks(String taskName, String isParallel);
+    List<TimingTaskDto> queryTimingTasks(@Param("taskName") String taskName,@Param("isParallel") String isParallel);
 
     void updateTimingTaskStatus(@Param("task_id") String taskId, @Param("is_open") Integer isOpen);
 

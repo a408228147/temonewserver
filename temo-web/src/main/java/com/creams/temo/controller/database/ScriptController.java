@@ -1,11 +1,12 @@
 package com.creams.temo.controller.database;
 
 
+import com.creams.temo.annotation.CheckPermissions;
 import com.creams.temo.biz.ScriptService;
 import com.creams.temo.convert.ScriptDbAo2ScriptDbBo;
+import com.creams.temo.entity.result.JsonResult;
 import com.creams.temo.model.ScriptDbAo;
 import com.creams.temo.model.ScriptDbBo;
-import com.creams.temo.result.JsonResult;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -32,12 +33,14 @@ public class ScriptController {
     final ScriptDbAo2ScriptDbBo scriptDbAo2ScriptDbBo =ScriptDbAo2ScriptDbBo.getInstance();
     @ApiOperation(value = "查询脚本列表", notes = "查询所有脚本")
     @GetMapping(value = "/list")
+    @CheckPermissions()
     public JsonResult queryAllScript(){
         return new JsonResult("操作成功",200,Lists.newArrayList(scriptDbAo2ScriptDbBo.reverse().convertAll(scriptService.queryAllScript())),true);
     }
 
     @ApiOperation(value = "根据脚本名称和数据库id获取脚本")
     @GetMapping(value = "/{page}")
+    @CheckPermissions()
     public JsonResult queryScriptDbByNameAndDbId(@PathVariable(value = "page")  Integer page ,
                                                  @RequestParam(value = "dbId", required = false)
                                                  @ApiParam(value = "数据库id") String dbId,
@@ -68,6 +71,7 @@ public class ScriptController {
 
     @ApiOperation("查询脚本详情")
     @GetMapping(value = "/{id}/info")
+    @CheckPermissions()
     public JsonResult queryScriptById(@PathVariable("id") @ApiParam("脚本id") String scriptId){
 
         try {
@@ -87,6 +91,7 @@ public class ScriptController {
 
     @ApiOperation("新增脚本")
     @PostMapping(value = "/")
+    @CheckPermissions()
     public JsonResult addScript(@RequestBody ScriptDbAo scriptRequest){
         try {
 
@@ -102,6 +107,7 @@ public class ScriptController {
 
     @ApiOperation("修改脚本")
     @PutMapping(value = "/{id}")
+    @CheckPermissions()
     public JsonResult updateScriptById( @RequestBody ScriptDbAo scriptRequest){
         try {
             scriptService.updateScriptById(scriptDbAo2ScriptDbBo.convert(scriptRequest));
@@ -116,6 +122,7 @@ public class ScriptController {
 
     @ApiOperation("删除脚本")
     @DeleteMapping(value = "/{id}")
+    @CheckPermissions()
     public JsonResult deleteScriptById(@PathVariable("id") @ApiParam("脚本id") String scriptId){
         try {
             scriptService.deleteScriptById(scriptId);

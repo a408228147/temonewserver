@@ -234,7 +234,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public String addTestCaseSet(TestCaseSet testCaseSetRequest) {
         String setId = StringUtil.uuid();
         testCaseSetRequest.setSetId(setId);
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = ShiroUtils.getUserEntity();
         testCaseSetRequest.setCreator(user.getUserName());
         testCaseSetMapper.addTestCaseSet(testCaseSetRequest);
         return setId;
@@ -381,7 +381,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public List<ExecutedRow> executeSet(String setId, String envId, Map<String, String> variables) throws Exception {
         List<ExecutedRow> testResults = new ArrayList<>();
         TestCaseSet testCaseSet = this.queryTestCaseSetInfo(setId);
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = ShiroUtils.getUserEntity();
         Env env = envMapper.queryEnvById(envId);
         String uuid = StringUtil.uuid();
         // 获取用例集下全部的用例
@@ -447,7 +447,6 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
                 logger.info(log("INFO", "正在等待" + delayTime + "秒..."));
                 Thread.sleep(Integer.valueOf(delayTime) * 1000);
             }
-
 
             // 判断是否有附带请求头或者cookie
             Map cookiesKv = new HashMap<>();
@@ -881,7 +880,7 @@ public class TestCaseSetServiceImpl implements TestCaseSetService {
     public Map<String, String> executeSetUpSet(String setId, String envId) throws Exception {
         Map<String, String> variables = new HashMap<>();
         TestCaseSet testCaseSet = this.queryTestCaseSetInfo(setId);
-        UserBo user = (UserBo) SecurityUtils.getSubject().getPrincipal();
+        UserInfo user = ShiroUtils.getUserEntity();
         String setName = testCaseSet.getSetName();
         Env env = envMapper.queryEnvById(envId);
         // 获取用例集下全部的用例

@@ -1,9 +1,16 @@
 package com.creams.temo.util;
 
+import com.creams.temo.biz.UserRoleService;
 import com.creams.temo.biz.UserService;
+import com.creams.temo.entity.UserInfo;
+import com.creams.temo.entity.UserRoleEntity;
 import com.creams.temo.model.PermissionsBo;
 import com.creams.temo.model.RoleBo;
 import com.creams.temo.model.UserBo;
+import com.creams.temo.tools.RedisUtil;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import org.apache.catalina.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -13,11 +20,20 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 public class CustomRealm extends AuthorizingRealm {
 
     @Autowired
     UserService loginService;
+
+    @Autowired
+    UserRoleService userRoleService;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     /**
      * 授权(验证权限时调用)
@@ -26,22 +42,30 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         //获取登录用户名
-        String userName = (String) principalCollection.getPrimaryPrincipal();
-        //根据用户名去数据库查询用户信息
-        UserBo user = loginService.queryUserByName(userName);
-
-        //添加角色和权限
+        UserInfo userInfo = (UserInfo) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        List<RoleBo> list = loginService.queryRoleByUserId(user.getUserId());
-        //添加该用户拥有user角色
-        for (RoleBo role: list){
-            simpleAuthorizationInfo.addRole(role.getRoleName());
-            //添加该用户拥有query权限
-            List<PermissionsBo> listPer = loginService.queryPermissionsByRoleId(role.getRoleId());
-            for (PermissionsBo per: listPer
-                 ) {
-                simpleAuthorizationInfo.addStringPermission(per.getPermissionsName());
+        if (redisUtil.hasKey(userInfo.getUserId())) {
+            Map map =(Map) redisUtil.get(userInfo.getUserId());
+            simpleAuthorizationInfo.addRoles((List<String>)map.get("role"));
+            simpleAuthorizationInfo.addStringPermissions((List<String>)map.get("permissions"));
+            return  simpleAuthorizationInfo;
+        } else {
+            Map<String, List<String>> map = Maps.newHashMap();
+            //添加角色和权限
+            List<UserRoleEntity> userRoleEntitys = userRoleService.queryRoleByUserId(userInfo.getUserId());
+            List<String> roles = userRoleEntitys.stream().map(i -> i.getRoleName()).collect(Collectors.toList());
+            simpleAuthorizationInfo.addRoles(roles);
+            //添加该用户拥有user角色
+            List<String> permissions = Lists.newArrayList();
+            for (UserRoleEntity role : userRoleEntitys) {
+                //添加该用户拥有query权限
+                List<PermissionsBo> listPer = loginService.queryPermissionsByRoleId(role.getRoleId());
+                permissions = listPer.stream().map(i -> i.getPermissionsRoute()).collect(Collectors.toList());
             }
+            simpleAuthorizationInfo.addStringPermissions(permissions);
+            map.put("role", roles);
+            map.put("permissions", permissions);
+            redisUtil.set(userInfo.getUserId(), map, 3600);
         }
         return simpleAuthorizationInfo;
     }
@@ -63,16 +87,22 @@ public class CustomRealm extends AuthorizingRealm {
         //UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
         String userName = authenticationToken.getPrincipal().toString();
         UserBo user = loginService.queryUserByName(userName);
-
+        UserInfo userInfo = UserInfo.builder()
+                .email(user.getEmail())
+                .id(user.getId())
+                .password(user.getPassword())
+                .status(user.getStatus())
+                .userId(user.getUserId())
+                .userName(user.getUserName()).build();
         if (user == null) {
             //这里返回后会报出对应异常
             throw new LockedAccountException("账户不存在,请联系管理员");
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo
-                    (user,
-                    user.getPassword().toString(),
-                            ByteSource.Util.bytes(user.getUserId()), getName());
+                    (userInfo,
+                            userInfo.getPassword().toString(),
+                            ByteSource.Util.bytes(userInfo.getUserId()), getName());
             return simpleAuthenticationInfo;
         }
 
