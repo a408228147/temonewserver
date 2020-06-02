@@ -45,10 +45,10 @@ public class CustomRealm extends AuthorizingRealm {
         UserInfo userInfo = (UserInfo) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if (redisUtil.hasKey(userInfo.getUserId())) {
-            Map map =(Map) redisUtil.get(userInfo.getUserId());
-            simpleAuthorizationInfo.addRoles((List<String>)map.get("role"));
-            simpleAuthorizationInfo.addStringPermissions((List<String>)map.get("permissions"));
-            return  simpleAuthorizationInfo;
+            Map map = (Map) redisUtil.get(userInfo.getUserId());
+            simpleAuthorizationInfo.addRoles((List<String>) map.get("role"));
+            simpleAuthorizationInfo.addStringPermissions((List<String>) map.get("permissions"));
+            return simpleAuthorizationInfo;
         } else {
             Map<String, List<String>> map = Maps.newHashMap();
             //添加角色和权限
@@ -57,11 +57,10 @@ public class CustomRealm extends AuthorizingRealm {
             simpleAuthorizationInfo.addRoles(roles);
             //添加该用户拥有user角色
             List<String> permissions = Lists.newArrayList();
-            for (UserRoleEntity role : userRoleEntitys) {
-                //添加该用户拥有query权限
-                List<PermissionsBo> listPer = loginService.queryPermissionsByRoleId(role.getRoleId());
-                permissions = listPer.stream().map(i -> i.getPermissionsRoute()).collect(Collectors.toList());
-            }
+            userRoleEntitys.forEach(i->{
+                List<PermissionsBo> listPer = loginService.queryPermissionsByRoleId(i.getRoleId());
+                permissions.addAll(listPer.stream().map(j -> j.getPermissionsRoute()).collect(Collectors.toList()));
+            });
             simpleAuthorizationInfo.addStringPermissions(permissions);
             map.put("role", roles);
             map.put("permissions", permissions);
