@@ -25,12 +25,9 @@
     </update>
     <update id="updateUserStatus" parameterType="com.creams.temo.model.UserDto">
           UPDATE user SET
-       user_name = #{userName} ,
-       password = #{password},
-       email = #{email},
        status = #{status}
        WHERE
-       user_id = #{userId}
+       user_id = #{user_id}
     </update>
 
     <select id="queryUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">

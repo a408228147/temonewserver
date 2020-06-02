@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUserStatus(String userId, Integer status) {
         userMapper.updateUserStatus(userId, status);

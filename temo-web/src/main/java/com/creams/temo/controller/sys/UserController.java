@@ -75,6 +75,7 @@ public class UserController {
             userService.updateUserStatus(userId, status);
             return new JsonResult("操作成功", 200, null, true);
         } catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult("操作失败", 500, null, false);
         }
     }
