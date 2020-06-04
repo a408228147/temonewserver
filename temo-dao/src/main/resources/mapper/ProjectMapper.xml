@@ -11,7 +11,7 @@
         <result column="updatetime" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 
-    <select id="queryAllProject" resultMap="BaseResultMap">
+    <select id="queryAllProject"  resultMap="BaseResultMap">
         select * from project
     </select>
 

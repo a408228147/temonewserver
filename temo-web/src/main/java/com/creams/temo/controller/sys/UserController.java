@@ -38,6 +38,20 @@ public class UserController {
         }
     }
 
+
+    @ApiOperation("根据用户名查询用户")
+    @GetMapping(value = "/{userName}")
+    @CheckPermissions(role = "admin")
+    public JsonResult addUser(@PathVariable  String userName) {
+        try {
+            UserBo userBo = userService.queryUserByName(userName);
+            return new JsonResult("操作成功", 200, userBo, true);
+
+        } catch (Exception e) {
+            return new JsonResult("操作失败", 500, null, false);
+        }
+    }
+
     @ApiOperation("修改用户")
     @PutMapping(value = "/update/{id}")
     @CheckPermissions(role = "admin")
@@ -73,6 +87,19 @@ public class UserController {
     public JsonResult setUserStatus(@PathVariable(value = "id") @ApiParam("用户id") String userId, Integer status) {
         try {
             userService.updateUserStatus(userId, status);
+            return new JsonResult("操作成功", 200, null, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult("操作失败", 500, null, false);
+        }
+    }
+
+    @ApiOperation("删除用户")
+    @DeleteMapping(value = "/delete/{id}")
+    @CheckPermissions(role = "admin")
+    public JsonResult setUserStatus(@PathVariable(value = "id") @ApiParam("用户id") String userId) {
+        try {
+            userService.deleteUserByUserId(userId);
             return new JsonResult("操作成功", 200, null, true);
         } catch (Exception e) {
             e.printStackTrace();

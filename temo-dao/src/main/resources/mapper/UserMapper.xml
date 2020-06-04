@@ -29,10 +29,15 @@
        WHERE
        user_id = #{user_id}
     </update>
+    <delete id="deleteUserByUserId">
+        delete from user where user_id = #{user_id}
+    </delete>
 
     <select id="queryUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select * from user where user_name = #{user_name}
+        select * from user
+        where user_name = #{user_name}
     </select>
+
     <select id="queryUsers" resultMap="BaseResultMap">
         select * from user
     </select>
