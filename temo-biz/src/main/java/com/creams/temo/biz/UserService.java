@@ -18,4 +18,6 @@ public interface UserService {
     PageInfo<UserBo> queryUsers(Integer page);
 
     void updateUserStatus(String userId, Integer status);
+
+    void deleteUserByUserId(String userId);
 }

@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
      * 添加用户
      * @param user
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void addUser(UserBo user){
             String userId = StringUtil.uuid();
@@ -66,10 +67,21 @@ public class UserServiceImpl implements UserService {
      * @param userId
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUserStatus(String userId, Integer status) {
         userMapper.updateUserStatus(userId, status);
     }
+
+    /**
+     * 删除用户
+     * @param userId
+     */
+    @Override
+    public void deleteUserByUserId(String userId) {
+        userMapper.deleteUserByUserId(userId);
+    }
+
 
     /**
      * 修改用户信息
@@ -77,6 +89,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUser(UserBo user) {
         String shaPwd = ShiroUtils.sha256(user.getPassword(), user.getUserId());

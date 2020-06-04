@@ -17,4 +17,6 @@ public interface UserMapper {
     void updateUserStatus(@Param("user_id") String userId, @Param("status") Integer status);
 
     void addUser(UserDto user);
+
+    void deleteUserByUserId(@Param("user_id") String user_id);
 }

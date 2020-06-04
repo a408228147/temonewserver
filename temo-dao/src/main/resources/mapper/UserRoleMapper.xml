@@ -9,6 +9,8 @@
     </delete>
 
     <select id="queryUserRoleByUserId" parameterType="java.lang.String" resultType="com.creams.temo.entity.UserRoleEntity">
-        select u.id as id ,u.user_id as userId ,r.role_id as roleId,r.role_name as roleName from user_role  as u left join role as r on u.role_id=r.role_id where u.user_id=#{user_id}
+        select u.id as id ,u.user_id as userId ,r.role_id as roleId,r.role_name
+        as roleName from user_role  as u left join role as r on u.role_id=r.role_id
+        where u.user_id=#{user_id}
     </select>
 </mapper>
