@@ -35,8 +35,8 @@ public class DatabaseController {
     final DatabaseAo2DatabaseBo databaseAo2DatabaseBo= DatabaseAo2DatabaseBo.getInstance();
 
     @ApiOperation("查询所有数据库信息")
-    @GetMapping(value = "/queryAllDatabase")
-    @CheckPermissions(route = "Get/database/queryAllDatabase")
+    @GetMapping(value = "/")
+    @CheckPermissions(route = "Get/database/")
     public JsonResult queryAllDatabase(@RequestParam(required = false) @ApiParam("100-mysql,200-redis") String dbType){
         try{
             List<DatabaseBo> databaseResponses = databaseService.queryAllDatabase(dbType);
