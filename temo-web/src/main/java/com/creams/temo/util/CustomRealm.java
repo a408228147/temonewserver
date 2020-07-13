@@ -57,7 +57,7 @@ public class CustomRealm extends AuthorizingRealm {
             simpleAuthorizationInfo.addRoles(roles);
             //添加该用户拥有user角色
             List<String> permissions = Lists.newArrayList();
-            userRoleEntitys.forEach(i->{
+            userRoleEntitys.stream().forEach(i->{
                 List<PermissionsBo> listPer = loginService.queryPermissionsByRoleId(i.getRoleId());
                 permissions.addAll(listPer.stream().map(j -> j.getPermissionsRoute()).collect(Collectors.toList()));
             });

@@ -33,7 +33,7 @@ public class AspectCheckPermissions {
     @Before("check()&&@annotation(checkPermissions)")
     public void checkPermissions(JoinPoint joinPoint, CheckPermissions checkPermissions) {
         try {
-            if (!(boolean) redisUtil.get("permissions_button")) {
+            if (!redisUtil.hasKey("permissions_button")||!(boolean) redisUtil.get("permissions_button")) {
                 return;
             }
             Subject subject = ShiroUtils.getSubject();

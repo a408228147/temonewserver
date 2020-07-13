@@ -95,6 +95,7 @@ public class ShiroConfig {
         Map<String,String> map = new LinkedHashMap<>();
 
         //swagger为静态页面，需要增加这个接口 anon表示不鉴权
+        map.put("/webhook/gitlab","anon");
         map.put("/login", "anon");
         map.put("/websocket/**", "anon");
         map.put("/swagger/**", "anon");
@@ -104,6 +105,7 @@ public class ShiroConfig {
         map.put("/webjars/springfox-swagger-ui/**","anon");
         map.put("/login-controller/**", "anon");
         map.put("/**", "authc");
+
         //错误页面，认证不通过跳转
         shiroFilterFactoryBean.setUnauthorizedUrl("/error");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);

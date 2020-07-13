@@ -1,0 +1,7 @@
+[2020-05-21 14:46:24] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-21 14:46:24] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:845] -- Shutting down Quartz Scheduler
+[2020-05-21 14:46:24] [INFO ] [org.quartz.core.QuartzScheduler:666] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2020-05-21 14:46:24] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-05-21 14:46:24] [INFO ] [org.quartz.core.QuartzScheduler:740] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2020-05-21 14:46:24] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:218] -- Shutting down ExecutorService 'taskExecutor'
+[2020-05-21 14:46:24] [INFO ] [com.alibaba.druid.pool.DruidDataSource:106] -- {dataSource-1} closed

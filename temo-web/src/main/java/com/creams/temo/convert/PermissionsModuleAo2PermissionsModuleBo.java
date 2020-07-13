@@ -6,7 +6,7 @@ import com.google.common.base.Converter;
 
 public class PermissionsModuleAo2PermissionsModuleBo extends Converter<PermissionsModuleAo,PermissionsModuleBo> {
 
-    public PermissionsModuleAo2PermissionsModuleBo(){};
+    private PermissionsModuleAo2PermissionsModuleBo(){};
 
 
     public static PermissionsModuleAo2PermissionsModuleBo getInstance() {

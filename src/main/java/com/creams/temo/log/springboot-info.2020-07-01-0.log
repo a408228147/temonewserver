@@ -1,0 +1,6 @@
+[2020-07-01 14:12:30] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-07-01 14:12:31] [INFO ] [org.springframework.scheduling.quartz.SchedulerFactoryBean:845] -- Shutting down Quartz Scheduler
+[2020-07-01 14:12:31] [INFO ] [org.quartz.core.QuartzScheduler:666] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+[2020-07-01 14:12:31] [INFO ] [org.quartz.core.QuartzScheduler:585] -- Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+[2020-07-01 14:12:31] [INFO ] [org.quartz.core.QuartzScheduler:740] -- Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+[2020-07-01 14:12:31] [INFO ] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor:218] -- Shutting down ExecutorService 'taskExecutor'

@@ -5,7 +5,7 @@ import com.creams.temo.model.ExecuteTimeInfoBo;
 import com.google.common.base.Converter;
 
 public class ExecuteTimeInfoAo2ExecuteTimeInfoBo extends Converter<ExecuteTimeInfoAo,ExecuteTimeInfoBo> {
-    public ExecuteTimeInfoAo2ExecuteTimeInfoBo(){}
+    private ExecuteTimeInfoAo2ExecuteTimeInfoBo(){}
     public static ExecuteTimeInfoAo2ExecuteTimeInfoBo getInstance() {
         return ExecuteTimeInfoAo2ExecuteTimeInfoBo.SingletonHolder.INSTANCE;
     }

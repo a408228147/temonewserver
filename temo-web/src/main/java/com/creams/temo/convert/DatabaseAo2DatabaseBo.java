@@ -6,7 +6,7 @@ import com.google.common.base.Converter;
 
 public class DatabaseAo2DatabaseBo extends Converter<DatabaseAo,DatabaseBo> {
 
-    public DatabaseAo2DatabaseBo(){}
+    private DatabaseAo2DatabaseBo(){}
     public static DatabaseAo2DatabaseBo getInstance() {
         return DatabaseAo2DatabaseBo.SingletonHolder.INSTANCE;
     }

@@ -6,7 +6,7 @@ import com.google.common.base.Converter;
 
 public class FuncToolsAo2FuncToolsBo extends Converter<FuncToolsAo,FuncToolsBo> {
 
-    public FuncToolsAo2FuncToolsBo(){
+    private FuncToolsAo2FuncToolsBo(){
     }
     public static FuncToolsAo2FuncToolsBo getInstance() {
         return FuncToolsAo2FuncToolsBo.SingletonHolder.INSTANCE;

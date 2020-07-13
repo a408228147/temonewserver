@@ -6,7 +6,7 @@ import com.google.common.base.Converter;
 
 public class ExecuteSevenDaysAo2ExecuteSevenDaysBo extends Converter<ExecuteSevenDaysAo,ExecuteSevenDaysBo> {
 
-    public ExecuteSevenDaysAo2ExecuteSevenDaysBo(){}
+    private ExecuteSevenDaysAo2ExecuteSevenDaysBo(){}
     public static ExecuteSevenDaysAo2ExecuteSevenDaysBo getInstance() {
         return ExecuteSevenDaysAo2ExecuteSevenDaysBo.SingletonHolder.INSTANCE;
     }
